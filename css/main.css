@@ -1320,8 +1320,9 @@ ul { list-style: none; }
 .catering-strip__bg[data-parallax],
 .catering-hero__bg[data-parallax] {
   top: -18%;
-  bottom: -18%;
   left: 0;
+  right: 0;
+  height: 136%; /* 100% + 18% top + 18% bottom buffer for parallax travel */
   right: 0;
   height: auto;
 }
