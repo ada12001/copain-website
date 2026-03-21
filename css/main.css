@@ -1316,15 +1316,17 @@ ul { list-style: none; }
 .location-full__image img[data-parallax] {
   transform: scale(1.3);
 }
-/* Absolute full-bleed images: extend beyond bounds so gaps never show */
+/* Absolute full-bleed images: scale up to cover container + parallax travel buffer */
 .catering-strip__bg[data-parallax],
 .catering-hero__bg[data-parallax] {
-  top: -18%;
-  left: 0;
-  right: 0;
-  height: 136%; /* 100% + 18% top + 18% bottom buffer for parallax travel */
-  right: 0;
-  height: auto;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.35);
+  transform-origin: center center;
+}
+@media (max-width: 1024px) {
+  .catering-hero__bg[data-parallax] { transform: scale(1.5); }
 }
 @media (max-width: 768px) {
   .notre-pain__image img[data-parallax],
@@ -1332,7 +1334,7 @@ ul { list-style: none; }
   .about-image img[data-parallax],
   .location-full__image img[data-parallax] { transform: none; }
   .catering-strip__bg[data-parallax],
-  .catering-hero__bg[data-parallax] { top: 0; bottom: 0; height: 100%; }
+  .catering-hero__bg[data-parallax] { inset: 0; width: 100%; height: 100%; transform: none; }
 }
 
 /* === REVEAL ANIMATIONS === */
