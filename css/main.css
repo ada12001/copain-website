@@ -154,7 +154,7 @@ ul { list-style: none; }
   font-family: var(--font-script);
   font-weight: 100;
   line-height: 1.1;
-  margin-left: -0.04em; /* compensate TAYDreamboat left side-bearing */
+  margin-left: -0.15em; /* compensate TAYDreamboat left side-bearing */
 }
 .t-script--xl { font-size: clamp(3rem, 7vw, 8rem); }
 .t-script--lg { font-size: clamp(2rem, 4.5vw, 5rem); }
