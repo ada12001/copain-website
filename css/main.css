@@ -1417,6 +1417,169 @@ ul { list-style: none; }
   border-radius: 2px;
 }
 
+/* === CONTACT PAGE === */
+.contact-section {
+  padding: clamp(4rem, 7vw, 7rem) var(--gutter);
+  background: var(--cream-light);
+}
+.contact-split {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
+  max-width: var(--content-w);
+  margin: 0 auto;
+}
+.contact-info__label {
+  font-family: var(--font-util);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.375rem;
+}
+.contact-info__value {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+.contact-info__value a { color: var(--text); transition: color var(--dur-fast); }
+.contact-info__value a:hover { color: var(--gold); }
+
+/* === FORMS === */
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
+.form-label {
+  font-family: var(--font-util);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--cream-light);
+  border: 1px solid rgba(26, 23, 20, 0.18);
+  border-radius: 0;
+  outline: none;
+  transition: border-color var(--dur-fast);
+  -webkit-appearance: none;
+}
+.form-input:focus,
+.form-textarea:focus { border-color: var(--gold); }
+.form-textarea { min-height: 160px; resize: vertical; }
+.form-submit-row { margin-top: 1.75rem; }
+.form-success {
+  display: none;
+  padding: 2.5rem 2rem;
+  background: var(--cream);
+  border: var(--border);
+  text-align: center;
+}
+.form-success.is-visible { display: block; }
+.form-success__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  margin-bottom: 0.75rem;
+}
+.form-success__body { font-family: var(--font-body); color: var(--text-muted); }
+.form-error {
+  display: none;
+  color: #a0392b;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  margin-top: 0.75rem;
+}
+.form-error.is-visible { display: block; }
+
+/* === CAREERS PAGE === */
+.careers-values {
+  padding: clamp(5rem, 8vw, 8rem) var(--gutter);
+  background: var(--cream-light);
+  text-align: center;
+}
+.careers-values__list {
+  list-style: none;
+  max-width: 600px;
+  margin: 2.5rem auto 0;
+}
+.careers-values__item {
+  display: flex;
+  align-items: baseline;
+  gap: 1.75rem;
+  padding: 1.25rem 0;
+  border-bottom: var(--border-dark);
+  text-align: left;
+}
+.careers-values__item:first-child { border-top: var(--border-dark); }
+.careers-values__num {
+  font-family: var(--font-util);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  min-width: 1.5rem;
+  flex-shrink: 0;
+}
+.careers-values__text {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.job-openings-section {
+  padding: clamp(4rem, 7vw, 7rem) var(--gutter);
+  background: var(--cream);
+}
+.job-openings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: var(--content-w);
+  margin: clamp(3rem, 5vw, 4.5rem) auto 0;
+}
+.job-location-card {
+  background: var(--cream-light);
+  border: var(--border);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.job-location-card__type {
+  font-family: var(--font-util);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.job-location-card__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  color: var(--text);
+  line-height: 1.1;
+}
+.job-location-card__address {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-style: normal;
+  line-height: 1.6;
+  flex: 1;
+}
+.job-location-card__actions { padding-top: 0.5rem; }
+.careers-cta-strip {
+  padding: clamp(4rem, 6vw, 6rem) var(--gutter);
+  background: var(--dark);
+  text-align: center;
+}
+
 /* === RESPONSIVE === */
 @media (max-width: 1024px) {
   .nav { grid-template-columns: auto 1fr auto; }
@@ -1438,6 +1601,7 @@ ul { list-style: none; }
   .location-full:nth-child(even) { direction: ltr; }
   .location-full__image { aspect-ratio: 16/9; }
   .location-full__image img { height: 100%; }
+  .job-openings-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
@@ -1463,6 +1627,7 @@ ul { list-style: none; }
   .category-pills { gap: 0.5rem; }
   /* Stack inline 2-col grids */
   .grid-split { grid-template-columns: 1fr; }
+  .contact-split { grid-template-columns: 1fr; }
   /* Stack image pair */
   .image-pair { grid-template-columns: 1fr; }
   /* Mosaic: first image full-width hero row, images 2+3 side-by-side below */

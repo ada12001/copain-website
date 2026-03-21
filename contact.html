@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Copain Bakery &amp; Provisions</title>
+  <meta name="description" content="Get in touch with Copain Bakery &amp; Provisions. Reach us by phone, email, or send us a message through our contact form." />
+  <link rel="stylesheet" href="css/main.css?v=15" />
+</head>
+<body>
+
+  <div id="nav-placeholder"></div>
+  <div id="mobile-nav-placeholder"></div>
+
+  <main>
+
+    <!-- PAGE INTRO -->
+    <div class="page-intro page-intro--center">
+      <div class="container">
+        <p class="t-eyebrow t-eyebrow--light reveal">Get in Touch</p>
+        <div class="spacer spacer--sm"></div>
+        <h1 class="t-display t-display--lg reveal reveal--delay-1">We'd Love to<br />Hear From You</h1>
+        <p class="page-intro__body t-body reveal reveal--delay-2">
+          Whether you have a question about our menu, a catering inquiry, or just want to say hello — our team is here for you.
+        </p>
+      </div>
+    </div>
+
+    <!-- CONTACT SPLIT -->
+    <section class="contact-section" aria-labelledby="contact-heading">
+      <div class="contact-split">
+
+        <!-- Left: Contact details -->
+        <div class="contact-info reveal">
+          <div>
+            <p class="contact-info__label">Charlotte — SouthPark</p>
+            <div class="contact-info__value">
+              <a href="tel:+17044405050">704-440-5050</a><br />
+              6601 Carnegie Blvd<br />Charlotte, NC 28211
+            </div>
+          </div>
+          <div>
+            <p class="contact-info__label">Charlotte — Ballantyne</p>
+            <div class="contact-info__value">
+              <a href="tel:+17044405050">704-440-5050</a><br />
+              14020 Stream Way, Suite 118<br />Charlotte, NC 28277
+            </div>
+          </div>
+          <div>
+            <p class="contact-info__label">Winston-Salem</p>
+            <div class="contact-info__value">
+              <a href="tel:+13367293200">336-729-3200</a><br />
+              380 Knollwood St<br />Winston-Salem, NC 27103
+            </div>
+          </div>
+          <div>
+            <p class="contact-info__label">Follow Along</p>
+            <div class="contact-info__value">
+              <a href="https://www.instagram.com/copain_bakery/" target="_blank" rel="noopener noreferrer">Instagram</a><br />
+              <a href="https://www.facebook.com/copainbakery/" target="_blank" rel="noopener noreferrer">Facebook</a>
+            </div>
+          </div>
+          <div>
+            <p class="contact-info__label">Catering Inquiries</p>
+            <div class="contact-info__value">
+              <a href="catering.html">Field Pea Catering →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Contact form -->
+        <div class="reveal reveal--delay-1">
+          <form id="contact-form" novalidate>
+            <input type="hidden" name="access_key" value="954d4214-a24a-4d2f-9da8-46ae08faa16c" />
+            <input type="hidden" name="subject" value="New Contact — Copain Bakery" />
+            <input type="hidden" name="from_name" value="Copain Contact Form" />
+            <!-- Honeypot spam filter -->
+            <input type="checkbox" name="botcheck" style="display:none;" />
+
+            <div class="form-group">
+              <label class="form-label" for="contact-name">Name <span aria-hidden="true">*</span></label>
+              <input class="form-input" type="text" id="contact-name" name="name" placeholder="Your name" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-email">Email <span aria-hidden="true">*</span></label>
+              <input class="form-input" type="email" id="contact-email" name="email" placeholder="your@email.com" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-subject">Subject</label>
+              <input class="form-input" type="text" id="contact-subject" name="subject_line" placeholder="How can we help?" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-message">Message <span aria-hidden="true">*</span></label>
+              <textarea class="form-textarea" id="contact-message" name="message" placeholder="Tell us more…" required></textarea>
+            </div>
+
+            <div class="form-submit-row">
+              <button type="submit" class="btn btn--filled btn--lg">Send Message</button>
+              <p class="form-error" id="form-error" role="alert"></p>
+            </div>
+          </form>
+
+          <div class="form-success" id="form-success" role="status">
+            <p class="form-success__title">Thank you.</p>
+            <p class="form-success__body">Your message has been received. We'll be in touch soon.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="images/logos/logo-full-white.png" alt="Copain Bakery &amp; Provisions" width="160" height="44" loading="lazy" />
+          </div>
+          <p class="footer-brand__tagline">Notre Pain Quotidien</p>
+          <p class="footer-brand__body">French-inspired, artisan-made bakery and provisions. Three locations in Charlotte and Winston-Salem, NC.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/copain_bakery/" target="_blank" rel="noopener noreferrer" class="footer-social__link">Instagram</a>
+            <a href="https://www.facebook.com/copainbakery/" target="_blank" rel="noopener noreferrer" class="footer-social__link">Facebook</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">Explore</p>
+          <nav class="footer-col__links">
+            <a href="menu.html" class="footer-col__link">Menu</a>
+            <a href="locations.html" class="footer-col__link">Locations</a>
+            <a href="catering.html" class="footer-col__link">Catering</a>
+            <a href="wholesale.html" class="footer-col__link">Wholesale</a>
+            <a href="about.html" class="footer-col__link">About</a>
+            <a href="contact.html" class="footer-col__link">Contact</a>
+            <a href="careers.html" class="footer-col__link">Careers</a>
+          </nav>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">Locations</p>
+          <nav class="footer-col__links">
+            <a href="locations.html#southpark" class="footer-col__link">SouthPark<br /><span style="font-size:0.75em;color:rgba(242,232,217,0.35);">6601 Carnegie Blvd</span></a>
+            <a href="locations.html#ballantyne" class="footer-col__link">Ballantyne<br /><span style="font-size:0.75em;color:rgba(242,232,217,0.35);">14020 Stream Way</span></a>
+            <a href="locations.html#winston-salem" class="footer-col__link">Winston-Salem<br /><span style="font-size:0.75em;color:rgba(242,232,217,0.35);">380 Knollwood St</span></a>
+          </nav>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">Contact</p>
+          <div class="footer-col__links">
+            <a href="tel:+17044405050" class="footer-col__link">Charlotte: 704-440-5050</a>
+            <a href="tel:+13367293200" class="footer-col__link">Winston-Salem: 336-729-3200</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2025 Copain Bakery &amp; Provisions. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ORDER MODAL -->
+  <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-overlay__backdrop"></div>
+    <div class="modal">
+      <div class="modal__header">
+        <p class="t-eyebrow">Online Ordering</p>
+        <h2 class="modal__title t-display" id="modal-title">Choose Your Location</h2>
+        <p class="modal__sub">Select a location to place your order.</p>
+      </div>
+      <button class="modal__close" aria-label="Close ordering modal">Close</button>
+      <div class="modal__locations">
+        <a href="https://order.toasttab.com/online/copain-new-6601-carnegie-blvd" target="_blank" rel="noopener noreferrer" class="modal__location">
+          <div class="modal__location-info">
+            <p class="modal__location-name">SouthPark</p>
+            <p class="modal__location-address">6601 Carnegie Blvd · Charlotte, NC 28211</p>
+          </div>
+          <span class="modal__location-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="https://order.toasttab.com/online/copain-ballantyne-14020-stream-way-suite-118" target="_blank" rel="noopener noreferrer" class="modal__location">
+          <div class="modal__location-info">
+            <p class="modal__location-name">Ballantyne</p>
+            <p class="modal__location-address">14020 Stream Way, Suite 118 · Charlotte, NC 28277</p>
+          </div>
+          <span class="modal__location-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="https://order.toasttab.com/online/copain-winston-380-knollwood" target="_blank" rel="noopener noreferrer" class="modal__location">
+          <div class="modal__location-info">
+            <p class="modal__location-name">Winston-Salem</p>
+            <p class="modal__location-address">380 Knollwood St · Winston-Salem, NC 27103</p>
+          </div>
+          <span class="modal__location-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div class="modal__footer">
+        <a href="https://www.toasttab.com/copain-new-6601-carnegie-blvd/giftcards" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">Gift Cards</a>
+        <a href="https://www.opentable.com/booking/restref/availability?lang=en-US&restRef=1478335&otSource=Restaurant%20website" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">Reserve a Table</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/nav.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

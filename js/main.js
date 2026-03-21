@@ -232,6 +232,38 @@
   }
 
 
+  /* ── Contact form (Web3Forms) ───────────────────────────── */
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const btn = contactForm.querySelector('[type="submit"]');
+      const successEl = document.getElementById('form-success');
+      const errorEl = document.getElementById('form-error');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      errorEl.classList.remove('is-visible');
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: new FormData(contactForm),
+        });
+        const data = await res.json();
+        if (data.success) {
+          contactForm.style.display = 'none';
+          successEl.classList.add('is-visible');
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      } catch (err) {
+        errorEl.textContent = 'Something went wrong. Please try again or call us directly.';
+        errorEl.classList.add('is-visible');
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      }
+    });
+  }
+
   /* ── Parallax ──────────────────────────────────────────── */
   (function initParallax() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
