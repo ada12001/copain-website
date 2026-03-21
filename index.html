@@ -13,64 +13,12 @@
   <meta property="og:image" content="images/food/morning-spread.jpg" />
   <meta property="og:type" content="website" />
 
-  <link rel="stylesheet" href="css/main.css?v=10" />
+  <link rel="stylesheet" href="css/main.css?v=11" />
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════
-       HEADER
-  ═══════════════════════════════════════════════════════ -->
-  <header class="site-header is-dark" id="site-header">
-    <nav class="nav" aria-label="Main navigation">
-
-      <!-- Left links -->
-      <div class="nav__left">
-        <a href="menu.html" class="nav__link">Menu</a>
-        <a href="catering.html" class="nav__link">Catering</a>
-        <a href="wholesale.html" class="nav__link">Wholesale</a>
-      </div>
-
-      <!-- Logo -->
-      <div class="nav__logo">
-        <a href="index.html" aria-label="Copain Bakery — Home">
-          <img src="images/logos/logo-full-black.png"
-               alt="Copain Bakery &amp; Provisions"
-               id="nav-logo"
-               width="200" height="55" />
-        </a>
-      </div>
-
-      <!-- Right links + CTA -->
-      <div class="nav__right">
-        <a href="locations.html" class="nav__link">Locations</a>
-        <a href="about.html" class="nav__link">About</a>
-        <div class="nav__actions">
-          <a href="#order" class="btn btn--filled btn--sm" data-order-modal aria-haspopup="dialog">Order Now</a>
-        </div>
-        <!-- Mobile hamburger -->
-        <button class="nav__mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-
-    </nav>
-  </header>
-
-  <!-- Mobile nav overlay -->
-  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
-    <button class="mobile-nav__close" aria-label="Close menu">Close</button>
-    <a href="menu.html" class="mobile-nav__link">Menu</a>
-    <a href="locations.html" class="mobile-nav__link">Locations</a>
-    <a href="catering.html" class="mobile-nav__link">Catering</a>
-    <a href="wholesale.html" class="mobile-nav__link">Wholesale</a>
-    <a href="about.html" class="mobile-nav__link">About</a>
-    <div class="mobile-nav__actions">
-      <a href="#order" class="btn btn--ghost" data-order-modal>Order Now</a>
-      <a href="locations.html" class="btn btn--ghost">Visit Us</a>
-    </div>
-  </nav>
+  <div id="nav-placeholder"></div>
+  <div id="mobile-nav-placeholder"></div>
 
   <main>
 
@@ -669,6 +617,7 @@
     </div>
   </div>
 
+  <script src="js/nav.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
