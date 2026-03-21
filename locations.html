@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Locations — Copain Bakery &amp; Provisions</title>
+  <meta name="description" content="Find a Copain near you. Three locations: SouthPark (Charlotte), Ballantyne Brasserie (Charlotte), and Winston-Salem, NC." />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header is-dark" id="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <div class="nav__left">
+        <a href="menu.html" class="nav__link">Menu</a>
+        <a href="catering.html" class="nav__link">Catering</a>
+        <a href="wholesale.html" class="nav__link">Wholesale</a>
+      </div>
+      <div class="nav__logo">
+        <a href="index.html" aria-label="Copain Bakery — Home">
+          <img src="images/logos/logo-full-black.png" alt="Copain Bakery &amp; Provisions" width="200" height="55" />
+        </a>
+      </div>
+      <div class="nav__right">
+        <a href="locations.html" class="nav__link is-active">Locations</a>
+        <a href="about.html" class="nav__link">About</a>
+        <div class="nav__actions">
+          <a href="#order" class="btn btn--filled btn--sm" data-order-modal>Order Now</a>
+        </div>
+        <button class="nav__mobile-toggle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <button class="mobile-nav__close" aria-label="Close menu">Close</button>
+    <a href="menu.html" class="mobile-nav__link">Menu</a>
+    <a href="locations.html" class="mobile-nav__link">Locations</a>
+    <a href="catering.html" class="mobile-nav__link">Catering</a>
+    <a href="wholesale.html" class="mobile-nav__link">Wholesale</a>
+    <a href="about.html" class="mobile-nav__link">About</a>
+    <div class="mobile-nav__actions">
+      <a href="#order" class="btn btn--ghost" data-order-modal>Order Now</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- PAGE INTRO -->
+    <div class="locations-hero page-intro page-intro--center">
+      <div class="container">
+        <p class="t-eyebrow t-eyebrow--light reveal">Find Us</p>
+        <div class="spacer spacer--sm"></div>
+        <h1 class="locations-hero__headline t-display t-display--lg reveal reveal--delay-1">
+          Three Locations
+        </h1>
+        <p class="locations-hero__sub t-body t-body--lg reveal reveal--delay-2">
+          Each location has its own character — from the bright French boulangerie of SouthPark to the full evening brasserie at Ballantyne.
+        </p>
+        <!-- Location anchor nav -->
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem;" class="reveal reveal--delay-3">
+          <a href="#southpark" class="btn btn--ghost btn--sm" data-location-anchor="#southpark">SouthPark</a>
+          <a href="#ballantyne" class="btn btn--ghost btn--sm" data-location-anchor="#ballantyne">Ballantyne</a>
+          <a href="#winston-salem" class="btn btn--ghost btn--sm" data-location-anchor="#winston-salem">Winston-Salem</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SOUTHPARK ──────────────────────────────────────── -->
+    <section id="southpark" class="location-full" aria-labelledby="southpark-heading">
+      <div class="location-full__image">
+        <img
+          src="images/exterior/southpark-entrance.jpg"
+          alt="SouthPark — white French brasserie storefront with bistro furniture, olive tree and airy interior"
+          loading="lazy"
+          data-parallax="0.15"
+        />
+      </div>
+      <div class="location-full__content">
+        <div class="location-full__type reveal">Bakery &amp; Provisions</div>
+        <h2 class="location-full__name t-display t-display--md reveal reveal--delay-1" id="southpark-heading">SouthPark</h2>
+        <p class="location-full__desc t-body reveal reveal--delay-2">
+          Our original Charlotte location. A bright, airy boulangerie with classic French brasserie styling, a full espresso bar, and a case stocked every morning with laminated pastries, breads, and seasonal provisions.
+        </p>
+        <div class="location-full__details reveal reveal--delay-3">
+          <div class="location-detail">
+            <p class="location-detail__label">Hours</p>
+            <p class="location-detail__value">
+              Mon – Fri: 7am – 6pm<br />
+              Sat – Sun: 7am – 5pm
+            </p>
+          </div>
+          <div class="location-detail">
+            <p class="location-detail__label">Address</p>
+            <address class="location-detail__value" style="font-style:normal;">
+              6601 Carnegie Blvd<br />Charlotte, NC 28211
+            </address>
+          </div>
+          <div class="location-detail">
+            <p class="location-detail__label">Phone</p>
+            <p class="location-detail__value"><a href="tel:+17044405050">704-440-5050</a></p>
+          </div>
+          <div class="location-detail">
+            <p class="location-detail__label">Service</p>
+            <p class="location-detail__value">Counter service<br />Patio seating</p>
+          </div>
+        </div>
+        <div class="location-full__actions reveal reveal--delay-4">
+          <a href="https://order.toasttab.com/online/copain-new-6601-carnegie-blvd"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn--filled">Order Online</a>
+          <a href="https://www.google.com/maps/search/6601+Carnegie+Blvd+Charlotte+NC"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn--outline">Get Directions</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── BALLANTYNE ─────────────────────────────────────── -->
+    <section id="ballantyne" class="location-full" aria-labelledby="ballantyne-heading">
+      <div class="location-full__image">
+        <img
+          src="images/exterior/ballantyne-facade.jpg"
+          alt="Ballantyne — dark brick facade with COPAIN signage and navy striped awnings and outdoor patio"
+          loading="lazy"
+          data-parallax="0.15"
+        />
+      </div>
+      <div class="location-full__content">
+        <div class="location-full__type reveal">Bakery &amp; Brasserie</div>
+        <h2 class="location-full__name t-display t-display--md reveal reveal--delay-1" id="ballantyne-heading">Ballantyne</h2>
+        <p class="location-full__desc t-body reveal reveal--delay-2">
+          Our flagship full-service brasserie. Open morning to evening — begin with a croissant and café crème, return for a dinner of dry-aged steak and natural wine. Evening reservations recommended.
+        </p>
+        <div class="location-full__details reveal reveal--delay-3">
+          <div class="location-detail">
+            <p class="location-detail__label">Hours</p>
+            <p class="location-detail__value">Daily: 7am – 10pm</p>
+          </div>
+          <div class="location-detail">
+            <p class="location-detail__label">Address</p>
+            <address class="location-detail__value" style="font-style:normal;">
+              14020 Stream Way, Suite 118<br />Charlotte, NC 28277
+            </address>
+          </div>
+          <div class="location-detail">
+            <p class="location-detail__label">Phone</p>
+            <p class="location-detail__value"><a href="tel:+17044405050">704-440-5050</a></p>
+          </div>
+          <div class="location-detail">
+            <p class="location-detail__label">Service</p>
+            <p class="location-detail__value">Full table service<br />Bar seating · Patio</p>
+          </div>
+        </div>
+        <div class="location-full__actions reveal reveal--delay-4">
+          <a href="https://order.toasttab.com/online/copain-ballantyne-14020-stream-way-suite-118"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn--filled">Order Online</a>
+          <a href="https://www.opentable.com/booking/restref/availability?lang=en-US&restRef=1478335&otSource=Restaurant%20website"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn--outline">Reserve a Table</a>
+          <a href="https://www.google.com/maps/search/14020+Stream+Way+Charlotte+NC"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn--outline">Get Directions</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WINSTON-SALEM ──────────────────────────────────── -->
+    <section id="winston-salem" class="location-full" aria-labelledby="ws-heading">
+      <div class="location-full__image">
+        <img
+          src="images/exterior/winston-facade.jpg"
+          alt="Winston-Salem — clean glass storefront with gold Française script lettering"
+          loading="lazy"
+          data-parallax="0.15"
+        />
+      </div>
+      <div class="location-full__content">
+        <div class="location-full__type reveal">Bakery &amp; Provisions</div>
+        <h2 class="location-full__name t-display t-display--md reveal reveal--delay-1" id="ws-heading">Winston-Salem</h2>
+        <p class="location-full__desc t-body reveal reveal--delay-2">
+          Our Winston-Salem home — a refined, understated boulangerie on Knollwood Street. The same scratch-made breads and laminated pastries, in a neighborhood setting that has become a morning ritual for Triad residents.
+        </p>
+        <div class="location-full__details reveal reveal--delay-3">
+          <div class="location-detail">
+            <p class="location-detail__label">Hours</p>
+            <p class="location-detail__value">
+              Mon – Fri: 7am – 5pm<br />
+              Saturday: 7am – 4pm<br />
+              Sunday: Closed
+            </p>
+          </div>
+          <div class="location-detail">
+            <p class="location-detail__label">Address</p>
+            <address class="location-detail__value" style="font-style:normal;">
+              380 Knollwood St<br />Winston-Salem, NC 27103
+            </address>
+          </div>
+          <div class="location-detail">
+            <p class="location-detail__label">Phone</p>
+            <p class="location-detail__value"><a href="tel:+13367293200">336-729-3200</a></p>
+          </div>
+          <div class="location-detail">
+            <p class="location-detail__label">Service</p>
+            <p class="location-detail__value">Counter service<br />Café seating</p>
+          </div>
+        </div>
+        <div class="location-full__actions reveal reveal--delay-4">
+          <a href="https://order.toasttab.com/online/copain-winston-380-knollwood"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn--filled">Order Online</a>
+          <a href="https://www.google.com/maps/search/380+Knollwood+St+Winston-Salem+NC"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn--outline">Get Directions</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GIFT CARDS STRIP -->
+    <section class="section section--cream" aria-label="Gift cards">
+      <div class="section__inner section__inner--sm">
+        <div class="container u-center">
+          <span class="t-eyebrow reveal">Give the Gift of Copain</span>
+          <div class="spacer spacer--sm"></div>
+          <h2 class="t-display t-display--sm reveal reveal--delay-1">Gift Cards</h2>
+          <div class="spacer spacer--sm"></div>
+          <p class="t-body u-muted reveal reveal--delay-2" style="max-width:420px;margin:0 auto 2rem;">
+            Available in any amount. Redeemable at all Copain locations.
+          </p>
+          <div class="reveal reveal--delay-3">
+            <a href="https://www.toasttab.com/copain-new-6601-carnegie-blvd/giftcards"
+               target="_blank" rel="noopener noreferrer"
+               class="btn btn--filled btn--lg">Purchase Gift Cards</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="images/logos/logo-full-white.png" alt="Copain Bakery &amp; Provisions" width="160" height="44" loading="lazy" />
+          </div>
+          <p class="footer-brand__tagline">Notre Pain Quotidien</p>
+          <p class="footer-brand__body">French-inspired, artisan-made bakery and provisions. Three locations in Charlotte and Winston-Salem, NC.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/copain_bakery/" target="_blank" rel="noopener noreferrer" class="footer-social__link">Instagram</a>
+            <a href="https://www.facebook.com/copainbakery/" target="_blank" rel="noopener noreferrer" class="footer-social__link">Facebook</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">Explore</p>
+          <nav class="footer-col__links">
+            <a href="menu.html" class="footer-col__link">Menu</a>
+            <a href="locations.html" class="footer-col__link">Locations</a>
+            <a href="catering.html" class="footer-col__link">Catering</a>
+            <a href="wholesale.html" class="footer-col__link">Wholesale</a>
+            <a href="about.html" class="footer-col__link">About</a>
+          </nav>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">Locations</p>
+          <nav class="footer-col__links">
+            <a href="#southpark" class="footer-col__link">SouthPark</a>
+            <a href="#ballantyne" class="footer-col__link">Ballantyne</a>
+            <a href="#winston-salem" class="footer-col__link">Winston-Salem</a>
+          </nav>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">Contact</p>
+          <div class="footer-col__links">
+            <a href="tel:+17044405050" class="footer-col__link">Charlotte: 704-440-5050</a>
+            <a href="tel:+13367293200" class="footer-col__link">Winston-Salem: 336-729-3200</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2025 Copain Bakery &amp; Provisions. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ORDER MODAL -->
+  <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-overlay__backdrop"></div>
+    <div class="modal">
+      <div class="modal__header">
+        <p class="t-eyebrow">Online Ordering</p>
+        <h2 class="modal__title t-display" id="modal-title">Choose Your Location</h2>
+        <p class="modal__sub">Select a location to place your order.</p>
+      </div>
+      <button class="modal__close" aria-label="Close ordering modal">Close</button>
+      <div class="modal__locations">
+        <a href="https://order.toasttab.com/online/copain-new-6601-carnegie-blvd" target="_blank" rel="noopener noreferrer" class="modal__location">
+          <div class="modal__location-info">
+            <p class="modal__location-name">SouthPark</p>
+            <p class="modal__location-address">6601 Carnegie Blvd · Charlotte, NC 28211</p>
+          </div>
+          <span class="modal__location-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="https://order.toasttab.com/online/copain-ballantyne-14020-stream-way-suite-118" target="_blank" rel="noopener noreferrer" class="modal__location">
+          <div class="modal__location-info">
+            <p class="modal__location-name">Ballantyne</p>
+            <p class="modal__location-address">14020 Stream Way, Suite 118 · Charlotte, NC 28277</p>
+          </div>
+          <span class="modal__location-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="https://order.toasttab.com/online/copain-winston-380-knollwood" target="_blank" rel="noopener noreferrer" class="modal__location">
+          <div class="modal__location-info">
+            <p class="modal__location-name">Winston-Salem</p>
+            <p class="modal__location-address">380 Knollwood St · Winston-Salem, NC 27103</p>
+          </div>
+          <span class="modal__location-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div class="modal__footer">
+        <a href="https://www.toasttab.com/copain-new-6601-carnegie-blvd/giftcards" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">Gift Cards</a>
+        <a href="https://www.opentable.com/booking/restref/availability?lang=en-US&restRef=1478335&otSource=Restaurant%20website" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">Reserve a Table</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

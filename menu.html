@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu — Copain Bakery &amp; Provisions</title>
+  <meta name="description" content="Scratch-made breads, laminated pastries, seasonal café, and brasserie menus at Copain Bakery in Charlotte and Winston-Salem." />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header is-dark" id="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <div class="nav__left">
+        <a href="menu.html" class="nav__link is-active">Menu</a>
+        <a href="catering.html" class="nav__link">Catering</a>
+        <a href="wholesale.html" class="nav__link">Wholesale</a>
+      </div>
+      <div class="nav__logo">
+        <a href="index.html" aria-label="Copain Bakery — Home">
+          <img src="images/logos/logo-full-black.png" alt="Copain Bakery &amp; Provisions" width="200" height="55" />
+        </a>
+      </div>
+      <div class="nav__right">
+        <a href="locations.html" class="nav__link">Locations</a>
+        <a href="about.html" class="nav__link">About</a>
+        <div class="nav__actions">
+          <a href="#order" class="btn btn--filled btn--sm" data-order-modal>Order Now</a>
+        </div>
+        <button class="nav__mobile-toggle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <button class="mobile-nav__close" aria-label="Close menu">Close</button>
+    <a href="menu.html" class="mobile-nav__link">Menu</a>
+    <a href="locations.html" class="mobile-nav__link">Locations</a>
+    <a href="catering.html" class="mobile-nav__link">Catering</a>
+    <a href="wholesale.html" class="mobile-nav__link">Wholesale</a>
+    <a href="about.html" class="mobile-nav__link">About</a>
+    <div class="mobile-nav__actions">
+      <a href="#order" class="btn btn--ghost" data-order-modal>Order Now</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- MENU HERO -->
+    <div class="menu-hero">
+      <span class="t-eyebrow t-eyebrow--light reveal">Boulangerie · Pâtisserie · Brasserie</span>
+      <h1 class="menu-hero__headline t-display t-display--lg reveal reveal--delay-1">The Menu</h1>
+      <p class="menu-hero__sub reveal reveal--delay-2">
+        Made from scratch, every morning. Menus vary by location — our full PDF menus are available below.
+      </p>
+      <!-- Location selector pills -->
+      <div class="menu-hero__locations reveal reveal--delay-3">
+        <button class="menu-hero__location-pill is-active" data-location="all">All Locations</button>
+        <button class="menu-hero__location-pill" data-location="southpark">SouthPark</button>
+        <button class="menu-hero__location-pill" data-location="ballantyne">Ballantyne</button>
+        <button class="menu-hero__location-pill" data-location="winston">Winston-Salem</button>
+      </div>
+    </div>
+
+    <!-- PDF MENU DOWNLOADS -->
+    <section class="section section--cream" aria-labelledby="pdf-heading">
+      <div class="section__inner section__inner--sm">
+        <div class="container">
+          <div class="u-center" style="margin-bottom:clamp(2rem,4vw,3.5rem);">
+            <span class="t-eyebrow reveal">Full Menus</span>
+            <div class="spacer spacer--sm"></div>
+            <h2 class="t-display t-display--sm reveal reveal--delay-1" id="pdf-heading">Download Our Menus</h2>
+            <p class="t-body u-muted reveal reveal--delay-2" style="max-width:460px;margin:1rem auto 0;">
+              Our complete menus are available as PDFs. Menus rotate seasonally.
+            </p>
+          </div>
+
+          <div id="pdf-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5px;background:var(--cream-dark);">
+
+            <a href="pdfs/67ac2f_ae785d4899c442acbfed6c5f526850dc.pdf"
+               target="_blank" rel="noopener noreferrer"
+               data-pdf-location="southpark"
+               class="reveal"
+               style="background:var(--cream-light);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1rem;transition:background var(--dur-fast);"
+               onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='var(--cream-light)'">
+              <span class="t-eyebrow">SouthPark</span>
+              <p class="t-display" style="font-size:1.5rem;">Bakery &amp; Café Menu</p>
+              <p class="t-body t-body--sm u-muted">Full boulangerie menu — pastries, breads, café drinks, and provisions.</p>
+              <span class="btn btn--outline btn--sm" style="align-self:flex-start;margin-top:auto;">Download PDF →</span>
+            </a>
+
+            <a href="pdfs/9d5315_458ecbe5bee44325a298ebaf29d07748.pdf"
+               target="_blank" rel="noopener noreferrer"
+               data-pdf-location="ballantyne"
+               class="reveal reveal--delay-1"
+               style="background:var(--cream-light);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1rem;transition:background var(--dur-fast);"
+               onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='var(--cream-light)'">
+              <span class="t-eyebrow">Ballantyne</span>
+              <p class="t-display" style="font-size:1.5rem;">Brasserie Menu</p>
+              <p class="t-body t-body--sm u-muted">Full brasserie menu — breakfast, lunch, and dinner service with wine and cocktails.</p>
+              <span class="btn btn--outline btn--sm" style="align-self:flex-start;margin-top:auto;">Download PDF →</span>
+            </a>
+
+            <a href="pdfs/af94b9_67e70d8ee6734d45ae973aed0406f016.pdf"
+               target="_blank" rel="noopener noreferrer"
+               data-pdf-location="winston"
+               class="reveal reveal--delay-2"
+               style="background:var(--cream-light);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1rem;transition:background var(--dur-fast);"
+               onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='var(--cream-light)'">
+              <span class="t-eyebrow">Winston-Salem</span>
+              <p class="t-display" style="font-size:1.5rem;">Bakery &amp; Café Menu</p>
+              <p class="t-body t-body--sm u-muted">Scratch-made breads, laminated pastries, and seasonal café drinks.</p>
+              <span class="btn btn--outline btn--sm" style="align-self:flex-start;margin-top:auto;">Download PDF →</span>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAMPLE MENU — Pastries & Breads -->
+    <section class="menu-section section" aria-labelledby="menu-pastry-heading">
+      <div class="section__inner">
+        <div class="container">
+
+          <div class="category-pills">
+            <button class="pill is-active" data-filter="all">All</button>
+            <button class="pill" data-filter="viennoiserie">Viennoiserie</button>
+            <button class="pill" data-filter="breads">Breads</button>
+            <button class="pill" data-filter="cafe">Café</button>
+            <button class="pill" data-filter="lunch">Lunch</button>
+            <button class="pill" data-filter="brasserie">Brasserie</button>
+          </div>
+
+          <!-- VIENNOISERIE -->
+          <div class="menu-category" data-category="viennoiserie" data-locations="all southpark ballantyne winston">
+            <div class="menu-category__header">
+              <h2 class="t-display menu-category__name reveal" id="menu-pastry-heading">Viennoiserie</h2>
+              <span class="menu-category__count reveal reveal--delay-1">Made fresh daily</span>
+            </div>
+            <div class="menu-items">
+              <div class="menu-item-group reveal">
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Plain Croissant</p>
+                    <p class="menu-item__desc">Classic laminated, 72-hour dough</p>
+                  </div>
+                  <span class="menu-item__price">$4.50</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Almond Croissant</p>
+                    <p class="menu-item__desc">Frangipane, toasted almonds, powdered sugar</p>
+                  </div>
+                  <span class="menu-item__price">$5.50</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Pain au Chocolat</p>
+                    <p class="menu-item__desc">Valrhona dark chocolate, double-filled</p>
+                  </div>
+                  <span class="menu-item__price">$5.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Kouign-Amann</p>
+                    <p class="menu-item__desc">Caramelized, flaky Breton pastry</p>
+                  </div>
+                  <span class="menu-item__price">$5.50</span>
+                </div>
+              </div>
+              <div class="menu-item-group reveal reveal--delay-1">
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Morning Bun</p>
+                    <p class="menu-item__desc">Orange zest, cinnamon sugar</p>
+                  </div>
+                  <span class="menu-item__price">$5.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Seasonal Tart</p>
+                    <p class="menu-item__desc">Rotating fruit and cream fillings</p>
+                  </div>
+                  <span class="menu-item__price">$6.50</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Canelé</p>
+                    <p class="menu-item__desc">Bordeaux-style, rum and vanilla</p>
+                  </div>
+                  <span class="menu-item__price">$4.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Financier</p>
+                    <p class="menu-item__desc">Brown butter almond cake</p>
+                  </div>
+                  <span class="menu-item__price">$4.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BREADS -->
+          <div class="menu-category" data-category="breads" data-locations="all southpark ballantyne winston">
+            <div class="menu-category__header">
+              <h2 class="t-display menu-category__name reveal">Breads</h2>
+              <span class="menu-category__count reveal reveal--delay-1">Whole loaves · Ready by 8am</span>
+            </div>
+            <div class="menu-items">
+              <div class="menu-item-group reveal">
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Baguette Tradition</p>
+                    <p class="menu-item__desc">Long-fermented, stone-deck baked</p>
+                  </div>
+                  <span class="menu-item__price">$4.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Country Sourdough</p>
+                    <p class="menu-item__desc">Whole wheat blend, open crumb</p>
+                  </div>
+                  <span class="menu-item__price">$12.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Miche</p>
+                    <p class="menu-item__desc">Large round, earthy and mild</p>
+                  </div>
+                  <span class="menu-item__price">$16.00</span>
+                </div>
+              </div>
+              <div class="menu-item-group reveal reveal--delay-1">
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Rye Loaf</p>
+                    <p class="menu-item__desc">Dark rye, caraway, dense crumb</p>
+                  </div>
+                  <span class="menu-item__price">$13.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Epi</p>
+                    <p class="menu-item__desc">Wheat sheaf baguette — weekend only</p>
+                  </div>
+                  <span class="menu-item__price">$6.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Focaccia</p>
+                    <p class="menu-item__desc">Olive oil, fleur de sel, seasonal topping</p>
+                  </div>
+                  <span class="menu-item__price">$10.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CAFÉ -->
+          <div class="menu-category" data-category="cafe" data-locations="all southpark ballantyne winston">
+            <div class="menu-category__header">
+              <h2 class="t-display menu-category__name reveal">Café</h2>
+              <span class="menu-category__count reveal reveal--delay-1">Espresso bar · All day</span>
+            </div>
+            <div class="menu-items">
+              <div class="menu-item-group reveal">
+                <div class="menu-item">
+                  <div><p class="menu-item__name">Espresso</p></div>
+                  <span class="menu-item__price">$3.50</span>
+                </div>
+                <div class="menu-item">
+                  <div><p class="menu-item__name">Café Crème</p></div>
+                  <span class="menu-item__price">$4.50</span>
+                </div>
+                <div class="menu-item">
+                  <div><p class="menu-item__name">Café au Lait</p></div>
+                  <span class="menu-item__price">$4.50</span>
+                </div>
+                <div class="menu-item">
+                  <div><p class="menu-item__name">Cortado</p></div>
+                  <span class="menu-item__price">$5.00</span>
+                </div>
+              </div>
+              <div class="menu-item-group reveal reveal--delay-1">
+                <div class="menu-item">
+                  <div><p class="menu-item__name">Matcha Latte</p></div>
+                  <span class="menu-item__price">$5.50</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Chocolat Chaud</p>
+                    <p class="menu-item__desc">Dark chocolate, steamed milk</p>
+                  </div>
+                  <span class="menu-item__price">$5.00</span>
+                </div>
+                <div class="menu-item">
+                  <div><p class="menu-item__name">Café Glacé</p></div>
+                  <span class="menu-item__price">$5.50</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LUNCH -->
+          <div class="menu-category" data-category="lunch" data-locations="all southpark ballantyne winston">
+            <div class="menu-category__header">
+              <h2 class="t-display menu-category__name reveal">Lunch</h2>
+              <span class="menu-category__count reveal reveal--delay-1">Available from 11am</span>
+            </div>
+            <div class="menu-items">
+              <div class="menu-item-group reveal">
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Jambon-Beurre</p>
+                    <p class="menu-item__desc">Housemade baguette, ham, cultured butter, cornichons</p>
+                  </div>
+                  <span class="menu-item__price">$14.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Croque Monsieur</p>
+                    <p class="menu-item__desc">Béchamel, gruyère, black forest ham, brioche</p>
+                  </div>
+                  <span class="menu-item__price">$16.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Salade Niçoise</p>
+                    <p class="menu-item__desc">Tuna, haricots verts, olives, soft egg, anchovy vinaigrette</p>
+                  </div>
+                  <span class="menu-item__price">$18.00</span>
+                </div>
+              </div>
+              <div class="menu-item-group reveal reveal--delay-1">
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Quiche du Jour</p>
+                    <p class="menu-item__desc">Rotating daily filling, butter crust</p>
+                  </div>
+                  <span class="menu-item__price">$13.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Soup &amp; Baguette</p>
+                    <p class="menu-item__desc">Seasonal pot, housemade bread</p>
+                  </div>
+                  <span class="menu-item__price">$12.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Charcuterie Board</p>
+                    <p class="menu-item__desc">Seasonal selections, housemade condiments, baguette</p>
+                  </div>
+                  <span class="menu-item__price">$22.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BRASSERIE (Ballantyne only) -->
+          <div class="menu-category" data-category="brasserie" data-locations="all ballantyne">
+            <div class="menu-category__header">
+              <h2 class="t-display menu-category__name reveal">Brasserie</h2>
+              <span class="menu-category__count reveal reveal--delay-1">Ballantyne only · Dinner from 5pm</span>
+            </div>
+            <p class="t-body t-italic u-muted reveal" style="margin-bottom:2rem;">
+              The full Brasserie dinner menu is available at Ballantyne. Reservations recommended for evenings.
+            </p>
+            <!-- Brasserie photo strip -->
+            <div class="reveal" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:2px;margin-bottom:2.5rem;overflow:hidden;border-radius:2px;">
+              <div style="overflow:hidden;aspect-ratio:16/9;">
+                <img src="images/food/dinner-pass.jpg" alt="Moules marinière and seared scallops on the kitchen pass"
+                     loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+              </div>
+              <div style="overflow:hidden;aspect-ratio:1;">
+                <img src="images/food/poulet-roti.jpg" alt="Roasted chicken with seasonal vegetables"
+                     loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+              </div>
+              <div style="overflow:hidden;aspect-ratio:1;">
+                <img src="images/food/champagne-flute.jpg" alt="Champagne service at the brasserie"
+                     loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+              </div>
+            </div>
+            <div class="menu-items">
+              <div class="menu-item-group reveal">
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Steak Frites</p>
+                    <p class="menu-item__desc">Dry-aged hanger, herb butter, pommes frites</p>
+                  </div>
+                  <span class="menu-item__price">$34.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Moules Marinière</p>
+                    <p class="menu-item__desc">PEI mussels, white wine, shallots, cream, baguette</p>
+                  </div>
+                  <span class="menu-item__price">$26.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Salade Frisée</p>
+                    <p class="menu-item__desc">Lardons, poached egg, Dijon vinaigrette</p>
+                  </div>
+                  <span class="menu-item__price">$16.00</span>
+                </div>
+              </div>
+              <div class="menu-item-group reveal reveal--delay-1">
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Poulet Rôti</p>
+                    <p class="menu-item__desc">Whole roasted, jus, seasonal vegetables</p>
+                  </div>
+                  <span class="menu-item__price">$32.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Plateau de Fromages</p>
+                    <p class="menu-item__desc">Three cheeses, seasonal accompaniments, baguette</p>
+                  </div>
+                  <span class="menu-item__price">$24.00</span>
+                </div>
+                <div class="menu-item">
+                  <div>
+                    <p class="menu-item__name">Crème Brûlée</p>
+                    <p class="menu-item__desc">Vanilla bean custard, caramelized sugar</p>
+                  </div>
+                  <span class="menu-item__price">$10.00</span>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:2.5rem;" class="reveal">
+              <a href="https://www.opentable.com/booking/restref/availability?lang=en-US&restRef=1478335&otSource=Restaurant%20website"
+                 target="_blank" rel="noopener noreferrer"
+                 class="btn btn--filled">Reserve at Ballantyne</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Seasonal note -->
+    <section class="section section--dark" aria-label="Menu note">
+      <div class="section__inner section__inner--sm">
+        <div class="container u-center">
+          <p class="t-script t-script--md reveal" style="color:var(--gold-light);">Notre Pain Quotidien</p>
+          <div class="spacer spacer--sm"></div>
+          <p class="t-body reveal reveal--delay-1" style="color:rgba(242,232,217,0.65);max-width:520px;margin:0 auto 2rem;">
+            Menus are seasonal and subject to change based on what's best. Prices and availability vary by location. Please call ahead for the most current offerings.
+          </p>
+          <div class="reveal reveal--delay-2">
+            <a href="#order" class="btn btn--gold" data-order-modal>Order Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="images/logos/logo-full-white.png" alt="Copain Bakery &amp; Provisions" width="160" height="44" loading="lazy" />
+          </div>
+          <p class="footer-brand__tagline">Notre Pain Quotidien</p>
+          <p class="footer-brand__body">French-inspired, artisan-made bakery and provisions. Three locations in Charlotte and Winston-Salem, NC.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/copain_bakery/" target="_blank" rel="noopener noreferrer" class="footer-social__link">Instagram</a>
+            <a href="https://www.facebook.com/copainbakery/" target="_blank" rel="noopener noreferrer" class="footer-social__link">Facebook</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">Explore</p>
+          <nav class="footer-col__links">
+            <a href="menu.html" class="footer-col__link">Menu</a>
+            <a href="locations.html" class="footer-col__link">Locations</a>
+            <a href="catering.html" class="footer-col__link">Catering</a>
+            <a href="wholesale.html" class="footer-col__link">Wholesale</a>
+            <a href="about.html" class="footer-col__link">About</a>
+          </nav>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">Order Online</p>
+          <nav class="footer-col__links">
+            <a href="https://order.toasttab.com/online/copain-new-6601-carnegie-blvd" target="_blank" rel="noopener noreferrer" class="footer-col__link">SouthPark</a>
+            <a href="https://order.toasttab.com/online/copain-ballantyne-14020-stream-way-suite-118" target="_blank" rel="noopener noreferrer" class="footer-col__link">Ballantyne</a>
+            <a href="https://order.toasttab.com/online/copain-winston-380-knollwood" target="_blank" rel="noopener noreferrer" class="footer-col__link">Winston-Salem</a>
+          </nav>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">Contact</p>
+          <div class="footer-col__links">
+            <a href="tel:+17044405050" class="footer-col__link">Charlotte: 704-440-5050</a>
+            <a href="tel:+13367293200" class="footer-col__link">Winston-Salem: 336-729-3200</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2025 Copain Bakery &amp; Provisions. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ORDER MODAL -->
+  <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-overlay__backdrop"></div>
+    <div class="modal">
+      <div class="modal__header">
+        <p class="t-eyebrow">Online Ordering</p>
+        <h2 class="modal__title t-display" id="modal-title">Choose Your Location</h2>
+        <p class="modal__sub">Select a location to place your order.</p>
+      </div>
+      <button class="modal__close" aria-label="Close ordering modal">Close</button>
+      <div class="modal__locations">
+        <a href="https://order.toasttab.com/online/copain-new-6601-carnegie-blvd" target="_blank" rel="noopener noreferrer" class="modal__location">
+          <div class="modal__location-info">
+            <p class="modal__location-name">SouthPark</p>
+            <p class="modal__location-address">6601 Carnegie Blvd · Charlotte, NC 28211</p>
+          </div>
+          <span class="modal__location-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="https://order.toasttab.com/online/copain-ballantyne-14020-stream-way-suite-118" target="_blank" rel="noopener noreferrer" class="modal__location">
+          <div class="modal__location-info">
+            <p class="modal__location-name">Ballantyne</p>
+            <p class="modal__location-address">14020 Stream Way, Suite 118 · Charlotte, NC 28277</p>
+          </div>
+          <span class="modal__location-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="https://order.toasttab.com/online/copain-winston-380-knollwood" target="_blank" rel="noopener noreferrer" class="modal__location">
+          <div class="modal__location-info">
+            <p class="modal__location-name">Winston-Salem</p>
+            <p class="modal__location-address">380 Knollwood St · Winston-Salem, NC 27103</p>
+          </div>
+          <span class="modal__location-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div class="modal__footer">
+        <a href="https://www.toasttab.com/copain-new-6601-carnegie-blvd/giftcards" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">Gift Cards</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Copain Bakery &amp; Provisions — French Inspired, Artisan Made</title>
+  <meta name="description" content="Notre Pain Quotidien. French-inspired, artisan-made boulangerie and pâtisserie with locations in Charlotte (SouthPark &amp; Ballantyne) and Winston-Salem, NC." />
+  <link rel="canonical" href="https://www.copainbakery.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Copain Bakery &amp; Provisions" />
+  <meta property="og:description" content="Notre Pain Quotidien — French-inspired, artisan-made bakery in Charlotte and Winston-Salem." />
+  <meta property="og:image" content="images/food/morning-spread.jpg" />
+  <meta property="og:type" content="website" />
+
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HEADER
+  ═══════════════════════════════════════════════════════ -->
+  <header class="site-header is-dark" id="site-header">
+    <nav class="nav" aria-label="Main navigation">
+
+      <!-- Left links -->
+      <div class="nav__left">
+        <a href="menu.html" class="nav__link">Menu</a>
+        <a href="catering.html" class="nav__link">Catering</a>
+        <a href="wholesale.html" class="nav__link">Wholesale</a>
+      </div>
+
+      <!-- Logo -->
+      <div class="nav__logo">
+        <a href="index.html" aria-label="Copain Bakery — Home">
+          <img src="images/logos/logo-full-black.png"
+               alt="Copain Bakery &amp; Provisions"
+               id="nav-logo"
+               width="200" height="55" />
+        </a>
+      </div>
+
+      <!-- Right links + CTA -->
+      <div class="nav__right">
+        <a href="locations.html" class="nav__link">Locations</a>
+        <a href="about.html" class="nav__link">About</a>
+        <div class="nav__actions">
+          <a href="#order" class="btn btn--filled btn--sm" data-order-modal aria-haspopup="dialog">Order Now</a>
+        </div>
+        <!-- Mobile hamburger -->
+        <button class="nav__mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </nav>
+  </header>
+
+  <!-- Mobile nav overlay -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <button class="mobile-nav__close" aria-label="Close menu">Close</button>
+    <a href="menu.html" class="mobile-nav__link">Menu</a>
+    <a href="locations.html" class="mobile-nav__link">Locations</a>
+    <a href="catering.html" class="mobile-nav__link">Catering</a>
+    <a href="wholesale.html" class="mobile-nav__link">Wholesale</a>
+    <a href="about.html" class="mobile-nav__link">About</a>
+    <div class="mobile-nav__actions">
+      <a href="#order" class="btn btn--ghost" data-order-modal>Order Now</a>
+      <a href="locations.html" class="btn btn--ghost">Visit Us</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════════════════════ -->
+    <section class="hero" aria-label="Hero">
+      <img
+        class="hero__bg"
+        src="images/interior/baguettes-oven.jpg"
+        alt="Baker sliding fresh baguettes from a stone deck oven on a long wooden peel"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <div class="hero__content">
+        <div class="hero__left">
+          <div class="hero__eyebrow">
+            <span class="t-eyebrow t-eyebrow--light">Notre Pain Quotidien</span>
+          </div>
+          <h1 class="hero__headline t-display t-display--xl">
+            Boulangerie<br />Pâtisserie<br /><em style="font-family:var(--font-script);font-size:0.75em;font-weight:100;font-style:normal;">Française</em>
+          </h1>
+          <p class="hero__sub">French Inspired &ensp;·&ensp; Artisan Made &ensp;·&ensp; Charlotte &amp; Winston-Salem</p>
+          <div class="hero__actions">
+            <a href="#order" class="btn btn--gold btn--lg" data-order-modal>Order Now</a>
+            <a href="locations.html" class="btn btn--ghost btn--lg">Our Locations</a>
+          </div>
+        </div>
+        <div class="hero__right" aria-hidden="true">
+          <span class="hero__scroll">Scroll</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         MARQUEE TICKER
+    ═══════════════════════════════════════════════════════ -->
+    <div class="featured-strip" aria-hidden="true">
+      <div class="featured-strip__track">
+        <span class="featured-strip__item">Notre Pain Quotidien</span>
+        <span class="featured-strip__dot"></span>
+        <span class="featured-strip__item featured-strip__item--accent">Boulangerie · Pâtisserie · Viennoiserie</span>
+        <span class="featured-strip__dot"></span>
+        <span class="featured-strip__item">French Inspired</span>
+        <span class="featured-strip__dot"></span>
+        <span class="featured-strip__item featured-strip__item--accent">Artisan Made</span>
+        <span class="featured-strip__dot"></span>
+        <span class="featured-strip__item">Charlotte &amp; Winston-Salem</span>
+        <span class="featured-strip__dot"></span>
+        <span class="featured-strip__item featured-strip__item--accent">Notre Pain Quotidien</span>
+        <span class="featured-strip__dot"></span>
+        <span class="featured-strip__item">Open Daily</span>
+        <span class="featured-strip__dot"></span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         NOTRE PAIN — Brand story split
+    ═══════════════════════════════════════════════════════ -->
+    <section class="notre-pain section" aria-labelledby="notre-pain-heading">
+      <div class="notre-pain__inner">
+
+        <div class="notre-pain__content">
+          <div>
+            <p class="t-eyebrow t-eyebrow--light reveal">Our Story</p>
+            <div class="spacer spacer--sm"></div>
+            <h2 class="notre-pain__headline t-display t-display--lg reveal reveal--delay-1" id="notre-pain-heading">
+              Our Daily<br />Bread
+            </h2>
+          </div>
+          <p class="notre-pain__script t-script t-script--lg reveal reveal--delay-2" aria-hidden="true">
+            Notre Pain Quotidien
+          </p>
+          <p class="notre-pain__body t-body t-body--lg reveal reveal--delay-3">
+            Copain is built on the belief that great bread — made slowly, with intention — is one of life's most generous gifts. Every morning our bakers arrive before the city wakes to work the dough, load the ovens, and pull the laminated pastries that fill our cases by dawn.
+          </p>
+          <p class="notre-pain__body t-body reveal reveal--delay-4">
+            French in spirit, rooted in the Carolinas. We source locally where we can, bake everything in-house, and believe the table is where communities are built.
+          </p>
+          <div class="reveal reveal--delay-4">
+            <a href="about.html" class="btn btn--ghost">Our Story &rarr;</a>
+          </div>
+        </div>
+
+        <div class="notre-pain__image">
+          <img
+            src="images/food/pastry-case-depth.jpg"
+            alt="Pastry case at Copain — laminated pastries in soft depth of field"
+            loading="lazy"
+            data-parallax="0.15"
+          />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         FROM THE CASE — Hero food shots
+    ═══════════════════════════════════════════════════════ -->
+    <section class="case-section section" aria-labelledby="case-heading">
+      <div class="section__inner">
+        <div class="container">
+
+          <div class="case-header">
+            <div>
+              <span class="t-eyebrow reveal">From the Case</span>
+              <div class="spacer spacer--sm"></div>
+              <h2 class="t-display t-display--md reveal reveal--delay-1" id="case-heading">
+                Made This Morning
+              </h2>
+            </div>
+            <a href="menu.html" class="btn btn--outline reveal reveal--delay-2">View Full Menu</a>
+          </div>
+
+          <div class="case-grid">
+            <!-- Hero card spans 2 cols -->
+            <article class="case-card reveal">
+              <img
+                class="case-card__img"
+                src="images/food/dinner-pass.jpg"
+                alt="Moules marinière and seared scallops plated on branded Copain dishes on the kitchen pass"
+                loading="lazy"
+              />
+              <div class="case-card__label">
+                <span class="case-card__name">From the Kitchen</span>
+                <span class="case-card__tag">Brasserie · Ballantyne</span>
+              </div>
+            </article>
+            <!-- Secondary -->
+            <article class="case-card reveal reveal--delay-1">
+              <img
+                class="case-card__img"
+                src="images/food/citrus-salad.jpg"
+                alt="Citrus carpaccio with microgreens and fennel on a Copain branded plate"
+                loading="lazy"
+              />
+              <div class="case-card__label">
+                <span class="case-card__name">Citrus Carpaccio</span>
+                <span class="case-card__tag">Brasserie · Seasonal</span>
+              </div>
+            </article>
+            <!-- Third card -->
+            <article class="case-card reveal">
+              <img
+                class="case-card__img"
+                src="images/food/charcuterie-board.jpg"
+                alt="Copain charcuterie and cheese board with prosciutto, blue cheese and Dijon"
+                loading="lazy"
+              />
+              <div class="case-card__label">
+                <span class="case-card__name">Charcuterie &amp; Fromage</span>
+                <span class="case-card__tag">All Day · All Locations</span>
+              </div>
+            </article>
+            <article class="case-card reveal reveal--delay-1">
+              <img
+                class="case-card__img"
+                src="images/food/cafe-drinks.jpg"
+                alt="Café au lait, iced matcha, and iced coffee arranged on a wooden table"
+                loading="lazy"
+              />
+              <div class="case-card__label">
+                <span class="case-card__name">La Carte des Boissons</span>
+                <span class="case-card__tag">Espresso Bar · All Day</span>
+              </div>
+            </article>
+            <article class="case-card reveal reveal--delay-2">
+              <img
+                class="case-card__img"
+                src="images/food/millefeuille.jpg"
+                alt="Vanilla millefeuille with white chocolate leaf garnish on a dark plate"
+                loading="lazy"
+              />
+              <div class="case-card__label">
+                <span class="case-card__name">Pâtisserie du Jour</span>
+                <span class="case-card__tag">Pastry · Rotating Daily</span>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         LOCATIONS
+    ═══════════════════════════════════════════════════════ -->
+    <section class="locations-section section" aria-labelledby="locations-heading">
+      <div class="section__inner">
+        <div class="container">
+
+          <div class="u-center">
+            <span class="t-eyebrow reveal">Find Us</span>
+            <div class="spacer spacer--sm"></div>
+            <h2 class="t-display t-display--md reveal reveal--delay-1" id="locations-heading">Three Locations</h2>
+            <div class="spacer spacer--sm"></div>
+            <p class="t-body t-italic u-muted reveal reveal--delay-2" style="max-width:480px;margin:0 auto;">
+              Each location has its own character — from the bright French brasserie of SouthPark to the full dinner service at Ballantyne.
+            </p>
+          </div>
+
+          <div class="locations-grid">
+
+            <!-- SouthPark -->
+            <article class="location-card reveal">
+              <img
+                class="location-card__img"
+                src="images/exterior/southpark-entrance.jpg"
+                alt="SouthPark location — white French brasserie storefront with bistro furniture"
+                loading="lazy"
+              />
+              <div class="location-card__body">
+                <span class="location-card__type">Bakery &amp; Provisions</span>
+                <h3 class="location-card__name t-display">SouthPark</h3>
+                <p class="location-card__hours">Mon – Fri 7am – 6pm &ensp;·&ensp; Sat – Sun 7am – 5pm</p>
+                <address class="location-card__address" style="font-style:normal;">
+                  6601 Carnegie Blvd<br />Charlotte, NC 28211
+                </address>
+                <div class="location-card__actions">
+                  <a href="https://order.toasttab.com/online/copain-new-6601-carnegie-blvd"
+                     target="_blank" rel="noopener noreferrer"
+                     class="btn btn--filled btn--sm">Order</a>
+                  <a href="locations.html#southpark" class="btn btn--outline btn--sm">Details</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Ballantyne -->
+            <article class="location-card reveal reveal--delay-1">
+              <img
+                class="location-card__img"
+                src="images/exterior/ballantyne-facade.jpg"
+                alt="Ballantyne Brasserie — dark brick facade with navy striped awnings and COPAIN signage"
+                loading="lazy"
+              />
+              <div class="location-card__body">
+                <span class="location-card__type">Bakery &amp; Brasserie</span>
+                <h3 class="location-card__name t-display">Ballantyne</h3>
+                <p class="location-card__hours">Daily 7am – 10pm</p>
+                <address class="location-card__address" style="font-style:normal;">
+                  14020 Stream Way, Suite 118<br />Charlotte, NC 28277
+                </address>
+                <div class="location-card__actions">
+                  <a href="https://order.toasttab.com/online/copain-ballantyne-14020-stream-way-suite-118"
+                     target="_blank" rel="noopener noreferrer"
+                     class="btn btn--filled btn--sm">Order</a>
+                  <a href="https://www.opentable.com/booking/restref/availability?lang=en-US&restRef=1478335&otSource=Restaurant%20website"
+                     target="_blank" rel="noopener noreferrer"
+                     class="btn btn--outline btn--sm">Reserve</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Winston-Salem -->
+            <article class="location-card reveal reveal--delay-2">
+              <img
+                class="location-card__img"
+                src="images/exterior/winston-facade.jpg"
+                alt="Winston-Salem location — glass storefront with gold Française script on the window"
+                loading="lazy"
+              />
+              <div class="location-card__body">
+                <span class="location-card__type">Bakery &amp; Provisions</span>
+                <h3 class="location-card__name t-display">Winston-Salem</h3>
+                <p class="location-card__hours">Mon – Fri 7am – 5pm &ensp;·&ensp; Sat 7am – 4pm</p>
+                <address class="location-card__address" style="font-style:normal;">
+                  380 Knollwood St<br />Winston-Salem, NC 27103
+                </address>
+                <div class="location-card__actions">
+                  <a href="https://order.toasttab.com/online/copain-winston-380-knollwood"
+                     target="_blank" rel="noopener noreferrer"
+                     class="btn btn--filled btn--sm">Order</a>
+                  <a href="locations.html#winston-salem" class="btn btn--outline btn--sm">Details</a>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CATERING STRIP — Full bleed CTA
+    ═══════════════════════════════════════════════════════ -->
+    <section class="catering-strip" aria-labelledby="catering-heading">
+      <img
+        class="catering-strip__bg"
+        src="images/food/catering-farm-table.jpg"
+        alt="Elegant outdoor farm table catering setup with florals and full place settings in a golden field"
+        loading="lazy"
+        data-parallax="0.2"
+      />
+      <div class="catering-strip__content">
+        <span class="catering-strip__script t-script t-script--lg reveal">Private &amp; Corporate</span>
+        <h2 class="catering-strip__headline t-display t-display--md reveal reveal--delay-1" id="catering-heading">
+          Catering &amp;<br />Private Events
+        </h2>
+        <p class="catering-strip__body t-body reveal reveal--delay-2">
+          From intimate breakfast boards to full-service farm dinners, we bring the Copain table to you. Inquire through our catering partner.
+        </p>
+        <div class="catering-strip__rule reveal reveal--delay-3" aria-hidden="true"></div>
+        <div class="reveal reveal--delay-4">
+          <a href="catering.html" class="btn btn--gold btn--lg">Inquire About Catering</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CRAFT — Dark split, baker at oven
+    ═══════════════════════════════════════════════════════ -->
+    <section class="craft-section section" aria-labelledby="craft-heading">
+      <div class="craft-inner">
+
+        <div class="craft-image">
+          <img
+            src="images/interior/barista-latte.jpg"
+            alt="Copain barista presenting a pour-over with latte art"
+            loading="lazy"
+            data-parallax="0.15"
+          />
+        </div>
+
+        <div class="craft-content">
+          <div>
+            <span class="t-eyebrow t-eyebrow--light reveal">The Craft</span>
+            <div class="spacer spacer--sm"></div>
+            <h2 class="craft-content__headline t-display t-display--md reveal reveal--delay-1" id="craft-heading">
+              Made from Scratch.<br />Every. Single. Day.
+            </h2>
+          </div>
+          <p class="craft-content__body t-body reveal reveal--delay-2">
+            Long fermentation. Stone deck ovens. Laminated doughs that take three days to make properly. We don't cut corners because great bread doesn't let you. Our bakers work through the night so you can walk in at seven and find the case full.
+          </p>
+          <div class="craft-content__values reveal reveal--delay-3">
+            <div class="craft-value">Live the Golden Rule</div>
+            <div class="craft-value">Honor Families</div>
+            <div class="craft-value">Give Generously</div>
+            <div class="craft-value">Provide Restoration</div>
+            <div class="craft-value">Create Healthy Growth</div>
+            <div class="craft-value">Add Value to Our Team</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ABOUT — Chef / team portrait strip
+    ═══════════════════════════════════════════════════════ -->
+    <section class="about-strip section" aria-labelledby="about-heading">
+      <div class="container">
+        <div class="about-inner">
+
+          <div class="about-image reveal reveal--left">
+            <img
+              src="images/interior/chef-portrait.jpg"
+              alt="Head chef in white coat and striped apron, smiling in the Copain dining room"
+              loading="lazy"
+              data-parallax="0.12"
+            />
+          </div>
+
+          <div class="about-content">
+            <span class="t-eyebrow reveal">The Team</span>
+            <div class="spacer spacer--sm"></div>
+            <h2 class="t-display t-display--md reveal reveal--delay-1" id="about-heading">
+              Rooted in<br />the Carolinas
+            </h2>
+            <blockquote class="about-content__quote reveal reveal--delay-2">
+              "Bread is the most fundamental act of generosity — you give it to everyone at the table, without reservation."
+            </blockquote>
+            <p class="about-content__body t-body reveal reveal--delay-3">
+              Copain is part of the Noble Food &amp; Pursuits family, a group of Charlotte restaurants and concepts united by a commitment to hospitality, community, and craft. We believe feeding people well is an act of care.
+            </p>
+            <div class="reveal reveal--delay-4">
+              <a href="about.html" class="btn btn--outline">Meet the Team</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         INSTAGRAM / VISUAL STRIP
+    ═══════════════════════════════════════════════════════ -->
+    <section class="section section--dark" aria-label="Follow us on Instagram">
+      <div class="section__inner section__inner--sm">
+        <div class="container u-center">
+          <p class="t-eyebrow t-eyebrow--light reveal">@copain_bakery</p>
+          <div class="spacer spacer--sm"></div>
+          <h2 class="t-display t-display--sm" style="color:var(--cream);">
+            <a href="https://www.instagram.com/copain_bakery/"
+               target="_blank" rel="noopener noreferrer"
+               class="reveal reveal--delay-1"
+               style="display:inline-block;">
+              Follow Along
+            </a>
+          </h2>
+        </div>
+        <!-- Photo strip -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:clamp(2rem,4vw,3rem);">
+          <a href="https://www.instagram.com/copain_bakery/" target="_blank" rel="noopener noreferrer"
+             class="reveal" style="overflow:hidden;aspect-ratio:1;display:block;">
+            <img src="images/food/eclair.jpg" alt="Instagram — éclair"
+                 loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s var(--ease-out);"
+                 onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''" />
+          </a>
+          <a href="https://www.instagram.com/copain_bakery/" target="_blank" rel="noopener noreferrer"
+             class="reveal reveal--delay-1" style="overflow:hidden;aspect-ratio:1;display:block;">
+            <img src="images/food/caramel-tart.jpg" alt="Instagram — caramel tart"
+                 loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s var(--ease-out);"
+                 onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''" />
+          </a>
+          <a href="https://www.instagram.com/copain_bakery/" target="_blank" rel="noopener noreferrer"
+             class="reveal reveal--delay-2" style="overflow:hidden;aspect-ratio:1;display:block;">
+            <img src="images/food/champagne-flute.jpg" alt="Instagram — champagne"
+                 loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s var(--ease-out);"
+                 onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''" />
+          </a>
+          <a href="https://www.instagram.com/copain_bakery/" target="_blank" rel="noopener noreferrer"
+             class="reveal reveal--delay-3" style="overflow:hidden;aspect-ratio:1;display:block;">
+            <img src="images/food/pastry-case-depth.jpg" alt="Instagram — pastry case"
+                 loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s var(--ease-out);"
+                 onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════ -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container">
+
+      <div class="footer-inner">
+
+        <!-- Brand col -->
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="images/logos/logo-full-white.png"
+                 alt="Copain Bakery &amp; Provisions"
+                 width="160" height="44" loading="lazy" />
+          </div>
+          <p class="footer-brand__tagline">Notre Pain Quotidien</p>
+          <p class="footer-brand__body">
+            French-inspired, artisan-made bakery and provisions. Three locations in Charlotte and Winston-Salem, NC.
+          </p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/copain_bakery/"
+               target="_blank" rel="noopener noreferrer"
+               class="footer-social__link" aria-label="Instagram">
+              <span aria-hidden="true">&#9654;</span> Instagram
+            </a>
+            <a href="https://www.facebook.com/copainbakery/"
+               target="_blank" rel="noopener noreferrer"
+               class="footer-social__link" aria-label="Facebook">
+              <span aria-hidden="true">&#9654;</span> Facebook
+            </a>
+          </div>
+        </div>
+
+        <!-- Explore col -->
+        <div class="footer-col">
+          <p class="footer-col__title">Explore</p>
+          <nav class="footer-col__links" aria-label="Explore links">
+            <a href="menu.html" class="footer-col__link">Menu</a>
+            <a href="locations.html" class="footer-col__link">Locations</a>
+            <a href="catering.html" class="footer-col__link">Catering</a>
+            <a href="wholesale.html" class="footer-col__link">Wholesale</a>
+            <a href="about.html" class="footer-col__link">About</a>
+            <a href="https://www.toasttab.com/copain-new-6601-carnegie-blvd/giftcards"
+               target="_blank" rel="noopener noreferrer"
+               class="footer-col__link">Gift Cards</a>
+          </nav>
+        </div>
+
+        <!-- Locations col -->
+        <div class="footer-col">
+          <p class="footer-col__title">Locations</p>
+          <nav class="footer-col__links" aria-label="Location links">
+            <a href="locations.html#southpark" class="footer-col__link">
+              SouthPark<br />
+              <span style="font-size:0.75em;color:rgba(242,232,217,0.35);">6601 Carnegie Blvd</span>
+            </a>
+            <a href="locations.html#ballantyne" class="footer-col__link">
+              Ballantyne<br />
+              <span style="font-size:0.75em;color:rgba(242,232,217,0.35);">14020 Stream Way</span>
+            </a>
+            <a href="locations.html#winston-salem" class="footer-col__link">
+              Winston-Salem<br />
+              <span style="font-size:0.75em;color:rgba(242,232,217,0.35);">380 Knollwood St</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- Contact col -->
+        <div class="footer-col">
+          <p class="footer-col__title">Contact</p>
+          <div class="footer-col__links">
+            <div>
+              <p style="font-family:var(--font-util);font-size:0.6rem;letter-spacing:0.1em;color:rgba(242,232,217,0.35);margin-bottom:0.25rem;">Charlotte</p>
+              <a href="tel:+17044405050" class="footer-col__link">704-440-5050</a>
+            </div>
+            <div>
+              <p style="font-family:var(--font-util);font-size:0.6rem;letter-spacing:0.1em;color:rgba(242,232,217,0.35);margin-bottom:0.25rem;">Winston-Salem</p>
+              <a href="tel:+13367293200" class="footer-col__link">336-729-3200</a>
+            </div>
+            <a href="https://www.noblefoodandpursuits.com/"
+               target="_blank" rel="noopener noreferrer"
+               class="footer-col__link" style="margin-top:0.5rem;">
+              Noble Food &amp; Pursuits ↗
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer bottom bar -->
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          &copy; 2025 Copain Bakery &amp; Provisions. All rights reserved.
+        </p>
+        <nav class="footer-locations" aria-label="Quick location links">
+          <a href="https://order.toasttab.com/online/copain-new-6601-carnegie-blvd"
+             target="_blank" rel="noopener noreferrer"
+             class="footer-location-link">Order · SouthPark</a>
+          <a href="https://order.toasttab.com/online/copain-ballantyne-14020-stream-way-suite-118"
+             target="_blank" rel="noopener noreferrer"
+             class="footer-location-link">Order · Ballantyne</a>
+          <a href="https://order.toasttab.com/online/copain-winston-380-knollwood"
+             target="_blank" rel="noopener noreferrer"
+             class="footer-location-link">Order · Winston-Salem</a>
+        </nav>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ORDER MODAL
+  ═══════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="order" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-overlay__backdrop" aria-hidden="true"></div>
+    <div class="modal">
+      <div class="modal__header">
+        <p class="t-eyebrow">Online Ordering</p>
+        <h2 class="modal__title t-display" id="modal-title">Choose Your Location</h2>
+        <p class="modal__sub">Select a location to place your order.</p>
+      </div>
+      <button class="modal__close" aria-label="Close ordering modal">Close</button>
+      <div class="modal__locations">
+        <a href="https://order.toasttab.com/online/copain-new-6601-carnegie-blvd"
+           target="_blank" rel="noopener noreferrer"
+           class="modal__location">
+          <div class="modal__location-info">
+            <p class="modal__location-name">SouthPark</p>
+            <p class="modal__location-address">6601 Carnegie Blvd · Charlotte, NC 28211</p>
+          </div>
+          <span class="modal__location-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="https://order.toasttab.com/online/copain-ballantyne-14020-stream-way-suite-118"
+           target="_blank" rel="noopener noreferrer"
+           class="modal__location">
+          <div class="modal__location-info">
+            <p class="modal__location-name">Ballantyne</p>
+            <p class="modal__location-address">14020 Stream Way, Suite 118 · Charlotte, NC 28277</p>
+          </div>
+          <span class="modal__location-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="https://order.toasttab.com/online/copain-winston-380-knollwood"
+           target="_blank" rel="noopener noreferrer"
+           class="modal__location">
+          <div class="modal__location-info">
+            <p class="modal__location-name">Winston-Salem</p>
+            <p class="modal__location-address">380 Knollwood St · Winston-Salem, NC 27103</p>
+          </div>
+          <span class="modal__location-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div class="modal__footer">
+        <a href="https://www.toasttab.com/copain-new-6601-carnegie-blvd/giftcards"
+           target="_blank" rel="noopener noreferrer"
+           class="btn btn--outline btn--sm">Gift Cards</a>
+        <a href="https://www.opentable.com/booking/restref/availability?lang=en-US&restRef=1478335&otSource=Restaurant%20website"
+           target="_blank" rel="noopener noreferrer"
+           class="btn btn--outline btn--sm">Reserve a Table</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
