@@ -45,15 +45,6 @@ async function listBoardFiles() {
     .map((entry) => path.join(DATA_DIR, entry.name));
 }
 
-function seedEvents(seedDefs) {
-  const now = Date.now();
-  return (seedDefs || []).map((seed, index) => ({
-    id: randomUUID(),
-    item_id: seed.item_id,
-    started_at: new Date(now - seed.offset_minutes * 60 * 1000 - index * 1000).toISOString()
-  }));
-}
-
 async function writeBoardToFile(filePath, board) {
   const tempFile = filePath + '.tmp';
   await fs.writeFile(tempFile, JSON.stringify(board, null, 2) + '\n', 'utf8');
@@ -67,7 +58,7 @@ async function readBoardFromFile(filePath) {
 
   if (board.board_date !== today) {
     board.board_date = today;
-    board.events = seedEvents(board.seed_events);
+    board.events = [];
     await writeBoardToFile(filePath, board);
   }
 
@@ -253,6 +244,66 @@ async function handleApi(req, res, pathname) {
     });
     board.events = board.events.slice(-120);
 
+    await writeBoardToFile(filePath, board);
+
+    return sendJson(res, 200, {
+      ok: true,
+      board,
+      server_time: new Date().toISOString()
+    });
+  }
+
+  const clearMatch = pathname.match(/^\/api\/kitchen\/([a-z0-9-]+)\/clear$/);
+  if (clearMatch && req.method === 'POST') {
+    let body;
+    try {
+      body = await parseJsonBody(req);
+    } catch (error) {
+      return sendError(res, 400, 'Invalid JSON body.');
+    }
+
+    const slug = clearMatch[1];
+    const filePath = boardFileForSlug(slug);
+    const board = await readBoardFromFile(filePath);
+    const itemId = body.itemId;
+
+    if (!itemId) {
+      return sendError(res, 400, 'Missing itemId.');
+    }
+
+    let latestIndex = -1;
+    let latestTs = -Infinity;
+    board.events.forEach((event, index) => {
+      if (event.item_id !== itemId) return;
+      const ts = new Date(event.started_at).getTime();
+      if (ts > latestTs) {
+        latestTs = ts;
+        latestIndex = index;
+      }
+    });
+
+    if (latestIndex === -1) {
+      return sendError(res, 404, 'No active batch found for that item.');
+    }
+
+    board.events.splice(latestIndex, 1);
+    await writeBoardToFile(filePath, board);
+
+    return sendJson(res, 200, {
+      ok: true,
+      board,
+      server_time: new Date().toISOString()
+    });
+  }
+
+  const resetMatch = pathname.match(/^\/api\/kitchen\/([a-z0-9-]+)\/reset$/);
+  if (resetMatch && req.method === 'POST') {
+    const slug = resetMatch[1];
+    const filePath = boardFileForSlug(slug);
+    const board = await readBoardFromFile(filePath);
+
+    board.events = [];
+    board.board_date = getTodayInTimeZone(board.timezone || 'America/New_York');
     await writeBoardToFile(filePath, board);
 
     return sendJson(res, 200, {

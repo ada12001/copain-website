@@ -338,6 +338,7 @@
     const syncEl = kitchenBoard.querySelector('[data-kitchen-sync]');
     const sectionsEl = kitchenBoard.querySelector('[data-kitchen-sections]');
     const activityEl = kitchenBoard.querySelector('[data-kitchen-activity]');
+    const resetBoardBtn = kitchenBoard.querySelector('[data-reset-board]');
     const locationSlug = (kitchenBoard.dataset.location || '')
       .trim()
       .toLowerCase()
@@ -345,7 +346,8 @@
 
     const state = {
       board: null,
-      pendingItemId: null
+      pendingItemId: null,
+      pendingAction: null
     };
 
     function escapeHtml(value) {
@@ -413,7 +415,7 @@
       if (now < bakeEndsAt) {
         return {
           key: 'baking',
-          status: 'In Oven Now',
+          status: 'In the Oven',
           eta: 'Cooling starts at ' + formatTime(bakeEndsAt),
           badge: 'In Oven',
           detail: 'Expected on floor ' + formatTime(floorAt),
@@ -434,11 +436,11 @@
 
       return {
         key: 'floor',
-        status: 'Fresh on Floor',
-        eta: 'Live on floor since ' + formatTime(floorAt),
-        badge: 'Fresh on Floor',
+        status: 'Ready',
+        eta: 'Placed at ' + formatTime(floorAt),
+        badge: 'Ready',
         detail: 'Began baking ' + formatTime(startedAt),
-        meta: 'Live since ' + formatTime(floorAt)
+        meta: 'Placed ' + formatTime(floorAt)
       };
     }
 
@@ -458,6 +460,7 @@
       activityEl.innerHTML = items.map(([itemId, event]) => {
         const item = itemLookup.get(itemId);
         const stage = getStage(item, event, now, formatters);
+        const isClearing = state.pendingAction === 'clear:' + itemId;
         return [
           '<article class="ops-activity">',
           '<div class="ops-activity__top">',
@@ -468,9 +471,16 @@
           '<span>' + escapeHtml(stage.meta) + '</span>',
           '<span>' + escapeHtml(stage.detail) + '</span>',
           '</div>',
+          '<button class="ops-activity__clear" type="button" data-clear-item-id="' + escapeHtml(itemId) + '"' + (isClearing ? ' disabled' : '') + '>' + (isClearing ? 'Clearing...' : 'Clear') + '</button>',
           '</article>'
         ].join('');
       }).join('');
+
+      activityEl.querySelectorAll('[data-clear-item-id]').forEach((button) => {
+        button.addEventListener('click', () => {
+          clearItem(button.dataset.clearItemId);
+        });
+      });
     }
 
     function renderSections(board) {
@@ -566,8 +576,45 @@
       renderSections(state.board);
     }
 
+    async function mutateBoard(endpoint, body, pendingAction, failureLabel) {
+      state.pendingAction = pendingAction;
+      if (state.board) renderSections(state.board);
+      if (resetBoardBtn && pendingAction === 'reset') {
+        resetBoardBtn.disabled = true;
+        resetBoardBtn.textContent = 'Resetting...';
+      }
+
+      try {
+        const response = await fetch('/api/kitchen/' + locationSlug + endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify(body || {})
+        });
+
+        if (!response.ok) {
+          throw new Error(failureLabel);
+        }
+
+        const payload = await response.json();
+        state.board = payload.board;
+        if (syncEl) syncEl.textContent = 'Connected';
+      } catch (error) {
+        if (syncEl) syncEl.textContent = 'Sync delayed';
+      } finally {
+        state.pendingAction = null;
+        if (resetBoardBtn) {
+          resetBoardBtn.disabled = false;
+          resetBoardBtn.textContent = 'Reset Board';
+        }
+        if (state.board) renderSections(state.board);
+      }
+    }
+
     async function startItem(itemId) {
-      if (!state.board || state.pendingItemId) return;
+      if (!state.board || state.pendingItemId || state.pendingAction) return;
       state.pendingItemId = itemId;
       renderSections(state.board);
 
@@ -594,6 +641,27 @@
         state.pendingItemId = null;
         if (state.board) renderSections(state.board);
       }
+    }
+
+    function clearItem(itemId) {
+      if (!state.board || state.pendingItemId || state.pendingAction) return;
+      const item = getItemLookup(state.board).get(itemId);
+      const confirmed = window.confirm('Clear the latest batch for ' + item.name + '?');
+      if (!confirmed) return;
+
+      mutateBoard('/clear', { itemId: itemId }, 'clear:' + itemId, 'Could not clear batch.');
+    }
+
+    function resetBoard() {
+      if (!state.board || state.pendingItemId || state.pendingAction) return;
+      const confirmed = window.confirm('Reset the Ballantyne board and clear all active batches?');
+      if (!confirmed) return;
+
+      mutateBoard('/reset', {}, 'reset', 'Could not reset board.');
+    }
+
+    if (resetBoardBtn) {
+      resetBoardBtn.addEventListener('click', resetBoard);
     }
 
     fetchBoard().catch((error) => {

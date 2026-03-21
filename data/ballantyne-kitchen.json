@@ -3,37 +3,8 @@
   "slug": "ballantyne",
   "timezone": "America/New_York",
   "board_date": "2026-03-21",
-  "seed_events": [
-    {
-      "item_id": "butter-croissant",
-      "offset_minutes": 6
-    },
-    {
-      "item_id": "baguette",
-      "offset_minutes": 29
-    },
-    {
-      "item_id": "quiche-lorraine",
-      "offset_minutes": 70
-    }
-  ],
-  "events": [
-    {
-      "id": "c7e1e4a7-ecd5-46b4-90e4-ed39deec98d4",
-      "item_id": "butter-croissant",
-      "started_at": "2026-03-21T18:28:26.589Z"
-    },
-    {
-      "id": "730fd4bd-fa6a-423b-b52e-742e1ab924e9",
-      "item_id": "baguette",
-      "started_at": "2026-03-21T18:05:25.589Z"
-    },
-    {
-      "id": "61032e4b-85a0-499c-96ce-93bedb040feb",
-      "item_id": "quiche-lorraine",
-      "started_at": "2026-03-21T17:24:24.589Z"
-    }
-  ],
+  "seed_events": [],
+  "events": [],
   "sections": [
     {
       "id": "viennoiserie",
