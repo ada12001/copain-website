@@ -940,6 +940,34 @@ ul { list-style: none; }
 }
 .menu-item-group { display: flex; flex-direction: column; }
 
+.menu-subsection {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--gold-line);
+  grid-column: 1 / -1;
+}
+.menu-subsection:first-child { margin-top: 0; }
+
+.menu-item__seasonal {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid currentColor;
+  padding: 0.1em 0.45em;
+  border-radius: 2px;
+  margin-left: 0.5em;
+  vertical-align: middle;
+  opacity: 0.8;
+}
+
 /* === LOCATIONS PAGE === */
 .locations-hero {
   background: var(--dark);
