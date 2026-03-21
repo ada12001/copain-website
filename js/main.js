@@ -246,8 +246,11 @@
         const maxTravel = container.offsetHeight * 0.12;
         const offset = Math.max(-maxTravel, Math.min(maxTravel, rawOffset));
 
+        // For abs-positioned images the CSS scale is overwritten by style.transform on
+        // every frame, so we must include the scale here. Use larger value at narrower widths.
+        const absScale = window.innerWidth <= 1024 ? 1.5 : 1.35;
         el.style.transform = isAbs
-          ? `translateY(${offset}px)`
+          ? `translateY(${offset}px) scale(${absScale})`
           : `translateY(${offset}px) scale(1.25)`;
       });
       ticking = false;
