@@ -154,6 +154,7 @@ ul { list-style: none; }
   font-family: var(--font-script);
   font-weight: 100;
   line-height: 1.1;
+  margin-left: -0.04em; /* compensate TAYDreamboat left side-bearing */
 }
 .t-script--xl { font-size: clamp(3rem, 7vw, 8rem); }
 .t-script--lg { font-size: clamp(2rem, 4.5vw, 5rem); }
@@ -1418,6 +1419,7 @@ ul { list-style: none; }
 @media (max-width: 1024px) {
   .nav { grid-template-columns: auto 1fr auto; }
   .nav__left { display: none; }
+  .nav__mobile-toggle { display: flex; }
   .notre-pain__inner { grid-template-columns: 1fr; }
   .notre-pain__image { aspect-ratio: 16/9; }
   .notre-pain__image img { height: 100%; }
