@@ -176,11 +176,10 @@
         card.style.display = show ? '' : 'none';
       });
 
-      // Fix grid background gap when cards are hidden
+      // Clear any inline gridTemplateColumns so CSS auto-fit takes over
       const pdfGrid = document.getElementById('pdf-grid');
       if (pdfGrid) {
-        const visibleCount = pdfGrid.querySelectorAll('[data-pdf-location]:not([style*="none"])').length;
-        pdfGrid.style.gridTemplateColumns = `repeat(${visibleCount}, 1fr)`;
+        pdfGrid.style.gridTemplateColumns = '';
       }
 
       // Also sync the category-filter pills to "All" when location changes
