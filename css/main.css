@@ -103,7 +103,7 @@
 
 /* === RESET === */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; scroll-padding-top: calc(var(--header-h) + 1.5rem); }
 body {
   font-family: var(--font-body);
   font-size: clamp(1rem, 1.1vw, 1.125rem);

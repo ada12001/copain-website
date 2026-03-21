@@ -21,6 +21,22 @@
 
   document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
+  /* ── Anchor deep-link scroll (e.g. menu.html#menu-cafe) ── */
+  if (window.location.hash) {
+    const target = document.querySelector(window.location.hash);
+    if (target) {
+      setTimeout(() => {
+        const offset = parseInt(
+          getComputedStyle(document.documentElement).getPropertyValue('--header-h')
+        ) || 80;
+        window.scrollTo({
+          top: target.getBoundingClientRect().top + window.scrollY - offset - 24,
+          behavior: 'smooth'
+        });
+      }, 100);
+    }
+  }
+
   /* ── Header scroll state ───────────────────────────────── */
   const header = document.querySelector('.site-header');
   if (header) {
