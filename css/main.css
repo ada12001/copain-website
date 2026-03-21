@@ -1459,8 +1459,9 @@ ul { list-style: none; }
   .grid-split { grid-template-columns: 1fr; }
   /* Stack image pair */
   .image-pair { grid-template-columns: 1fr; }
-  /* Simplify image trio to 2-col */
+  /* Simplify image trio to 2-col; last image spans full width to avoid orphan gap */
   .image-trio { grid-template-columns: 1fr 1fr; }
+  .image-trio > div:last-child { grid-column: 1 / -1; }
   /* PDF grid: force single-column, override any inline style */
   #pdf-grid { grid-template-columns: 1fr !important; }
   /* Location pills wrap neatly */
