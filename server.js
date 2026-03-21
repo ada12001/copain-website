@@ -4,7 +4,7 @@ const fs = require('fs/promises');
 const path = require('path');
 const { URL } = require('url');
 
-const HOST = '127.0.0.1';
+const HOST = process.env.HOST || '0.0.0.0';
 const PORT = Number(process.env.PORT || 3000);
 const ROOT = __dirname;
 const DATA_DIR = path.join(ROOT, 'data');
@@ -353,6 +353,11 @@ async function handleStatic(res, pathname) {
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://${req.headers.host || `${HOST}:${PORT}`}`);
+
+    if (url.pathname === '/healthz' && req.method === 'GET') {
+      sendJson(res, 200, { ok: true });
+      return;
+    }
 
     if (url.pathname.startsWith('/api/')) {
       await handleApi(req, res, url.pathname);
