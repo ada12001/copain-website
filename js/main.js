@@ -6,6 +6,20 @@
 (function () {
   'use strict';
 
+  /* ── Smooth scroll (Lenis) ─────────────────────────────── */
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+    function lenisRaf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(lenisRaf);
+    }
+    requestAnimationFrame(lenisRaf);
+  }
+
   /* ── Scroll reveal ─────────────────────────────────────── */
   const revealObserver = new IntersectionObserver(
     (entries) => {

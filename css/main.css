@@ -103,7 +103,7 @@
 
 /* === RESET === */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; scroll-padding-top: calc(var(--header-h) + 1.5rem); }
+html { -webkit-font-smoothing: antialiased; scroll-padding-top: calc(var(--header-h) + 1.5rem); }
 body {
   font-family: var(--font-body);
   font-size: clamp(1rem, 1.1vw, 1.125rem);
@@ -617,6 +617,7 @@ ul { list-style: none; }
   transition: transform 0.8s var(--ease-out);
 }
 .location-card:hover .location-card__img { transform: scale(1.03); }
+.location-card__img-link { display: block; overflow: hidden; }
 .location-card__body {
   padding: 2rem 1.75rem 2.25rem;
   border-top: var(--border);
@@ -920,9 +921,7 @@ ul { list-style: none; }
   gap: 1.5rem;
   padding: 1.125rem 0;
   border-bottom: var(--border-dark);
-  transition: color var(--dur-fast);
 }
-.menu-item:hover { color: var(--gold); }
 .menu-item__name { font-family: var(--font-body); font-size: 1rem; }
 .menu-item__desc {
   font-family: var(--font-body);
