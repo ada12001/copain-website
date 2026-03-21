@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ballantyne Kitchen Ops — Copain Bakery &amp; Provisions</title>
+  <meta name="description" content="Private kitchen tablet prototype for Copain Ballantyne. One-tap oven tracking with automatic timing states." />
+  <link rel="stylesheet" href="css/main.css?v=16" />
+</head>
+<body class="ops-body">
+
+  <main class="ops-shell" data-kitchen-board data-location="Ballantyne">
+    <header class="ops-topbar">
+      <div class="ops-topbar__brand">
+        <img src="images/logos/logo-full-black.png" alt="Copain Bakery &amp; Provisions" width="180" height="49" />
+        <div>
+          <p class="ops-kicker">Kitchen Ops</p>
+          <h1 class="ops-title">Ballantyne Bake Board</h1>
+        </div>
+      </div>
+
+      <div class="ops-topbar__status">
+        <div class="ops-pill">
+          <span class="ops-pill__label">Date</span>
+          <strong data-kitchen-date>Saturday, March 21</strong>
+        </div>
+        <div class="ops-pill">
+          <span class="ops-pill__label">Clock</span>
+          <strong data-kitchen-clock>7:42 AM</strong>
+        </div>
+        <div class="ops-pill ops-pill--live">
+          <span class="ops-pill__dot" aria-hidden="true"></span>
+          <span data-kitchen-sync>Connecting</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="ops-intro">
+      <div>
+        <p class="t-eyebrow">Ballantyne Morning Production</p>
+        <h2 class="ops-intro__headline">Tap once when an item goes in the oven.</h2>
+        <p class="ops-intro__body">
+          The board handles bake time, cooling, and floor timing automatically. No extra updates needed during service.
+        </p>
+      </div>
+      <div class="ops-intro__summary">
+        <div class="ops-summary-card">
+          <span class="ops-summary-card__label">Today</span>
+          <strong>Morning Bake Window</strong>
+          <p>7:00 AM to 1:30 PM</p>
+        </div>
+        <div class="ops-summary-card">
+          <span class="ops-summary-card__label">Status Rules</span>
+          <strong>In Oven → Cooling → Fresh on Floor</strong>
+          <p>Each item follows its own timing profile.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="ops-layout">
+      <section class="ops-main" data-kitchen-sections>
+        <section class="ops-section">
+          <div class="ops-section__head">
+            <h3>Loading Board</h3>
+            <p>Connecting to the Ballantyne kitchen datastore</p>
+          </div>
+          <p class="ops-empty">Waiting for live board data.</p>
+        </section>
+      </section>
+
+      <aside class="ops-sidebar">
+        <section class="ops-card ops-card--activity">
+          <div class="ops-card__head">
+            <h3>Recent Activity</h3>
+            <p>Latest items moving toward the floor</p>
+          </div>
+          <div class="ops-activity-list" data-kitchen-activity>
+            <p class="ops-empty">No batches started yet.</p>
+          </div>
+        </section>
+
+        <section class="ops-card">
+          <div class="ops-card__head">
+            <h3>Public Site Language</h3>
+            <p>How the live homepage module translates kitchen timing</p>
+          </div>
+          <ul class="ops-rules">
+            <li><strong>In Oven</strong><span>Shown as “In the oven now”</span></li>
+            <li><strong>Cooling</strong><span>Shown as “Cooling now”</span></li>
+            <li><strong>Fresh on Floor</strong><span>Shown as “At Copain Today”</span></li>
+          </ul>
+        </section>
+
+        <section class="ops-card">
+          <div class="ops-card__head">
+            <h3>Manager Controls</h3>
+            <p>Reserved for later phases</p>
+          </div>
+          <div class="ops-manager-actions">
+            <button class="btn btn--outline btn--sm" type="button" disabled>Today Settings</button>
+            <button class="btn btn--outline btn--sm" type="button" disabled>Reset Batch</button>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

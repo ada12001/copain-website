@@ -120,7 +120,7 @@
     <!-- ═══════════════════════════════════════════════════════
          FROM THE CASE — Hero food shots
     ═══════════════════════════════════════════════════════ -->
-    <section class="case-section section" aria-labelledby="case-heading">
+    <section class="case-section section" aria-labelledby="case-heading" data-homepage-live-module hidden>
       <div class="section__inner">
         <div class="container">
 
@@ -135,8 +135,38 @@
             <a href="menu.html" class="btn btn--outline reveal reveal--delay-2">View Full Menu</a>
           </div>
 
+          <div class="live-feed" data-homepage-live-list>
+            <div class="live-feed__loading">
+              <p class="t-body u-muted">Checking today&apos;s oven board.</p>
+            </div>
+          </div>
+          <p class="live-feed__note t-body u-muted" data-homepage-live-note>
+            Live statuses appear only while items are in the oven, cooling, or still within their ready window.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         AT COPAIN TODAY — Curated feature cards
+    ═══════════════════════════════════════════════════════ -->
+    <section class="case-section section" aria-labelledby="case-curated-heading">
+      <div class="section__inner">
+        <div class="container">
+
+          <div class="case-header">
+            <div>
+              <span class="t-eyebrow reveal">At Copain Today</span>
+              <div class="spacer spacer--sm"></div>
+              <h2 class="t-display t-display--md reveal reveal--delay-1" id="case-curated-heading">
+                Fresh, Seasonal, and Served Throughout the Day
+              </h2>
+            </div>
+            <a href="menu.html" class="btn btn--outline reveal reveal--delay-2">View Full Menu</a>
+          </div>
+
           <div class="case-grid">
-            <!-- Hero card spans 2 cols -->
             <a class="case-card reveal" href="menu.html#menu-brasserie">
               <img
                 class="case-card__img"
@@ -149,7 +179,6 @@
                 <span class="case-card__tag">Brasserie · Ballantyne</span>
               </div>
             </a>
-            <!-- Secondary -->
             <a class="case-card reveal reveal--delay-1" href="menu.html#menu-brasserie">
               <img
                 class="case-card__img"
@@ -162,7 +191,6 @@
                 <span class="case-card__tag">Brasserie · Seasonal</span>
               </div>
             </a>
-            <!-- Third card -->
             <a class="case-card reveal" href="menu.html#menu-lunch">
               <img
                 class="case-card__img"

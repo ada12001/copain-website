@@ -264,6 +264,354 @@
     });
   }
 
+  /* ── Homepage live module ─────────────────────────────── */
+  const homepageLiveModule = document.querySelector('[data-homepage-live-module]');
+  if (homepageLiveModule) {
+    const listEl = homepageLiveModule.querySelector('[data-homepage-live-list]');
+    const timeFormatter = new Intl.DateTimeFormat('en-US', {
+      hour: 'numeric',
+      minute: '2-digit'
+    });
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[char]));
+    }
+
+    function formatTime(value) {
+      return timeFormatter.format(new Date(value));
+    }
+
+    function renderLiveCards(items) {
+      if (!items.length) {
+        homepageLiveModule.hidden = true;
+        return;
+      }
+
+      listEl.innerHTML = items.map((item) => [
+        '<article class="live-card" data-status="' + escapeHtml(item.status) + '">',
+        '<div class="live-card__top">',
+        '<div>',
+        '<p class="live-card__status">' + escapeHtml(item.status) + '</p>',
+        '<div class="spacer spacer--sm"></div>',
+        '<h3 class="live-card__name">' + escapeHtml(item.item_name) + '</h3>',
+        '</div>',
+        '<span class="live-card__location">' + escapeHtml(item.location_name) + '</span>',
+        '</div>',
+        '<div class="live-card__time">',
+        '<span class="live-card__time-label">' + escapeHtml(item.display_time) + '</span>',
+        '<span class="live-card__time-value">' + escapeHtml(formatTime(item.time_value)) + '</span>',
+        '</div>',
+        '</article>'
+      ].join('')).join('');
+
+      homepageLiveModule.hidden = false;
+    }
+
+    async function loadHomepageLive() {
+      try {
+        const response = await fetch('/api/homepage/live', {
+          headers: { Accept: 'application/json' }
+        });
+        if (!response.ok) throw new Error('Live feed unavailable.');
+        const payload = await response.json();
+        renderLiveCards(payload.items || []);
+      } catch (error) {
+        homepageLiveModule.hidden = true;
+      }
+    }
+
+    loadHomepageLive();
+    window.setInterval(loadHomepageLive, 60000);
+  }
+
+  /* ── Kitchen board prototype ───────────────────────────── */
+  const kitchenBoard = document.querySelector('[data-kitchen-board]');
+  if (kitchenBoard) {
+    const dateEl = kitchenBoard.querySelector('[data-kitchen-date]');
+    const clockEl = kitchenBoard.querySelector('[data-kitchen-clock]');
+    const syncEl = kitchenBoard.querySelector('[data-kitchen-sync]');
+    const sectionsEl = kitchenBoard.querySelector('[data-kitchen-sections]');
+    const activityEl = kitchenBoard.querySelector('[data-kitchen-activity]');
+    const locationSlug = (kitchenBoard.dataset.location || '')
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, '-');
+
+    const state = {
+      board: null,
+      pendingItemId: null
+    };
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[char]));
+    }
+
+    function getFormatters(timeZone) {
+      return {
+        date: new Intl.DateTimeFormat('en-US', {
+          weekday: 'long',
+          month: 'long',
+          day: 'numeric',
+          timeZone
+        }),
+        time: new Intl.DateTimeFormat('en-US', {
+          hour: 'numeric',
+          minute: '2-digit',
+          timeZone
+        })
+      };
+    }
+
+    function getLatestEvents(board) {
+      const latest = new Map();
+      (board.events || []).forEach((event) => {
+        const prior = latest.get(event.item_id);
+        if (!prior || new Date(event.started_at).getTime() > new Date(prior.started_at).getTime()) {
+          latest.set(event.item_id, event);
+        }
+      });
+      return latest;
+    }
+
+    function getItemLookup(board) {
+      return new Map(
+        (board.sections || []).flatMap((section) =>
+          section.items.map((item) => [item.id, item])
+        )
+      );
+    }
+
+    function getStage(item, latestEvent, now, formatters) {
+      if (!latestEvent) {
+        return {
+          key: 'idle',
+          status: 'Ready to Start',
+          eta: 'Tap when the tray goes in.',
+          badge: 'Ready',
+          detail: 'Waiting for oven start',
+          meta: ''
+        };
+      }
+
+      const startedAt = new Date(latestEvent.started_at).getTime();
+      const bakeEndsAt = startedAt + item.bake_minutes * 60 * 1000;
+      const floorAt = bakeEndsAt + (item.cool_minutes + item.floor_minutes) * 60 * 1000;
+      const formatTime = (ts) => formatters.time.format(new Date(ts));
+
+      if (now < bakeEndsAt) {
+        return {
+          key: 'baking',
+          status: 'In Oven Now',
+          eta: 'Cooling starts at ' + formatTime(bakeEndsAt),
+          badge: 'In Oven',
+          detail: 'Expected on floor ' + formatTime(floorAt),
+          meta: 'Started ' + formatTime(startedAt)
+        };
+      }
+
+      if (now < floorAt) {
+        return {
+          key: 'cooling',
+          status: 'Cooling',
+          eta: 'Expected on floor at ' + formatTime(floorAt),
+          badge: 'Cooling',
+          detail: 'Bake finished ' + formatTime(bakeEndsAt),
+          meta: 'Started ' + formatTime(startedAt)
+        };
+      }
+
+      return {
+        key: 'floor',
+        status: 'Fresh on Floor',
+        eta: 'Live on floor since ' + formatTime(floorAt),
+        badge: 'Fresh on Floor',
+        detail: 'Began baking ' + formatTime(startedAt),
+        meta: 'Live since ' + formatTime(floorAt)
+      };
+    }
+
+    function renderActivities(board, latestEvents, now, formatters) {
+      if (!activityEl) return;
+
+      const itemLookup = getItemLookup(board);
+      const items = Array.from(latestEvents.entries())
+        .sort((a, b) => new Date(b[1].started_at).getTime() - new Date(a[1].started_at).getTime())
+        .slice(0, 8);
+
+      if (!items.length) {
+        activityEl.innerHTML = '<p class="ops-empty">No batches started yet.</p>';
+        return;
+      }
+
+      activityEl.innerHTML = items.map(([itemId, event]) => {
+        const item = itemLookup.get(itemId);
+        const stage = getStage(item, event, now, formatters);
+        return [
+          '<article class="ops-activity">',
+          '<div class="ops-activity__top">',
+          '<strong>' + escapeHtml(item.name) + '</strong>',
+          '<span class="ops-activity__badge">' + escapeHtml(stage.badge) + '</span>',
+          '</div>',
+          '<div class="ops-activity__bottom">',
+          '<span>' + escapeHtml(stage.meta) + '</span>',
+          '<span>' + escapeHtml(stage.detail) + '</span>',
+          '</div>',
+          '</article>'
+        ].join('');
+      }).join('');
+    }
+
+    function renderSections(board) {
+      if (!sectionsEl) return;
+
+      const formatters = getFormatters(board.timezone || 'America/New_York');
+      const latestEvents = getLatestEvents(board);
+      const now = Date.now();
+
+      sectionsEl.innerHTML = (board.sections || []).map((section) => {
+        return [
+          '<article class="ops-section">',
+          '<div class="ops-section__head">',
+          '<h3>' + escapeHtml(section.title) + '</h3>',
+          '<p>' + escapeHtml(section.description) + '</p>',
+          '</div>',
+          '<div class="ops-item-grid">',
+          section.items.map((item) => {
+            const latestEvent = latestEvents.get(item.id);
+            const stage = getStage(item, latestEvent, now, formatters);
+            const isPosting = state.pendingItemId === item.id;
+            const actionLabel = isPosting ? 'Saving...' : 'Going In Oven';
+            return [
+              '<button class="ops-item' + (stage.key !== 'idle' ? ' is-active' : '') + (isPosting ? ' is-posting' : '') + '"',
+              ' type="button"',
+              ' data-item-id="' + escapeHtml(item.id) + '"',
+              ' data-stage="' + escapeHtml(stage.key) + '"',
+              ' aria-label="' + escapeHtml(item.name + '. ' + stage.status + '. ' + stage.eta) + '">',
+              '<span class="ops-item__copy">',
+              '<strong>' + escapeHtml(item.name) + '</strong>',
+              '<span>' + escapeHtml(item.bake_minutes + ' min bake · ' + item.cool_minutes + ' min cooling · ' + item.floor_minutes + ' min floor setup') + '</span>',
+              '</span>',
+              '<span class="ops-item__state">',
+              '<span class="ops-item__status">' + escapeHtml(stage.status) + '</span>',
+              '<span class="ops-item__eta">' + escapeHtml(stage.eta) + '</span>',
+              '</span>',
+              '<span class="ops-item__action">' + escapeHtml(actionLabel) + '</span>',
+              '</button>'
+            ].join('');
+          }).join(''),
+          '</div>',
+          '</article>'
+        ].join('');
+      }).join('');
+
+      renderActivities(board, latestEvents, now, formatters);
+
+      sectionsEl.querySelectorAll('[data-item-id]').forEach((button) => {
+        button.addEventListener('click', () => {
+          startItem(button.dataset.itemId);
+        });
+      });
+    }
+
+    function renderClock() {
+      if (!state.board) return;
+      const timeZone = state.board.timezone || 'America/New_York';
+      const formatters = getFormatters(timeZone);
+      const now = new Date();
+      if (dateEl) dateEl.textContent = formatters.date.format(now);
+      if (clockEl) clockEl.textContent = formatters.time.format(now);
+    }
+
+    function renderError(message) {
+      if (syncEl) syncEl.textContent = 'Sync unavailable';
+      if (sectionsEl) {
+        sectionsEl.innerHTML = [
+          '<section class="ops-section">',
+          '<div class="ops-section__head">',
+          '<h3>Board Unavailable</h3>',
+          '<p>The local kitchen API could not be reached.</p>',
+          '</div>',
+          '<p class="ops-empty ops-error">' + escapeHtml(message) + '</p>',
+          '</section>'
+        ].join('');
+      }
+      if (activityEl) {
+        activityEl.innerHTML = '<p class="ops-empty ops-error">Activity will appear here once the backend is available.</p>';
+      }
+    }
+
+    async function fetchBoard() {
+      const response = await fetch('/api/kitchen/' + locationSlug, {
+        headers: { Accept: 'application/json' }
+      });
+      if (!response.ok) {
+        throw new Error('Kitchen API returned ' + response.status + '.');
+      }
+      const payload = await response.json();
+      state.board = payload.board;
+      if (syncEl) syncEl.textContent = 'Connected';
+      renderClock();
+      renderSections(state.board);
+    }
+
+    async function startItem(itemId) {
+      if (!state.board || state.pendingItemId) return;
+      state.pendingItemId = itemId;
+      renderSections(state.board);
+
+      try {
+        const response = await fetch('/api/kitchen/' + locationSlug + '/start', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify({ itemId })
+        });
+
+        if (!response.ok) {
+          throw new Error('Could not save tray start.');
+        }
+
+        const payload = await response.json();
+        state.board = payload.board;
+        if (syncEl) syncEl.textContent = 'Connected';
+      } catch (error) {
+        if (syncEl) syncEl.textContent = 'Sync delayed';
+      } finally {
+        state.pendingItemId = null;
+        if (state.board) renderSections(state.board);
+      }
+    }
+
+    fetchBoard().catch((error) => {
+      renderError(error.message);
+    });
+
+    window.setInterval(() => {
+      renderClock();
+      if (state.board) renderSections(state.board);
+    }, 15000);
+
+    window.setInterval(() => {
+      fetchBoard().catch(() => {
+        if (syncEl) syncEl.textContent = 'Sync delayed';
+      });
+    }, 30000);
+  }
+
   /* ── Parallax ──────────────────────────────────────────── */
   (function initParallax() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;

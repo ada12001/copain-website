@@ -1,0 +1,148 @@
+{
+  "location": "Ballantyne",
+  "slug": "ballantyne",
+  "timezone": "America/New_York",
+  "board_date": "2026-03-21",
+  "seed_events": [
+    {
+      "item_id": "butter-croissant",
+      "offset_minutes": 6
+    },
+    {
+      "item_id": "baguette",
+      "offset_minutes": 29
+    },
+    {
+      "item_id": "quiche-lorraine",
+      "offset_minutes": 70
+    }
+  ],
+  "events": [
+    {
+      "id": "c7e1e4a7-ecd5-46b4-90e4-ed39deec98d4",
+      "item_id": "butter-croissant",
+      "started_at": "2026-03-21T18:28:26.589Z"
+    },
+    {
+      "id": "730fd4bd-fa6a-423b-b52e-742e1ab924e9",
+      "item_id": "baguette",
+      "started_at": "2026-03-21T18:05:25.589Z"
+    },
+    {
+      "id": "61032e4b-85a0-499c-96ce-93bedb040feb",
+      "item_id": "quiche-lorraine",
+      "started_at": "2026-03-21T17:24:24.589Z"
+    }
+  ],
+  "sections": [
+    {
+      "id": "viennoiserie",
+      "title": "Viennoiserie",
+      "description": "First trays and pastry re-fires",
+      "items": [
+        {
+          "id": "butter-croissant",
+          "name": "Butter Croissant",
+          "bake_minutes": 18,
+          "cool_minutes": 12,
+          "floor_minutes": 5,
+          "homepage_visibility_minutes": 90
+        },
+        {
+          "id": "chocolate-croissant",
+          "name": "Chocolate Croissant",
+          "bake_minutes": 19,
+          "cool_minutes": 12,
+          "floor_minutes": 5,
+          "homepage_visibility_minutes": 90
+        },
+        {
+          "id": "almond-croissant",
+          "name": "Almond Croissant",
+          "bake_minutes": 17,
+          "cool_minutes": 10,
+          "floor_minutes": 5,
+          "homepage_visibility_minutes": 90
+        },
+        {
+          "id": "kouign-amann",
+          "name": "Kouign-Amann",
+          "bake_minutes": 20,
+          "cool_minutes": 13,
+          "floor_minutes": 6,
+          "homepage_visibility_minutes": 100
+        }
+      ]
+    },
+    {
+      "id": "breads",
+      "title": "Breads",
+      "description": "Core loaves and all-day replenishment",
+      "items": [
+        {
+          "id": "baguette",
+          "name": "Baguette",
+          "bake_minutes": 24,
+          "cool_minutes": 15,
+          "floor_minutes": 6,
+          "homepage_visibility_minutes": 180
+        },
+        {
+          "id": "country-sourdough",
+          "name": "Country Sourdough",
+          "bake_minutes": 31,
+          "cool_minutes": 20,
+          "floor_minutes": 7,
+          "homepage_visibility_minutes": 240
+        },
+        {
+          "id": "multigrain-loaf",
+          "name": "Multigrain Loaf",
+          "bake_minutes": 28,
+          "cool_minutes": 18,
+          "floor_minutes": 7,
+          "homepage_visibility_minutes": 240
+        },
+        {
+          "id": "ficelle",
+          "name": "Ficelle",
+          "bake_minutes": 21,
+          "cool_minutes": 14,
+          "floor_minutes": 5,
+          "homepage_visibility_minutes": 150
+        }
+      ]
+    },
+    {
+      "id": "savory",
+      "title": "Savory",
+      "description": "Brasserie morning hold and cafe pass",
+      "items": [
+        {
+          "id": "quiche-lorraine",
+          "name": "Quiche Lorraine",
+          "bake_minutes": 28,
+          "cool_minutes": 18,
+          "floor_minutes": 8,
+          "homepage_visibility_minutes": 90
+        },
+        {
+          "id": "ham-gruyere-croissant",
+          "name": "Ham & Gruyere Croissant",
+          "bake_minutes": 18,
+          "cool_minutes": 10,
+          "floor_minutes": 5,
+          "homepage_visibility_minutes": 90
+        },
+        {
+          "id": "tomato-tart",
+          "name": "Tomato Tart",
+          "bake_minutes": 22,
+          "cool_minutes": 11,
+          "floor_minutes": 6,
+          "homepage_visibility_minutes": 120
+        }
+      ]
+    }
+  ]
+}
