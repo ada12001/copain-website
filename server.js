@@ -365,7 +365,7 @@ function buildHomepageFeed(boards) {
     return a.sort_time - b.sort_time;
   });
 
-  return items.slice(0, 6);
+  return items;
 }
 
 async function handleApi(req, res, pathname) {

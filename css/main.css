@@ -675,6 +675,11 @@ ul { list-style: none; }
   line-height: 1;
   margin-bottom: 0.6rem;
 }
+.live-feed__actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
 .case-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

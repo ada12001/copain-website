@@ -312,9 +312,12 @@
   /* ── Homepage live module ─────────────────────────────── */
   const homepageLiveModule = document.querySelector('[data-homepage-live-module]');
   if (homepageLiveModule) {
+    const INITIAL_LIVE_CARD_LIMIT = 6;
     const listEl = homepageLiveModule.querySelector('[data-homepage-live-list]');
     const emptyEl = homepageLiveModule.querySelector('[data-homepage-live-empty]');
     const emptyCopyEl = homepageLiveModule.querySelector('[data-homepage-live-empty-copy]');
+    const actionsEl = homepageLiveModule.querySelector('[data-homepage-live-actions]');
+    const toggleEl = homepageLiveModule.querySelector('[data-homepage-live-toggle]');
     const timeFormatter = new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
       minute: '2-digit'
@@ -322,7 +325,8 @@
     const liveLocationPills = homepageLiveModule.querySelectorAll('[data-homepage-live-location]');
     const liveState = {
       items: [],
-      location: getStoredLocationPreference()
+      location: getStoredLocationPreference(),
+      expanded: false
     };
 
     function escapeHtml(value) {
@@ -365,12 +369,17 @@
             ' right now. Switch locations or check back soon.';
         }
         if (emptyEl) emptyEl.hidden = false;
+        if (actionsEl) actionsEl.hidden = true;
         homepageLiveModule.hidden = false;
         return;
       }
 
       if (emptyEl) emptyEl.hidden = true;
-      listEl.innerHTML = filteredItems.map((item) => [
+      const visibleItems = liveState.expanded
+        ? filteredItems
+        : filteredItems.slice(0, INITIAL_LIVE_CARD_LIMIT);
+
+      listEl.innerHTML = visibleItems.map((item) => [
         '<article class="live-card" data-status="' + escapeHtml(item.status) + '">',
         '<div class="live-card__top">',
         '<div>',
@@ -387,6 +396,12 @@
         '</article>'
       ].join('')).join('');
 
+      if (actionsEl && toggleEl) {
+        const hasOverflow = filteredItems.length > INITIAL_LIVE_CARD_LIMIT;
+        actionsEl.hidden = !hasOverflow;
+        toggleEl.textContent = liveState.expanded ? 'Show Less' : 'Show More';
+      }
+
       homepageLiveModule.hidden = false;
     }
 
@@ -396,6 +411,7 @@
         : normalizeLocationPreference(location);
 
       liveState.location = normalized;
+      liveState.expanded = false;
       updateLiveLocationPills(normalized);
       renderLiveCards();
     }
@@ -419,6 +435,12 @@
         applyHomepageLiveLocation(pill.dataset.homepageLiveLocation, true);
       });
     });
+    if (toggleEl) {
+      toggleEl.addEventListener('click', () => {
+        liveState.expanded = !liveState.expanded;
+        renderLiveCards();
+      });
+    }
 
     applyHomepageLiveLocation(liveState.location, false);
     loadHomepageLive();
