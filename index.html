@@ -120,7 +120,7 @@
     <!-- ═══════════════════════════════════════════════════════
          FROM THE CASE — Hero food shots
     ═══════════════════════════════════════════════════════ -->
-    <section class="case-section section" aria-labelledby="case-heading" data-homepage-live-module hidden>
+    <section class="case-section case-section--live section" aria-labelledby="case-heading" data-homepage-live-module hidden>
       <div class="section__inner">
         <div class="container">
 
@@ -135,10 +135,23 @@
             <a href="#order" class="btn btn--outline reveal reveal--delay-2" data-order-modal>Order Now</a>
           </div>
 
+          <div class="live-feed__filters reveal reveal--delay-2" aria-label="Filter live items by location">
+            <button class="live-feed__filter-pill is-active" data-homepage-live-location="all">All Locations</button>
+            <button class="live-feed__filter-pill" data-homepage-live-location="southpark">SouthPark</button>
+            <button class="live-feed__filter-pill" data-homepage-live-location="ballantyne">Ballantyne</button>
+            <button class="live-feed__filter-pill" data-homepage-live-location="winston">Winston-Salem</button>
+          </div>
+
           <div class="live-feed" data-homepage-live-list>
             <div class="live-feed__loading">
               <p class="t-body u-muted">Checking today&apos;s oven board.</p>
             </div>
+          </div>
+          <div class="live-feed__empty" data-homepage-live-empty hidden>
+            <p class="live-feed__empty-title">Nothing live at this location right now.</p>
+            <p class="t-body u-muted" data-homepage-live-empty-copy>
+              Switch locations or check back soon for the next oven update.
+            </p>
           </div>
           <p class="live-feed__note t-body u-muted" data-homepage-live-note>
             Live statuses appear only while items are in the oven, cooling, or still within their ready window.

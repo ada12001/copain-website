@@ -517,6 +517,28 @@ ul { list-style: none; }
 
 /* === FROM THE CASE === */
 .case-section { background: var(--cream-light); }
+.case-section--live {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(196, 151, 90, 0.16), transparent 34%),
+    radial-gradient(circle at 82% 12%, rgba(196, 151, 90, 0.1), transparent 28%),
+    linear-gradient(180deg, #f9f2e6 0%, #f7efe3 100%);
+}
+.case-section--live::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(196, 151, 90, 0.05), transparent 18%, transparent 82%, rgba(196, 151, 90, 0.04)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 42%);
+  pointer-events: none;
+}
+.case-section--live .section__inner,
+.case-section--live .container {
+  position: relative;
+  z-index: 1;
+}
 .case-header {
   display: flex;
   align-items: flex-end;
@@ -606,6 +628,53 @@ ul { list-style: none; }
 .live-card[data-status="Ready"] .live-card__status { color: #355639; }
 .live-card[data-status="Cooling Now"] .live-card__status { color: #667252; }
 .live-card[data-status="In the Oven"] .live-card__status { color: #a36f1b; }
+.live-feed__filters {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 0 0 1.5rem;
+}
+.live-feed__filter-pill {
+  padding: 0.625rem 1.25rem;
+  border: 1px solid var(--border-dark);
+  background: transparent;
+  font-family: var(--font-util);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast),
+    background var(--dur-fast),
+    color var(--dur-fast),
+    transform var(--dur-fast);
+}
+.live-feed__filter-pill:hover {
+  border-color: var(--dark);
+  background: var(--dark);
+  color: var(--cream);
+}
+.live-feed__filter-pill.is-active {
+  border-color: var(--dark);
+  background: var(--dark);
+  color: var(--cream);
+}
+.live-feed__empty {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(26, 23, 20, 0.08);
+  background: rgba(255, 255, 255, 0.7);
+}
+.live-feed__empty-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
 .case-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

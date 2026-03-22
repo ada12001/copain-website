@@ -6,6 +6,44 @@
 (function () {
   'use strict';
 
+  const LOCATION_STORAGE_KEY = 'copainSelectedLocation';
+  const LOCATION_LABELS = {
+    all: 'All Locations',
+    southpark: 'SouthPark',
+    ballantyne: 'Ballantyne',
+    winston: 'Winston-Salem'
+  };
+
+  function normalizeLocationPreference(value) {
+    const normalized = String(value || '').trim().toLowerCase();
+
+    if (normalized === 'winston-salem') return 'winston';
+    if (normalized === 'south-park') return 'southpark';
+    if (Object.prototype.hasOwnProperty.call(LOCATION_LABELS, normalized)) return normalized;
+
+    return 'all';
+  }
+
+  function getStoredLocationPreference() {
+    try {
+      return normalizeLocationPreference(window.localStorage.getItem(LOCATION_STORAGE_KEY));
+    } catch (error) {
+      return 'all';
+    }
+  }
+
+  function setStoredLocationPreference(value) {
+    const normalized = normalizeLocationPreference(value);
+
+    try {
+      window.localStorage.setItem(LOCATION_STORAGE_KEY, normalized);
+    } catch (error) {
+      return normalized;
+    }
+
+    return normalized;
+  }
+
   /* ── Smooth scroll (Lenis) ─────────────────────────────── */
   if (typeof Lenis !== 'undefined') {
     const lenis = new Lenis({
@@ -193,6 +231,12 @@
   /* ── Menu page location pills ───────────────────────────── */
   const locationPills = document.querySelectorAll('.menu-hero__location-pill[data-location]');
   if (locationPills.length) {
+    function updateLocationPills(activeLocation) {
+      locationPills.forEach((pill) => {
+        pill.classList.toggle('is-active', pill.dataset.location === activeLocation);
+      });
+    }
+
     function applyLocationFilter(loc) {
       // Filter menu categories
       document.querySelectorAll('.menu-category[data-locations]').forEach((cat) => {
@@ -220,15 +264,16 @@
 
     locationPills.forEach((pill) => {
       pill.addEventListener('click', () => {
-        locationPills.forEach((p) => p.classList.remove('is-active'));
-        pill.classList.add('is-active');
-        applyLocationFilter(pill.dataset.location);
+        const location = setStoredLocationPreference(pill.dataset.location);
+        updateLocationPills(location);
+        applyLocationFilter(location);
       });
     });
 
     // Initialize
-    locationPills[0]?.classList.add('is-active');
-    applyLocationFilter('all');
+    const initialLocation = getStoredLocationPreference();
+    updateLocationPills(initialLocation);
+    applyLocationFilter(initialLocation);
   }
 
 
@@ -268,10 +313,17 @@
   const homepageLiveModule = document.querySelector('[data-homepage-live-module]');
   if (homepageLiveModule) {
     const listEl = homepageLiveModule.querySelector('[data-homepage-live-list]');
+    const emptyEl = homepageLiveModule.querySelector('[data-homepage-live-empty]');
+    const emptyCopyEl = homepageLiveModule.querySelector('[data-homepage-live-empty-copy]');
     const timeFormatter = new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
       minute: '2-digit'
     });
+    const liveLocationPills = homepageLiveModule.querySelectorAll('[data-homepage-live-location]');
+    const liveState = {
+      items: [],
+      location: getStoredLocationPreference()
+    };
 
     function escapeHtml(value) {
       return String(value).replace(/[&<>"']/g, (char) => ({
@@ -287,13 +339,38 @@
       return timeFormatter.format(new Date(value));
     }
 
-    function renderLiveCards(items) {
+    function updateLiveLocationPills(activeLocation) {
+      liveLocationPills.forEach((pill) => {
+        pill.classList.toggle('is-active', pill.dataset.homepageLiveLocation === activeLocation);
+      });
+    }
+
+    function renderLiveCards() {
+      const items = liveState.items || [];
+
       if (!items.length) {
         homepageLiveModule.hidden = true;
         return;
       }
 
-      listEl.innerHTML = items.map((item) => [
+      const filteredItems = liveState.location === 'all'
+        ? items
+        : items.filter((item) => normalizeLocationPreference(item.location_slug) === liveState.location);
+
+      if (!filteredItems.length) {
+        listEl.innerHTML = '';
+        if (emptyCopyEl) {
+          emptyCopyEl.textContent = 'There is nothing live at ' +
+            LOCATION_LABELS[liveState.location] +
+            ' right now. Switch locations or check back soon.';
+        }
+        if (emptyEl) emptyEl.hidden = false;
+        homepageLiveModule.hidden = false;
+        return;
+      }
+
+      if (emptyEl) emptyEl.hidden = true;
+      listEl.innerHTML = filteredItems.map((item) => [
         '<article class="live-card" data-status="' + escapeHtml(item.status) + '">',
         '<div class="live-card__top">',
         '<div>',
@@ -313,6 +390,16 @@
       homepageLiveModule.hidden = false;
     }
 
+    function applyHomepageLiveLocation(location, shouldPersist) {
+      const normalized = shouldPersist
+        ? setStoredLocationPreference(location)
+        : normalizeLocationPreference(location);
+
+      liveState.location = normalized;
+      updateLiveLocationPills(normalized);
+      renderLiveCards();
+    }
+
     async function loadHomepageLive() {
       try {
         const response = await fetch('/api/homepage/live', {
@@ -320,12 +407,20 @@
         });
         if (!response.ok) throw new Error('Live feed unavailable.');
         const payload = await response.json();
-        renderLiveCards(payload.items || []);
+        liveState.items = payload.items || [];
+        renderLiveCards();
       } catch (error) {
         homepageLiveModule.hidden = true;
       }
     }
 
+    liveLocationPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        applyHomepageLiveLocation(pill.dataset.homepageLiveLocation, true);
+      });
+    });
+
+    applyHomepageLiveLocation(liveState.location, false);
     loadHomepageLive();
     window.setInterval(loadHomepageLive, 60000);
   }
