@@ -339,6 +339,11 @@
     const sectionsEl = kitchenBoard.querySelector('[data-kitchen-sections]');
     const activityEl = kitchenBoard.querySelector('[data-kitchen-activity]');
     const resetBoardBtn = kitchenBoard.querySelector('[data-reset-board]');
+    const toggleSettingsBtn = kitchenBoard.querySelector('[data-toggle-settings]');
+    const settingsPanel = kitchenBoard.querySelector('[data-settings-panel]');
+    const settingsListEl = kitchenBoard.querySelector('[data-settings-list]');
+    const saveSettingsBtn = kitchenBoard.querySelector('[data-save-settings]');
+    const cancelSettingsBtn = kitchenBoard.querySelector('[data-cancel-settings]');
     const locationSlug = (kitchenBoard.dataset.location || '')
       .trim()
       .toLowerCase()
@@ -347,7 +352,9 @@
     const state = {
       board: null,
       pendingItemId: null,
-      pendingAction: null
+      pendingAction: null,
+      settingsOpen: false,
+      settingsDraft: null
     };
 
     function escapeHtml(value) {
@@ -393,6 +400,57 @@
           section.items.map((item) => [item.id, item])
         )
       );
+    }
+
+    function getCurrentSettings(board) {
+      return Object.fromEntries(
+        (board.sections || []).flatMap((section) =>
+          section.items.map((item) => [item.id, item.active_today !== false])
+        )
+      );
+    }
+
+    function hasSettingsChanges() {
+      if (!state.board || !state.settingsDraft) return false;
+      const current = getCurrentSettings(state.board);
+      return Object.keys(current).some((itemId) => current[itemId] !== state.settingsDraft[itemId]);
+    }
+
+    function renderSettingsPanel() {
+      if (!settingsPanel || !toggleSettingsBtn || !settingsListEl || !saveSettingsBtn) return;
+
+      toggleSettingsBtn.textContent = state.settingsOpen ? 'Close Settings' : 'Today Settings';
+      settingsPanel.hidden = !state.settingsOpen;
+
+      if (!state.settingsOpen || !state.board || !state.settingsDraft) return;
+
+      settingsListEl.innerHTML = (state.board.sections || []).map((section) => [
+        '<div class="ops-settings-group">',
+        '<p class="ops-settings-group__title">' + escapeHtml(section.title) + '</p>',
+        section.items.map((item) => {
+          const checked = state.settingsDraft[item.id] !== false;
+          return [
+            '<label class="ops-settings-option">',
+            '<input type="checkbox" data-settings-item="' + escapeHtml(item.id) + '"' + (checked ? ' checked' : '') + '>',
+            '<span>',
+            '<strong>' + escapeHtml(item.name) + '</strong>',
+            '<span>' + escapeHtml(checked ? 'Visible on today\'s board.' : 'Hidden from today\'s board.') + '</span>',
+            '</span>',
+            '</label>'
+          ].join('');
+        }).join(''),
+        '</div>'
+      ].join('')).join('');
+
+      saveSettingsBtn.disabled = !hasSettingsChanges() || !!state.pendingAction;
+      saveSettingsBtn.textContent = state.pendingAction === 'settings' ? 'Saving...' : 'Save Today';
+
+      settingsListEl.querySelectorAll('[data-settings-item]').forEach((input) => {
+        input.addEventListener('change', () => {
+          state.settingsDraft[input.dataset.settingsItem] = input.checked;
+          renderSettingsPanel();
+        });
+      });
     }
 
     function getStage(item, latestEvent, now, formatters) {
@@ -448,7 +506,13 @@
       if (!activityEl) return;
 
       const itemLookup = getItemLookup(board);
+      const visibleIds = new Set(
+        (board.sections || []).flatMap((section) =>
+          section.items.filter((item) => item.active_today !== false).map((item) => item.id)
+        )
+      );
       const items = Array.from(latestEvents.entries())
+        .filter(([itemId]) => visibleIds.has(itemId))
         .sort((a, b) => new Date(b[1].started_at).getTime() - new Date(a[1].started_at).getTime())
         .slice(0, 8);
 
@@ -491,6 +555,9 @@
       const now = Date.now();
 
       sectionsEl.innerHTML = (board.sections || []).map((section) => {
+        const activeItems = section.items.filter((item) => item.active_today !== false);
+        if (!activeItems.length) return '';
+
         return [
           '<article class="ops-section">',
           '<div class="ops-section__head">',
@@ -498,10 +565,10 @@
           '<p>' + escapeHtml(section.description) + '</p>',
           '</div>',
           '<div class="ops-item-grid">',
-          section.items.map((item) => {
+          activeItems.map((item) => {
             const latestEvent = latestEvents.get(item.id);
             const stage = getStage(item, latestEvent, now, formatters);
-            const isPosting = state.pendingItemId === item.id;
+            const isPosting = state.pendingItemId === item.id || state.pendingAction === 'start:' + item.id;
             const actionLabel = isPosting ? 'Saving...' : 'Going In Oven';
             return [
               '<button class="ops-item' + (stage.key !== 'idle' ? ' is-active' : '') + (isPosting ? ' is-posting' : '') + '"',
@@ -527,6 +594,7 @@
       }).join('');
 
       renderActivities(board, latestEvents, now, formatters);
+      renderSettingsPanel();
 
       sectionsEl.querySelectorAll('[data-item-id]').forEach((button) => {
         button.addEventListener('click', () => {
@@ -577,6 +645,7 @@
     }
 
     async function mutateBoard(endpoint, body, pendingAction, failureLabel) {
+      let succeeded = false;
       state.pendingAction = pendingAction;
       if (state.board) renderSections(state.board);
       if (resetBoardBtn && pendingAction === 'reset') {
@@ -600,6 +669,7 @@
 
         const payload = await response.json();
         state.board = payload.board;
+        succeeded = true;
         if (syncEl) syncEl.textContent = 'Connected';
       } catch (error) {
         if (syncEl) syncEl.textContent = 'Sync delayed';
@@ -609,8 +679,11 @@
           resetBoardBtn.disabled = false;
           resetBoardBtn.textContent = 'Reset Board';
         }
+        renderSettingsPanel();
         if (state.board) renderSections(state.board);
       }
+
+      return succeeded;
     }
 
     async function startItem(itemId) {
@@ -643,6 +716,30 @@
       }
     }
 
+    function openSettings() {
+      if (!state.board || state.pendingItemId || state.pendingAction) return;
+      state.settingsOpen = true;
+      state.settingsDraft = getCurrentSettings(state.board);
+      renderSettingsPanel();
+    }
+
+    function closeSettings() {
+      state.settingsOpen = false;
+      state.settingsDraft = null;
+      renderSettingsPanel();
+    }
+
+    async function saveSettings() {
+      if (!state.board || !state.settingsDraft || state.pendingItemId || state.pendingAction) return;
+      const items = Object.keys(state.settingsDraft).map((itemId) => ({
+        id: itemId,
+        active_today: state.settingsDraft[itemId]
+      }));
+
+      const succeeded = await mutateBoard('/settings', { items: items }, 'settings', 'Could not save settings.');
+      if (succeeded) closeSettings();
+    }
+
     function clearItem(itemId) {
       if (!state.board || state.pendingItemId || state.pendingAction) return;
       const item = getItemLookup(state.board).get(itemId);
@@ -662,6 +759,18 @@
 
     if (resetBoardBtn) {
       resetBoardBtn.addEventListener('click', resetBoard);
+    }
+    if (toggleSettingsBtn) {
+      toggleSettingsBtn.addEventListener('click', () => {
+        if (state.settingsOpen) closeSettings();
+        else openSettings();
+      });
+    }
+    if (cancelSettingsBtn) {
+      cancelSettingsBtn.addEventListener('click', closeSettings);
+    }
+    if (saveSettingsBtn) {
+      saveSettingsBtn.addEventListener('click', saveSettings);
     }
 
     fetchBoard().catch((error) => {

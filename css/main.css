@@ -1835,6 +1835,67 @@ ul { list-style: none; }
   gap: 0.75rem;
   flex-wrap: wrap;
 }
+.ops-settings-panel {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(26, 23, 20, 0.08);
+}
+.ops-settings-panel__intro {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin-bottom: 1rem;
+}
+.ops-settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.ops-settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.ops-settings-group__title {
+  font-family: var(--font-util);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.ops-settings-option {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid rgba(26, 23, 20, 0.08);
+  background: rgba(255, 255, 255, 0.58);
+}
+.ops-settings-option input {
+  width: 18px;
+  height: 18px;
+  margin-top: 0.1rem;
+  accent-color: var(--gold);
+}
+.ops-settings-option strong {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+.ops-settings-option span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+  line-height: 1.45;
+}
+.ops-settings-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
 
 /* Thin gold rule divider */
 .rule {

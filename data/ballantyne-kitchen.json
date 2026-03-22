@@ -4,7 +4,23 @@
   "timezone": "America/New_York",
   "board_date": "2026-03-21",
   "seed_events": [],
-  "events": [],
+  "events": [
+    {
+      "id": "44c88e74-6a84-49a6-b0ce-2eb715eb29d3",
+      "item_id": "chocolate-croissant",
+      "started_at": "2026-03-22T03:15:09.439Z"
+    },
+    {
+      "id": "0921f609-9553-4582-a6aa-3ff0cd837cb4",
+      "item_id": "kouign-amann",
+      "started_at": "2026-03-22T03:18:09.505Z"
+    },
+    {
+      "id": "dba744f5-a23c-4483-aee8-16ef997de168",
+      "item_id": "almond-croissant",
+      "started_at": "2026-03-22T03:18:10.139Z"
+    }
+  ],
   "sections": [
     {
       "id": "viennoiserie",
@@ -17,7 +33,8 @@
           "bake_minutes": 18,
           "cool_minutes": 12,
           "floor_minutes": 5,
-          "homepage_visibility_minutes": 90
+          "homepage_visibility_minutes": 90,
+          "active_today": true
         },
         {
           "id": "chocolate-croissant",
@@ -25,7 +42,8 @@
           "bake_minutes": 19,
           "cool_minutes": 12,
           "floor_minutes": 5,
-          "homepage_visibility_minutes": 90
+          "homepage_visibility_minutes": 90,
+          "active_today": true
         },
         {
           "id": "almond-croissant",
@@ -33,7 +51,8 @@
           "bake_minutes": 17,
           "cool_minutes": 10,
           "floor_minutes": 5,
-          "homepage_visibility_minutes": 90
+          "homepage_visibility_minutes": 90,
+          "active_today": true
         },
         {
           "id": "kouign-amann",
@@ -41,7 +60,8 @@
           "bake_minutes": 20,
           "cool_minutes": 13,
           "floor_minutes": 6,
-          "homepage_visibility_minutes": 100
+          "homepage_visibility_minutes": 100,
+          "active_today": true
         }
       ]
     },
@@ -56,7 +76,8 @@
           "bake_minutes": 24,
           "cool_minutes": 15,
           "floor_minutes": 6,
-          "homepage_visibility_minutes": 180
+          "homepage_visibility_minutes": 180,
+          "active_today": true
         },
         {
           "id": "country-sourdough",
@@ -64,7 +85,8 @@
           "bake_minutes": 31,
           "cool_minutes": 20,
           "floor_minutes": 7,
-          "homepage_visibility_minutes": 240
+          "homepage_visibility_minutes": 240,
+          "active_today": true
         },
         {
           "id": "multigrain-loaf",
@@ -72,7 +94,8 @@
           "bake_minutes": 28,
           "cool_minutes": 18,
           "floor_minutes": 7,
-          "homepage_visibility_minutes": 240
+          "homepage_visibility_minutes": 240,
+          "active_today": true
         },
         {
           "id": "ficelle",
@@ -80,7 +103,8 @@
           "bake_minutes": 21,
           "cool_minutes": 14,
           "floor_minutes": 5,
-          "homepage_visibility_minutes": 150
+          "homepage_visibility_minutes": 150,
+          "active_today": true
         }
       ]
     },
@@ -95,7 +119,8 @@
           "bake_minutes": 28,
           "cool_minutes": 18,
           "floor_minutes": 8,
-          "homepage_visibility_minutes": 90
+          "homepage_visibility_minutes": 90,
+          "active_today": true
         },
         {
           "id": "ham-gruyere-croissant",
@@ -103,7 +128,8 @@
           "bake_minutes": 18,
           "cool_minutes": 10,
           "floor_minutes": 5,
-          "homepage_visibility_minutes": 90
+          "homepage_visibility_minutes": 90,
+          "active_today": true
         },
         {
           "id": "tomato-tart",
@@ -111,7 +137,8 @@
           "bake_minutes": 22,
           "cool_minutes": 11,
           "floor_minutes": 6,
-          "homepage_visibility_minutes": 120
+          "homepage_visibility_minutes": 120,
+          "active_today": true
         }
       ]
     }

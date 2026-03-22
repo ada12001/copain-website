@@ -64,6 +64,12 @@ async function readBoardFromFile(filePath) {
 
   if (!Array.isArray(board.events)) board.events = [];
   if (!Array.isArray(board.sections)) board.sections = [];
+  board.sections.forEach((section) => {
+    section.items = Array.isArray(section.items) ? section.items : [];
+    section.items.forEach((item) => {
+      if (typeof item.active_today === 'undefined') item.active_today = true;
+    });
+  });
 
   return board;
 }
@@ -105,13 +111,40 @@ function sanitizePath(pathname) {
 }
 
 function collectItems(board) {
-  return board.sections.flatMap((section) => section.items.map((item) => ({
+  return board.sections.flatMap((section) => section.items
+    .filter((item) => item.active_today !== false)
+    .map((item) => ({
     ...item,
     section_id: section.id,
     section_title: section.title,
     location_name: board.location,
     location_slug: board.slug
-  })));
+    })));
+}
+
+function getItemLookup(board) {
+  return new Map(board.sections.flatMap((section) => section.items.map((item) => [item.id, {
+    ...item,
+    section_id: section.id,
+    section_title: section.title,
+    location_name: board.location,
+    location_slug: board.slug
+  }])));
+}
+
+function getLifecycleTimes(item, event) {
+  const startedAt = new Date(event.started_at).getTime();
+  const bakeEndAt = startedAt + item.bake_minutes * 60 * 1000;
+  const floorAt = bakeEndAt + (item.cool_minutes + item.floor_minutes) * 60 * 1000;
+  const visibilityMs = (item.homepage_visibility_minutes || 90) * 60 * 1000;
+  const hideAt = floorAt + visibilityMs;
+
+  return {
+    startedAt,
+    bakeEndAt,
+    floorAt,
+    hideAt
+  };
 }
 
 function latestEventsByItem(board) {
@@ -125,16 +158,30 @@ function latestEventsByItem(board) {
   return latest;
 }
 
+async function pruneExpiredEvents(filePath, board) {
+  const itemLookup = getItemLookup(board);
+  const now = Date.now();
+  const nextEvents = (board.events || []).filter((event) => {
+    const item = itemLookup.get(event.item_id);
+    if (!item) return false;
+    const times = getLifecycleTimes(item, event);
+    return times.hideAt > now;
+  });
+
+  if (nextEvents.length !== board.events.length) {
+    board.events = nextEvents;
+    await writeBoardToFile(filePath, board);
+  }
+
+  return board;
+}
+
 function buildLiveItem(item, event, now) {
   if (!event) return null;
 
-  const startedAt = new Date(event.started_at).getTime();
-  const bakeEndAt = startedAt + item.bake_minutes * 60 * 1000;
-  const floorAt = bakeEndAt + (item.cool_minutes + item.floor_minutes) * 60 * 1000;
-  const visibilityMs = (item.homepage_visibility_minutes || 90) * 60 * 1000;
-  const hideAt = floorAt + visibilityMs;
+  const times = getLifecycleTimes(item, event);
 
-  if (now < bakeEndAt) {
+  if (now < times.bakeEndAt) {
     return {
       item_id: item.id,
       item_name: item.name,
@@ -142,14 +189,14 @@ function buildLiveItem(item, event, now) {
       location_slug: item.location_slug,
       status: 'In the Oven',
       display_time: 'Expected at',
-      time_value: new Date(floorAt).toISOString(),
-      floor_at: new Date(floorAt).toISOString(),
+      time_value: new Date(times.floorAt).toISOString(),
+      floor_at: new Date(times.floorAt).toISOString(),
       sort_bucket: 2,
-      sort_time: floorAt
+      sort_time: times.floorAt
     };
   }
 
-  if (now < floorAt) {
+  if (now < times.floorAt) {
     return {
       item_id: item.id,
       item_name: item.name,
@@ -157,14 +204,14 @@ function buildLiveItem(item, event, now) {
       location_slug: item.location_slug,
       status: 'Cooling Now',
       display_time: 'Expected at',
-      time_value: new Date(floorAt).toISOString(),
-      floor_at: new Date(floorAt).toISOString(),
+      time_value: new Date(times.floorAt).toISOString(),
+      floor_at: new Date(times.floorAt).toISOString(),
       sort_bucket: 1,
-      sort_time: floorAt
+      sort_time: times.floorAt
     };
   }
 
-  if (now < hideAt) {
+  if (now < times.hideAt) {
     return {
       item_id: item.id,
       item_name: item.name,
@@ -172,11 +219,11 @@ function buildLiveItem(item, event, now) {
       location_slug: item.location_slug,
       status: 'Ready',
       display_time: 'Placed at',
-      time_value: new Date(floorAt).toISOString(),
-      floor_at: new Date(floorAt).toISOString(),
-      hide_at: new Date(hideAt).toISOString(),
+      time_value: new Date(times.floorAt).toISOString(),
+      floor_at: new Date(times.floorAt).toISOString(),
+      hide_at: new Date(times.hideAt).toISOString(),
       sort_bucket: 0,
-      sort_time: floorAt
+      sort_time: times.floorAt
     };
   }
 
@@ -203,7 +250,11 @@ function buildHomepageFeed(boards) {
 
 async function handleApi(req, res, pathname) {
   if (pathname === '/api/homepage/live' && req.method === 'GET') {
-    const boards = await readBoards();
+    const files = await listBoardFiles();
+    const boards = await Promise.all(files.map(async (filePath) => {
+      const board = await readBoardFromFile(filePath);
+      return pruneExpiredEvents(filePath, board);
+    }));
     return sendJson(res, 200, {
       items: buildHomepageFeed(boards),
       generated_at: new Date().toISOString()
@@ -212,7 +263,10 @@ async function handleApi(req, res, pathname) {
 
   const boardMatch = pathname.match(/^\/api\/kitchen\/([a-z0-9-]+)$/);
   if (boardMatch && req.method === 'GET') {
-    const board = await readBoard(boardMatch[1]);
+    const slug = boardMatch[1];
+    const filePath = boardFileForSlug(slug);
+    const board = await readBoardFromFile(filePath);
+    await pruneExpiredEvents(filePath, board);
     return sendJson(res, 200, {
       board,
       server_time: new Date().toISOString()
@@ -304,6 +358,39 @@ async function handleApi(req, res, pathname) {
 
     board.events = [];
     board.board_date = getTodayInTimeZone(board.timezone || 'America/New_York');
+    await writeBoardToFile(filePath, board);
+
+    return sendJson(res, 200, {
+      ok: true,
+      board,
+      server_time: new Date().toISOString()
+    });
+  }
+
+  const settingsMatch = pathname.match(/^\/api\/kitchen\/([a-z0-9-]+)\/settings$/);
+  if (settingsMatch && req.method === 'POST') {
+    let body;
+    try {
+      body = await parseJsonBody(req);
+    } catch (error) {
+      return sendError(res, 400, 'Invalid JSON body.');
+    }
+
+    const slug = settingsMatch[1];
+    const filePath = boardFileForSlug(slug);
+    const board = await readBoardFromFile(filePath);
+    const itemStates = new Map(
+      Array.isArray(body.items)
+        ? body.items.map((item) => [item.id, item.active_today !== false])
+        : []
+    );
+
+    board.sections.forEach((section) => {
+      section.items.forEach((item) => {
+        if (itemStates.has(item.id)) item.active_today = itemStates.get(item.id);
+      });
+    });
+
     await writeBoardToFile(filePath, board);
 
     return sendJson(res, 200, {
