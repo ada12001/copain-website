@@ -428,6 +428,26 @@
   /* ── Kitchen board prototype ───────────────────────────── */
   const kitchenBoard = document.querySelector('[data-kitchen-board]');
   if (kitchenBoard) {
+    const titleTag = document.querySelector('[data-kitchen-document-title]');
+    const descriptionTag = document.querySelector('[data-kitchen-meta-description]');
+    const authEl = kitchenBoard.querySelector('[data-kitchen-auth]');
+    const authLocationEl = kitchenBoard.querySelector('[data-kitchen-auth-location]');
+    const authCopyEl = kitchenBoard.querySelector('[data-kitchen-auth-copy]');
+    const authForm = kitchenBoard.querySelector('[data-kitchen-auth-form]');
+    const authPasswordEl = kitchenBoard.querySelector('[data-kitchen-auth-password]');
+    const authRememberEl = kitchenBoard.querySelector('[data-kitchen-auth-remember]');
+    const authErrorEl = kitchenBoard.querySelector('[data-kitchen-auth-error]');
+    const authSubmitEl = kitchenBoard.querySelector('[data-kitchen-auth-submit]');
+    const protectedContentEl = kitchenBoard.querySelector('[data-kitchen-protected-content]');
+    const pageKickerEl = kitchenBoard.querySelector('[data-kitchen-kicker]');
+    const pageTitleEl = kitchenBoard.querySelector('[data-kitchen-title]');
+    const introKickerEl = kitchenBoard.querySelector('[data-kitchen-intro-kicker]');
+    const introHeadlineEl = kitchenBoard.querySelector('[data-kitchen-intro-headline]');
+    const introBodyEl = kitchenBoard.querySelector('[data-kitchen-intro-body]');
+    const summaryEl = kitchenBoard.querySelector('[data-kitchen-summary]');
+    const loadingTitleEl = kitchenBoard.querySelector('[data-kitchen-loading-title]');
+    const loadingCopyEl = kitchenBoard.querySelector('[data-kitchen-loading-copy]');
+    const settingsIntroEl = kitchenBoard.querySelector('[data-kitchen-settings-intro]');
     const dateEl = kitchenBoard.querySelector('[data-kitchen-date]');
     const clockEl = kitchenBoard.querySelector('[data-kitchen-clock]');
     const syncEl = kitchenBoard.querySelector('[data-kitchen-sync]');
@@ -439,17 +459,20 @@
     const settingsListEl = kitchenBoard.querySelector('[data-settings-list]');
     const saveSettingsBtn = kitchenBoard.querySelector('[data-save-settings]');
     const cancelSettingsBtn = kitchenBoard.querySelector('[data-cancel-settings]');
-    const locationSlug = (kitchenBoard.dataset.location || '')
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, '-');
+    const logoutBtn = kitchenBoard.querySelector('[data-kitchen-logout]');
+    const locationParam = new URLSearchParams(window.location.search).get('location');
+    const locationSlug = (() => {
+      const normalized = normalizeLocationPreference(locationParam || kitchenBoard.dataset.location || '');
+      return normalized === 'all' ? 'ballantyne' : normalized;
+    })();
 
     const state = {
       board: null,
       pendingItemId: null,
       pendingAction: null,
       settingsOpen: false,
-      settingsDraft: null
+      settingsDraft: null,
+      authenticated: false
     };
 
     function escapeHtml(value) {
@@ -502,6 +525,126 @@
         (board.sections || []).flatMap((section) =>
           section.items.map((item) => [item.id, item.active_today !== false])
         )
+      );
+    }
+
+    function getLocationDisplayName(slug) {
+      return LOCATION_LABELS[normalizeLocationPreference(slug)] || 'Copain';
+    }
+
+    function getOpsCopy(board) {
+      return board && board.ops_copy ? board.ops_copy : {};
+    }
+
+    function renderSummaryCards(cards) {
+      if (!summaryEl) return;
+
+      summaryEl.innerHTML = (Array.isArray(cards) ? cards : []).map((card) => [
+        '<div class="ops-summary-card">',
+        '<span class="ops-summary-card__label">' + escapeHtml(card.label || '') + '</span>',
+        '<strong>' + escapeHtml(card.title || '') + '</strong>',
+        '<p>' + escapeHtml(card.body || '') + '</p>',
+        '</div>'
+      ].join('')).join('');
+    }
+
+    function setAuthError(message) {
+      if (!authErrorEl) return;
+      authErrorEl.hidden = !message;
+      authErrorEl.textContent = message || '';
+    }
+
+    function showProtectedContent() {
+      state.authenticated = true;
+      if (authEl) authEl.hidden = true;
+      if (protectedContentEl) protectedContentEl.hidden = false;
+      setAuthError('');
+      if (authPasswordEl) authPasswordEl.value = '';
+      if (authRememberEl) authRememberEl.checked = false;
+    }
+
+    function showAuthGate(message, configurationError) {
+      state.authenticated = false;
+      if (protectedContentEl) protectedContentEl.hidden = true;
+      if (authEl) authEl.hidden = false;
+      if (authLocationEl) authLocationEl.textContent = getLocationDisplayName(locationSlug) + ' Kitchen Access';
+      if (authCopyEl) {
+        authCopyEl.textContent = configurationError
+          ? 'This kitchen page cannot be unlocked until the location password is configured on the server.'
+          : 'This kitchen page is protected for staff use. Your session lasts 12 hours by default, or 30 days if you choose to remember this device.';
+      }
+      if (authSubmitEl) {
+        authSubmitEl.disabled = !!configurationError;
+        authSubmitEl.textContent = configurationError ? 'Access Unavailable' : 'Unlock Kitchen';
+      }
+      if (authPasswordEl) authPasswordEl.disabled = !!configurationError;
+      if (authRememberEl) authRememberEl.disabled = !!configurationError;
+      setAuthError(message || '');
+      if (syncEl) syncEl.textContent = configurationError ? 'Unavailable' : 'Locked';
+    }
+
+    function renderFallbackBoardChrome() {
+      renderBoardChrome({
+        location: getLocationDisplayName(locationSlug),
+        ops_copy: {
+          page_title: getLocationDisplayName(locationSlug) + ' Kitchen Ops — Copain Bakery & Provisions',
+          page_description: 'Private kitchen tablet board for Copain ' + getLocationDisplayName(locationSlug) + '.',
+          title: getLocationDisplayName(locationSlug) + ' Bake Board',
+          kicker: 'Kitchen Ops',
+          intro_kicker: getLocationDisplayName(locationSlug) + ' Production',
+          headline: 'Tap once when an item goes in the oven.',
+          body: 'The board handles bake time, cooling, and floor timing automatically. No extra updates needed during service.',
+          summary_cards: [
+            {
+              label: 'Today',
+              title: 'Password Protected',
+              body: 'Unlock this location to view the live kitchen board.'
+            }
+          ],
+          loading_title: 'Loading Board',
+          loading_copy: 'Connecting to the ' + getLocationDisplayName(locationSlug) + ' kitchen datastore',
+          settings_intro: 'Choose which items should appear on today\'s ' + getLocationDisplayName(locationSlug) + ' bake board.'
+        }
+      });
+    }
+
+    function renderBoardChrome(board) {
+      const opsCopy = getOpsCopy(board);
+      const locationName = board.location || LOCATION_LABELS[locationSlug] || 'Copain';
+
+      if (titleTag) {
+        titleTag.textContent = opsCopy.page_title || (locationName + ' Kitchen Ops — Copain Bakery & Provisions');
+      }
+      if (descriptionTag) {
+        descriptionTag.setAttribute(
+          'content',
+          opsCopy.page_description || ('Private kitchen tablet board for Copain ' + locationName + '.')
+        );
+      }
+      if (pageKickerEl) pageKickerEl.textContent = opsCopy.kicker || 'Kitchen Ops';
+      if (pageTitleEl) pageTitleEl.textContent = opsCopy.title || (locationName + ' Bake Board');
+      if (introKickerEl) introKickerEl.textContent = opsCopy.intro_kicker || (locationName + ' Morning Production');
+      if (introHeadlineEl) introHeadlineEl.textContent = opsCopy.headline || 'Tap once when an item goes in the oven.';
+      if (introBodyEl) {
+        introBodyEl.textContent = opsCopy.body ||
+          'The board handles bake time, cooling, and floor timing automatically. No extra updates needed during service.';
+      }
+      if (loadingTitleEl) loadingTitleEl.textContent = opsCopy.loading_title || 'Loading Board';
+      if (loadingCopyEl) loadingCopyEl.textContent = opsCopy.loading_copy || ('Connecting to the ' + locationName + ' kitchen datastore');
+      if (settingsIntroEl) {
+        settingsIntroEl.textContent = opsCopy.settings_intro || ('Choose which items should appear on today\'s ' + locationName + ' bake board.');
+      }
+
+      renderSummaryCards(
+        opsCopy.summary_cards && opsCopy.summary_cards.length
+          ? opsCopy.summary_cards
+          : [
+            {
+              label: 'Today',
+              title: 'Bake Window',
+              body: 'Check each tray as it moves from oven to floor.'
+            }
+          ]
       );
     }
 
@@ -708,6 +851,8 @@
     }
 
     function renderError(message) {
+      if (authEl) authEl.hidden = true;
+      if (protectedContentEl) protectedContentEl.hidden = false;
       if (syncEl) syncEl.textContent = 'Sync unavailable';
       if (sectionsEl) {
         sectionsEl.innerHTML = [
@@ -729,14 +874,21 @@
       const response = await fetch('/api/kitchen/' + locationSlug, {
         headers: { Accept: 'application/json' }
       });
+      const payload = await response.json().catch(() => ({}));
+      if (response.status === 401 || (response.status === 503 && payload.configuration_error)) {
+        showAuthGate(payload.error || 'Enter the kitchen password to continue.', !!payload.configuration_error);
+        return false;
+      }
       if (!response.ok) {
         throw new Error('Kitchen API returned ' + response.status + '.');
       }
-      const payload = await response.json();
       state.board = payload.board;
       if (syncEl) syncEl.textContent = 'Connected';
+      renderBoardChrome(state.board);
       renderClock();
       renderSections(state.board);
+      showProtectedContent();
+      return true;
     }
 
     async function mutateBoard(endpoint, body, pendingAction, failureLabel) {
@@ -758,14 +910,20 @@
           body: JSON.stringify(body || {})
         });
 
+        const payload = await response.json().catch(() => ({}));
+        if (response.status === 401 || (response.status === 503 && payload.configuration_error)) {
+          showAuthGate(payload.error || 'Enter the kitchen password to continue.', !!payload.configuration_error);
+          return false;
+        }
+
         if (!response.ok) {
           throw new Error(failureLabel);
         }
 
-        const payload = await response.json();
         state.board = payload.board;
         succeeded = true;
         if (syncEl) syncEl.textContent = 'Connected';
+        renderBoardChrome(state.board);
       } catch (error) {
         if (syncEl) syncEl.textContent = 'Sync delayed';
       } finally {
@@ -796,13 +954,19 @@
           body: JSON.stringify({ itemId })
         });
 
+        const payload = await response.json().catch(() => ({}));
+        if (response.status === 401 || (response.status === 503 && payload.configuration_error)) {
+          showAuthGate(payload.error || 'Enter the kitchen password to continue.', !!payload.configuration_error);
+          return;
+        }
+
         if (!response.ok) {
           throw new Error('Could not save tray start.');
         }
 
-        const payload = await response.json();
         state.board = payload.board;
         if (syncEl) syncEl.textContent = 'Connected';
+        renderBoardChrome(state.board);
       } catch (error) {
         if (syncEl) syncEl.textContent = 'Sync delayed';
       } finally {
@@ -846,10 +1010,63 @@
 
     function resetBoard() {
       if (!state.board || state.pendingItemId || state.pendingAction) return;
-      const confirmed = window.confirm('Reset the Ballantyne board and clear all active batches?');
+      const confirmed = window.confirm('Reset the ' + state.board.location + ' board and clear all active batches?');
       if (!confirmed) return;
 
       mutateBoard('/reset', {}, 'reset', 'Could not reset board.');
+    }
+
+    async function loginToKitchen(password, remember) {
+      if (!authSubmitEl) return false;
+
+      authSubmitEl.disabled = true;
+      authSubmitEl.textContent = 'Unlocking...';
+      setAuthError('');
+
+      try {
+        const response = await fetch('/api/kitchen/' + locationSlug + '/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify({
+            password: password,
+            remember: remember
+          })
+        });
+        const payload = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          showAuthGate(payload.error || 'Could not unlock this kitchen page.', !!payload.configuration_error);
+          return false;
+        }
+
+        const loaded = await fetchBoard();
+        return loaded !== false;
+      } catch (error) {
+        showAuthGate('Could not reach the kitchen access service. Please try again.', false);
+        return false;
+      }
+    }
+
+    async function logoutKitchen() {
+      try {
+        await fetch('/api/kitchen/' + locationSlug + '/auth/logout', {
+          method: 'POST',
+          headers: { Accept: 'application/json' }
+        });
+      } catch (error) {
+        // Fall through and lock the page locally even if the request fails.
+      }
+
+      state.board = null;
+      state.pendingItemId = null;
+      state.pendingAction = null;
+      state.settingsOpen = false;
+      state.settingsDraft = null;
+      renderFallbackBoardChrome();
+      showAuthGate('Signed out. Enter the password again to continue.', false);
     }
 
     if (resetBoardBtn) {
@@ -867,7 +1084,20 @@
     if (saveSettingsBtn) {
       saveSettingsBtn.addEventListener('click', saveSettings);
     }
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', logoutKitchen);
+    }
+    if (authForm) {
+      authForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        loginToKitchen(
+          authPasswordEl ? authPasswordEl.value : '',
+          authRememberEl ? authRememberEl.checked : false
+        );
+      });
+    }
 
+    renderFallbackBoardChrome();
     fetchBoard().catch((error) => {
       renderError(error.message);
     });

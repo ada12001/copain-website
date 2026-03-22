@@ -1,50 +1,50 @@
 {
-  "location": "Ballantyne",
-  "slug": "ballantyne",
+  "location": "SouthPark",
+  "slug": "southpark",
   "timezone": "America/New_York",
   "board_date": "2026-03-22",
   "ops_copy": {
-    "page_title": "Ballantyne Kitchen Ops — Copain Bakery & Provisions",
-    "page_description": "Private kitchen tablet board for Copain Ballantyne with one-tap oven tracking and automatic timing states.",
-    "title": "Ballantyne Bake Board",
+    "page_title": "SouthPark Kitchen Ops — Copain Bakery & Provisions",
+    "page_description": "Private kitchen tablet board for Copain SouthPark with one-tap oven tracking and automatic timing states.",
+    "title": "SouthPark Bake Board",
     "kicker": "Kitchen Ops",
-    "intro_kicker": "Ballantyne Morning Production",
+    "intro_kicker": "SouthPark Morning Production",
     "headline": "Tap once when an item goes in the oven.",
-    "body": "The board handles bake time, cooling, and floor timing automatically. No extra updates needed during service.",
+    "body": "Use one shared board for morning pastries, bread refreshes, and cafe-ready savory items throughout the day.",
     "summary_cards": [
       {
         "label": "Today",
-        "title": "Morning Bake Window",
-        "body": "7:00 AM to 1:30 PM"
+        "title": "Counter Bake Window",
+        "body": "6:30 AM to 12:00 PM"
       },
       {
         "label": "Status Rules",
         "title": "In Oven → Cooling → Ready",
-        "body": "Each item follows its own timing profile."
+        "body": "Homepage language updates automatically from each tray start."
       }
     ],
     "loading_title": "Loading Board",
-    "loading_copy": "Connecting to the Ballantyne kitchen datastore",
-    "settings_intro": "Choose which items should appear on today's Ballantyne bake board."
+    "loading_copy": "Connecting to the SouthPark kitchen datastore",
+    "settings_intro": "Choose which items should appear on today's SouthPark bake board."
   },
   "seed_events": [],
   "events": [
     {
-      "id": "3d239ef1-9e40-45c2-b532-1e82253cbd84",
-      "item_id": "butter-croissant",
-      "started_at": "2026-03-22T04:46:35.836Z"
+      "id": "390c7566-54f0-44ad-a1de-587c621a0e0a",
+      "item_id": "pain-au-chocolat",
+      "started_at": "2026-03-22T04:46:30.477Z"
     },
     {
-      "id": "754419ed-cc3f-4298-968b-5e87f2695619",
-      "item_id": "almond-croissant",
-      "started_at": "2026-03-22T04:46:36.481Z"
+      "id": "d3ec4a28-0aac-45d2-ac11-80b50b256186",
+      "item_id": "seasonal-danish",
+      "started_at": "2026-03-22T04:46:31.042Z"
     }
   ],
   "sections": [
     {
       "id": "viennoiserie",
       "title": "Viennoiserie",
-      "description": "First trays and pastry re-fires",
+      "description": "Opening trays and pastry refreshes",
       "items": [
         {
           "id": "butter-croissant",
@@ -56,8 +56,8 @@
           "active_today": true
         },
         {
-          "id": "chocolate-croissant",
-          "name": "Chocolate Croissant",
+          "id": "pain-au-chocolat",
+          "name": "Pain au Chocolat",
           "bake_minutes": 19,
           "cool_minutes": 12,
           "floor_minutes": 5,
@@ -74,12 +74,12 @@
           "active_today": true
         },
         {
-          "id": "kouign-amann",
-          "name": "Kouign-Amann",
-          "bake_minutes": 20,
-          "cool_minutes": 13,
-          "floor_minutes": 6,
-          "homepage_visibility_minutes": 100,
+          "id": "seasonal-danish",
+          "name": "Seasonal Danish",
+          "bake_minutes": 16,
+          "cool_minutes": 9,
+          "floor_minutes": 5,
+          "homepage_visibility_minutes": 90,
           "active_today": true
         }
       ]
@@ -87,7 +87,7 @@
     {
       "id": "breads",
       "title": "Breads",
-      "description": "Core loaves and all-day replenishment",
+      "description": "Core loaves and all-day shelf replenishment",
       "items": [
         {
           "id": "baguette",
@@ -108,20 +108,20 @@
           "active_today": true
         },
         {
-          "id": "multigrain-loaf",
-          "name": "Multigrain Loaf",
-          "bake_minutes": 28,
+          "id": "seeded-copain",
+          "name": "Seeded Copain",
+          "bake_minutes": 30,
           "cool_minutes": 18,
           "floor_minutes": 7,
           "homepage_visibility_minutes": 240,
           "active_today": true
         },
         {
-          "id": "ficelle",
-          "name": "Ficelle",
-          "bake_minutes": 21,
+          "id": "pain-au-lait",
+          "name": "Pain au Lait",
+          "bake_minutes": 23,
           "cool_minutes": 14,
-          "floor_minutes": 5,
+          "floor_minutes": 6,
           "homepage_visibility_minutes": 150,
           "active_today": true
         }
@@ -130,7 +130,7 @@
     {
       "id": "savory",
       "title": "Savory",
-      "description": "Brasserie morning hold and cafe pass",
+      "description": "Cafe case items and brunch hold",
       "items": [
         {
           "id": "quiche-lorraine",
@@ -142,8 +142,8 @@
           "active_today": true
         },
         {
-          "id": "ham-gruyere-croissant",
-          "name": "Ham & Gruyere Croissant",
+          "id": "speck-gruyere-croissant",
+          "name": "Speck & Gruyere Croissant",
           "bake_minutes": 18,
           "cool_minutes": 10,
           "floor_minutes": 5,
@@ -151,8 +151,8 @@
           "active_today": true
         },
         {
-          "id": "tomato-tart",
-          "name": "Tomato Tart",
+          "id": "tomato-goat-cheese-tart",
+          "name": "Tomato Goat Cheese Tart",
           "bake_minutes": 22,
           "cool_minutes": 11,
           "floor_minutes": 6,

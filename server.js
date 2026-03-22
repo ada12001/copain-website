@@ -1,5 +1,5 @@
 const http = require('http');
-const { randomUUID } = require('crypto');
+const { createHmac, randomUUID, timingSafeEqual } = require('crypto');
 const fs = require('fs/promises');
 const path = require('path');
 const { URL } = require('url');
@@ -8,6 +8,8 @@ const HOST = process.env.HOST || '0.0.0.0';
 const PORT = Number(process.env.PORT || 3000);
 const ROOT = __dirname;
 const DATA_DIR = path.join(ROOT, 'data');
+const DEFAULT_SESSION_HOURS = 12;
+const REMEMBER_SESSION_DAYS = 30;
 
 const MIME_TYPES = {
   '.css': 'text/css; charset=utf-8',
@@ -36,6 +38,124 @@ function getTodayInTimeZone(timeZone) {
 
 function boardFileForSlug(slug) {
   return path.join(DATA_DIR, `${slug}-kitchen.json`);
+}
+
+function authCookieName(slug) {
+  return `copain_kitchen_auth_${slug}`;
+}
+
+function normalizeSlug(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, '');
+}
+
+function getKitchenPassword(slug) {
+  const envKey = `KITCHEN_PASSWORD_${slug.toUpperCase().replace(/-/g, '_')}`;
+  return process.env[envKey] || process.env.KITCHEN_PASSWORD || '';
+}
+
+function getKitchenSecret(slug) {
+  return process.env.KITCHEN_AUTH_SECRET || getKitchenPassword(slug) || 'local-dev-kitchen-secret';
+}
+
+function parseCookies(req) {
+  const header = req.headers.cookie || '';
+  return header.split(';').reduce((cookies, part) => {
+    const [key, ...valueParts] = part.trim().split('=');
+    if (!key) return cookies;
+    cookies[key] = decodeURIComponent(valueParts.join('=') || '');
+    return cookies;
+  }, {});
+}
+
+function signSessionPayload(payload, slug) {
+  return createHmac('sha256', getKitchenSecret(slug))
+    .update(payload)
+    .digest('hex');
+}
+
+function createKitchenSessionToken(slug, expiresAt) {
+  const payload = `${slug}.${expiresAt}`;
+  const signature = signSessionPayload(payload, slug);
+  return Buffer.from(`${payload}.${signature}`).toString('base64url');
+}
+
+function verifyKitchenSessionToken(token, slug) {
+  if (!token) return false;
+
+  try {
+    const decoded = Buffer.from(token, 'base64url').toString('utf8');
+    const parts = decoded.split('.');
+    if (parts.length !== 3) return false;
+
+    const [tokenSlug, expiresAtRaw, signature] = parts;
+    const expiresAt = Number(expiresAtRaw);
+    if (tokenSlug !== slug || !Number.isFinite(expiresAt) || expiresAt <= Date.now()) {
+      return false;
+    }
+
+    const expected = signSessionPayload(`${tokenSlug}.${expiresAtRaw}`, slug);
+    const actualBuffer = Buffer.from(signature, 'utf8');
+    const expectedBuffer = Buffer.from(expected, 'utf8');
+    if (actualBuffer.length !== expectedBuffer.length) return false;
+
+    return timingSafeEqual(actualBuffer, expectedBuffer);
+  } catch (error) {
+    return false;
+  }
+}
+
+function buildCookieHeader(name, value, maxAgeSeconds, req) {
+  const segments = [
+    `${name}=${encodeURIComponent(value)}`,
+    'Path=/',
+    'HttpOnly',
+    'SameSite=Lax'
+  ];
+
+  if (typeof maxAgeSeconds === 'number') {
+    segments.push(`Max-Age=${Math.max(0, Math.floor(maxAgeSeconds))}`);
+    segments.push(`Expires=${new Date(Date.now() + Math.max(0, maxAgeSeconds) * 1000).toUTCString()}`);
+  }
+
+  const forwardedProto = req.headers['x-forwarded-proto'];
+  if (forwardedProto === 'https') {
+    segments.push('Secure');
+  }
+
+  return segments.join('; ');
+}
+
+function sendKitchenUnauthorized(res, slug, message) {
+  sendJson(res, 401, {
+    error: message || 'Authentication required.',
+    requires_auth: true,
+    location_slug: slug
+  });
+}
+
+function requireKitchenAuth(req, res, slug) {
+  const password = getKitchenPassword(slug);
+  if (!password) {
+    sendJson(res, 503, {
+      error: `Kitchen password for ${slug} is not configured.`,
+      requires_auth: true,
+      location_slug: slug,
+      configuration_error: true
+    });
+    return false;
+  }
+
+  const cookies = parseCookies(req);
+  const token = cookies[authCookieName(slug)];
+  if (!verifyKitchenSessionToken(token, slug)) {
+    sendKitchenUnauthorized(res, slug, 'Enter the kitchen password to continue.');
+    return false;
+  }
+
+  return true;
 }
 
 async function listBoardFiles() {
@@ -261,9 +381,69 @@ async function handleApi(req, res, pathname) {
     });
   }
 
+  const authLoginMatch = pathname.match(/^\/api\/kitchen\/([a-z0-9-]+)\/auth\/login$/);
+  if (authLoginMatch && req.method === 'POST') {
+    let body;
+    try {
+      body = await parseJsonBody(req);
+    } catch (error) {
+      return sendError(res, 400, 'Invalid JSON body.');
+    }
+
+    const slug = normalizeSlug(authLoginMatch[1]);
+    const expectedPassword = getKitchenPassword(slug);
+    if (!expectedPassword) {
+      return sendJson(res, 503, {
+        error: `Kitchen password for ${slug} is not configured.`,
+        configuration_error: true
+      });
+    }
+
+    if (String(body.password || '') !== expectedPassword) {
+      return sendKitchenUnauthorized(res, slug, 'Incorrect password. Please try again.');
+    }
+
+    const remember = body.remember === true;
+    const maxAgeSeconds = remember
+      ? REMEMBER_SESSION_DAYS * 24 * 60 * 60
+      : DEFAULT_SESSION_HOURS * 60 * 60;
+    const expiresAt = Date.now() + maxAgeSeconds * 1000;
+    const cookie = buildCookieHeader(
+      authCookieName(slug),
+      createKitchenSessionToken(slug, expiresAt),
+      maxAgeSeconds,
+      req
+    );
+
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'no-store',
+      'Set-Cookie': cookie
+    });
+    res.end(JSON.stringify({
+      ok: true,
+      expires_at: new Date(expiresAt).toISOString(),
+      location_slug: slug
+    }));
+    return;
+  }
+
+  const authLogoutMatch = pathname.match(/^\/api\/kitchen\/([a-z0-9-]+)\/auth\/logout$/);
+  if (authLogoutMatch && req.method === 'POST') {
+    const slug = normalizeSlug(authLogoutMatch[1]);
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'no-store',
+      'Set-Cookie': buildCookieHeader(authCookieName(slug), '', 0, req)
+    });
+    res.end(JSON.stringify({ ok: true }));
+    return;
+  }
+
   const boardMatch = pathname.match(/^\/api\/kitchen\/([a-z0-9-]+)$/);
   if (boardMatch && req.method === 'GET') {
     const slug = boardMatch[1];
+    if (!requireKitchenAuth(req, res, slug)) return;
     const filePath = boardFileForSlug(slug);
     const board = await readBoardFromFile(filePath);
     await pruneExpiredEvents(filePath, board);
@@ -283,6 +463,7 @@ async function handleApi(req, res, pathname) {
     }
 
     const slug = startMatch[1];
+    if (!requireKitchenAuth(req, res, slug)) return;
     const filePath = boardFileForSlug(slug);
     const board = await readBoardFromFile(filePath);
     const item = collectItems(board).find((entry) => entry.id === body.itemId);
@@ -317,6 +498,7 @@ async function handleApi(req, res, pathname) {
     }
 
     const slug = clearMatch[1];
+    if (!requireKitchenAuth(req, res, slug)) return;
     const filePath = boardFileForSlug(slug);
     const board = await readBoardFromFile(filePath);
     const itemId = body.itemId;
@@ -353,6 +535,7 @@ async function handleApi(req, res, pathname) {
   const resetMatch = pathname.match(/^\/api\/kitchen\/([a-z0-9-]+)\/reset$/);
   if (resetMatch && req.method === 'POST') {
     const slug = resetMatch[1];
+    if (!requireKitchenAuth(req, res, slug)) return;
     const filePath = boardFileForSlug(slug);
     const board = await readBoardFromFile(filePath);
 
@@ -377,6 +560,7 @@ async function handleApi(req, res, pathname) {
     }
 
     const slug = settingsMatch[1];
+    if (!requireKitchenAuth(req, res, slug)) return;
     const filePath = boardFileForSlug(slug);
     const board = await readBoardFromFile(filePath);
     const itemStates = new Map(
