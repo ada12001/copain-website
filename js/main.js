@@ -141,6 +141,12 @@
   const modalBackdrop = document.querySelector('.modal-overlay__backdrop');
   const modalClose = document.querySelector('.modal__close');
   const orderTriggers = document.querySelectorAll('[data-order-modal]');
+  const announcementOverlay = document.querySelector('.announcement-modal-overlay');
+  const announcementBackdrop = document.querySelector('.announcement-modal-overlay__backdrop');
+  const announcementClose = document.querySelector('.announcement-modal__close');
+  const announcementDismissers = document.querySelectorAll('[data-announcement-dismiss]');
+  const ANNOUNCEMENT_DISMISS_KEY = 'copainNewLocationAnnouncementDismissedAt';
+  const ANNOUNCEMENT_REOPEN_MS = 24 * 60 * 60 * 1000;
 
   function openModal() {
     if (!modalOverlay) return;
@@ -154,6 +160,28 @@
     document.body.style.overflow = '';
   }
 
+  function openAnnouncementModal() {
+    if (!announcementOverlay) return;
+    announcementOverlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeAnnouncementModal(shouldRemember) {
+    if (!announcementOverlay) return;
+    announcementOverlay.hidden = true;
+    if (!modalOverlay || !modalOverlay.classList.contains('is-open')) {
+      document.body.style.overflow = '';
+    }
+
+    if (shouldRemember) {
+      try {
+        window.localStorage.setItem(ANNOUNCEMENT_DISMISS_KEY, String(Date.now()));
+      } catch (error) {
+        // Ignore storage failures and allow the modal to reopen later.
+      }
+    }
+  }
+
   orderTriggers.forEach((trigger) => {
     trigger.addEventListener('click', (e) => {
       e.preventDefault();
@@ -163,13 +191,38 @@
 
   if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
   if (modalClose) modalClose.addEventListener('click', closeModal);
+  if (announcementBackdrop) {
+    announcementBackdrop.addEventListener('click', () => closeAnnouncementModal(true));
+  }
+  if (announcementClose) {
+    announcementClose.addEventListener('click', () => closeAnnouncementModal(true));
+  }
+  announcementDismissers.forEach((button) => {
+    button.addEventListener('click', () => closeAnnouncementModal(true));
+  });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeModal();
+      closeAnnouncementModal(true);
       closeMobileNav();
     }
   });
+
+  const pathName = window.location.pathname || '/';
+  const isHomePage = pathName === '/' || pathName.endsWith('/index.html') || pathName.endsWith('/index');
+  if (announcementOverlay && isHomePage) {
+    let dismissedAt = 0;
+    try {
+      dismissedAt = Number(window.localStorage.getItem(ANNOUNCEMENT_DISMISS_KEY) || '0');
+    } catch (error) {
+      dismissedAt = 0;
+    }
+
+    if (!dismissedAt || (Date.now() - dismissedAt) > ANNOUNCEMENT_REOPEN_MS) {
+      window.setTimeout(openAnnouncementModal, 800);
+    }
+  }
 
   /* ── Active nav link ────────────────────────────────────── */
   const currentPath = window.location.pathname.replace(/\/$/, '') || '/index';

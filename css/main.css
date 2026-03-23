@@ -1458,6 +1458,65 @@ ul { list-style: none; }
   gap: 1rem;
   flex-wrap: wrap;
 }
+.announcement-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 140;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+.announcement-modal-overlay[hidden] { display: none; }
+.announcement-modal-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 23, 20, 0.82);
+  backdrop-filter: blur(8px);
+}
+.announcement-modal {
+  position: relative;
+  z-index: 1;
+  width: min(720px, 100%);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background:
+    radial-gradient(circle at top right, rgba(196, 151, 90, 0.18), transparent 32%),
+    linear-gradient(180deg, rgba(250, 244, 232, 0.98), rgba(243, 235, 221, 0.98));
+  border: 1px solid rgba(26, 23, 20, 0.08);
+  box-shadow: 0 28px 80px rgba(26, 23, 20, 0.2);
+}
+.announcement-modal__close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  font-family: var(--font-util);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.announcement-modal__close:hover { color: var(--dark); }
+.announcement-modal__content {
+  max-width: 34rem;
+}
+.announcement-modal__title {
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  line-height: 0.92;
+  margin: 0.9rem 0 1rem;
+}
+.announcement-modal__body {
+  max-width: 32rem;
+  color: var(--text-muted);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+.announcement-modal__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
 
 /* === PARALLAX === */
 [data-parallax] {
@@ -2329,6 +2388,8 @@ ul { list-style: none; }
   .location-details__grid { grid-template-columns: 1fr; }
   .modal { max-width: 100%; }
   .modal__header, .modal__location, .modal__footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .announcement-modal__actions { flex-direction: column; align-items: stretch; }
+  .announcement-modal__actions .btn { width: 100%; justify-content: center; }
   .category-pills { gap: 0.5rem; }
   /* Stack inline 2-col grids */
   .grid-split { grid-template-columns: 1fr; }
