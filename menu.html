@@ -6,6 +6,9 @@
   <title>Menu — Copain Bakery &amp; Provisions</title>
   <meta name="description" content="Scratch-made breads, laminated pastries, seasonal café, and brasserie menus at Copain Bakery in Charlotte and Winston-Salem." />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="preconnect" href="https://use.typekit.net" />
+  <link rel="preconnect" href="https://p.typekit.net" crossorigin />
+  <link rel="stylesheet" href="https://use.typekit.net/hly1zzp.css" />
   <link rel="stylesheet" href="css/main.css?v=15" />
 </head>
 <body>
@@ -53,7 +56,7 @@
                style="background:var(--cream-light);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1rem;transition:background var(--dur-fast);"
                onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='var(--cream-light)'">
               <span class="t-eyebrow">SouthPark</span>
-              <p class="t-display" style="font-size:1.5rem;">Bakery &amp; Café Menu</p>
+              <p class="t-display t-display--card">Bakery &amp; Café Menu</p>
               <p class="t-body t-body--sm u-muted">Full boulangerie menu — pastries, breads, café drinks, and provisions.</p>
               <span class="btn btn--outline btn--sm" style="align-self:flex-start;margin-top:auto;">Download PDF →</span>
             </a>
@@ -65,7 +68,7 @@
                style="background:var(--cream-light);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1rem;transition:background var(--dur-fast);"
                onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='var(--cream-light)'">
               <span class="t-eyebrow">Ballantyne</span>
-              <p class="t-display" style="font-size:1.5rem;">Brasserie Menu</p>
+              <p class="t-display t-display--card">Brasserie Menu</p>
               <p class="t-body t-body--sm u-muted">Full brasserie menu — breakfast, lunch, and dinner service with wine and cocktails.</p>
               <span class="btn btn--outline btn--sm" style="align-self:flex-start;margin-top:auto;">Download PDF →</span>
             </a>
@@ -77,7 +80,7 @@
                style="background:var(--cream-light);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1rem;transition:background var(--dur-fast);"
                onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='var(--cream-light)'">
               <span class="t-eyebrow">Winston-Salem</span>
-              <p class="t-display" style="font-size:1.5rem;">Bakery &amp; Café Menu</p>
+              <p class="t-display t-display--card">Bakery &amp; Café Menu</p>
               <p class="t-body t-body--sm u-muted">Scratch-made breads, laminated pastries, and seasonal café drinks.</p>
               <span class="btn btn--outline btn--sm" style="align-self:flex-start;margin-top:auto;">Download PDF →</span>
             </a>
@@ -703,7 +706,7 @@
       <div class="footer-inner">
         <div class="footer-brand">
           <div class="footer-logo">
-            <img src="images/logos/logo-full-white.png" alt="Copain Bakery &amp; Provisions" width="160" height="44" loading="lazy" />
+            <img src="images/logos/footer-mark.svg" alt="Copain Bakery &amp; Provisions" width="44" height="44" loading="lazy" />
           </div>
           <p class="footer-brand__tagline">Notre Pain Quotidien</p>
           <p class="footer-brand__body">French-inspired, artisan-made bakery and provisions. Three locations in Charlotte and Winston-Salem, NC.</p>
@@ -742,7 +745,14 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copyright">&copy; 2025 Copain Bakery &amp; Provisions. All rights reserved.</p>
+        <p class="footer-copyright">&copy; 2026 Copain Bakery &amp; Provisions. All rights reserved.</p>
+        <nav class="footer-locations" aria-label="Order location links">
+          <a href="https://order.toasttab.com/online/copain-new-6601-carnegie-blvd" target="_blank" rel="noopener noreferrer" class="footer-location-link">order southpark</a>
+          <span class="footer-location-separator" aria-hidden="true">&bull;</span>
+          <a href="https://order.toasttab.com/online/copain-ballantyne-14020-stream-way-suite-118" target="_blank" rel="noopener noreferrer" class="footer-location-link">order ballantyne</a>
+          <span class="footer-location-separator" aria-hidden="true">&bull;</span>
+          <a href="https://order.toasttab.com/online/copain-winston-380-knollwood" target="_blank" rel="noopener noreferrer" class="footer-location-link">order winston-salem</a>
+        </nav>
       </div>
     </div>
   </footer>

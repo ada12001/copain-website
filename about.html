@@ -6,6 +6,9 @@
   <title>About Us — Copain Bakery &amp; Provisions</title>
   <meta name="description" content="About Copain Bakery &amp; Provisions — a French-inspired boulangerie with café, pâtisserie, and brasserie expressions across Charlotte and Winston-Salem." />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="preconnect" href="https://use.typekit.net" />
+  <link rel="preconnect" href="https://p.typekit.net" crossorigin />
+  <link rel="stylesheet" href="https://use.typekit.net/hly1zzp.css" />
   <link rel="stylesheet" href="css/main.css?v=15" />
 </head>
 <body>
@@ -15,33 +18,33 @@
 
   <main>
 
-    <div class="about-hero page-intro page-intro--center">
+    <div class="about-hero">
       <div class="container">
-        <p class="t-eyebrow t-eyebrow--light reveal">About Us</p>
+        <p class="t-eyebrow reveal">About Us</p>
         <div class="spacer spacer--sm"></div>
-        <h1 class="about-hero__headline t-display t-display--lg reveal reveal--delay-1" style="color:var(--dark);">
-          A French Bakery,<br />Several Ways to Gather
+        <h1 class="about-hero__headline t-display t-display--lg reveal reveal--delay-1">
+          Our Story
         </h1>
         <div class="spacer spacer--sm"></div>
         <p class="t-script t-script--lg reveal reveal--delay-2" style="color:var(--gold);">Notre Histoire</p>
         <div class="spacer spacer--sm"></div>
-        <p class="page-intro__body t-body t-body--lg reveal reveal--delay-3" style="max-width:680px;margin:0 auto;">
+        <p class="about-hero__body t-body t-body--lg reveal reveal--delay-3">
           Copain is rooted in bread, but it has grown into a family of experiences: the everyday rhythm of a neighborhood café, the precision of a pâtisserie, and the warmth of a full French brasserie.
         </p>
       </div>
-      <div style="margin-top:clamp(3rem,6vw,5rem);overflow:hidden;max-height:220px;">
+      <div class="about-hero__art">
         <img
           src="images/brand/FarmScene.png"
           alt="French farm scene engraving-style illustration"
           loading="lazy"
-          style="width:100%;object-fit:cover;object-position:center;opacity:0.22;filter:brightness(0) invert(1);"
+          class="about-hero__art-image"
         />
       </div>
     </div>
 
     <section class="section section--cream" aria-labelledby="concepts-heading">
       <div class="section__inner">
-        <div class="container">
+        <div class="container container--wide">
           <div class="u-center" style="margin-bottom:clamp(3rem,5vw,4.5rem);">
             <span class="t-eyebrow reveal">The Concepts</span>
             <div class="spacer spacer--sm"></div>
@@ -105,11 +108,12 @@
             </div>
 
             <div class="about-content">
-              <span class="t-eyebrow reveal">The Story</span>
-              <div class="spacer spacer--sm"></div>
-              <h2 class="t-display t-display--md reveal reveal--delay-1" id="story-heading">
-                Built by Hand,<br />Led by Hospitality
-              </h2>
+              <div class="section-heading-stack">
+                <span class="t-eyebrow reveal">The Story</span>
+                <h2 class="t-display t-display--md reveal reveal--delay-1" id="story-heading">
+                  Built by Hand,<br />Led by Hospitality
+                </h2>
+              </div>
               <p class="about-content__body t-body reveal reveal--delay-2">
                 Copain grew from Chef Jim Noble’s long belief that truly great bread changes the way a table feels. Long before the current locations, he was already baking baguettes and chasing the kind of flavor, texture, and integrity that only patience can produce.
               </p>
@@ -137,11 +141,12 @@
           />
         </div>
         <div class="craft-content">
-          <span class="t-eyebrow t-eyebrow--light reveal">The Craft</span>
-          <div class="spacer spacer--sm"></div>
-          <h2 class="craft-content__headline t-display t-display--md reveal reveal--delay-1" id="craft-heading">
-            French Method.<br />Carolina Sensibility.
-          </h2>
+          <div class="section-heading-stack">
+            <span class="t-eyebrow t-eyebrow--light reveal">The Craft</span>
+            <h2 class="craft-content__headline t-display t-display--md reveal reveal--delay-1" id="craft-heading">
+              French Method.<br />Carolina Sensibility.
+            </h2>
+          </div>
           <p class="craft-content__body t-body reveal reveal--delay-2">
             Copain follows classic French bakery methods because they work: long fermentation, layered lamination, patient proofing, and high heat where it matters. We care about the kind of detail you can taste even if you never see the work behind it.
           </p>
@@ -163,12 +168,14 @@
                 Same Standard,<br />Different Feel
               </h2>
               <div class="spacer spacer--sm"></div>
-              <p class="t-body reveal reveal--delay-2">
-                SouthPark and Winston-Salem emphasize the café-bakery side of Copain: coffee, croissants, lunch, provisions, and the daily flow of a neighborhood regular spot.
-              </p>
-              <p class="t-body reveal reveal--delay-3">
-                Ballantyne carries all of that forward while adding the full brasserie layer: table service, dinner, a curated wine list, and a broader sense of occasion from morning to night.
-              </p>
+              <div class="about-location-copy">
+                <p class="t-body reveal reveal--delay-2">
+                  SouthPark and Winston-Salem emphasize the café-bakery side of Copain: coffee, croissants, lunch, provisions, and the daily flow of a neighborhood regular spot.
+                </p>
+                <p class="t-body reveal reveal--delay-3">
+                  Ballantyne carries all of that forward while adding the full brasserie layer: table service, dinner, a curated wine list, and a broader sense of occasion from morning to night.
+                </p>
+              </div>
               <div class="spacer spacer--md"></div>
               <div class="reveal reveal--delay-4">
                 <a href="locations.html" class="btn btn--filled">Explore Our Locations</a>
@@ -204,16 +211,16 @@
               <div class="spacer spacer--md"></div>
               <div class="reveal reveal--delay-3" style="display:flex;flex-direction:column;gap:0.75rem;">
                 <a href="https://www.noblefoodandpursuits.com/" target="_blank" rel="noopener noreferrer"
-                   class="footer-col__link" style="font-family:var(--font-body);font-size:1rem;color:rgba(242,232,217,0.55);transition:color 0.25s;"
+                   class="footer-col__link"
                    onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='rgba(242,232,217,0.55)'">Noble Food &amp; Pursuits ↗</a>
                 <a href="https://www.roosterskitchen.com/" target="_blank" rel="noopener noreferrer"
-                   class="footer-col__link" style="font-family:var(--font-body);font-size:1rem;color:rgba(242,232,217,0.55);transition:color 0.25s;"
+                   class="footer-col__link"
                    onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='rgba(242,232,217,0.55)'">Rooster&apos;s Wood-Fired Kitchen ↗</a>
                 <a href="https://www.noblesmokebarbecue.com/" target="_blank" rel="noopener noreferrer"
-                   class="footer-col__link" style="font-family:var(--font-body);font-size:1rem;color:rgba(242,232,217,0.55);transition:color 0.25s;"
+                   class="footer-col__link"
                    onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='rgba(242,232,217,0.55)'">Noble Smoke ↗</a>
                 <a href="https://www.thejimmyclt.com/" target="_blank" rel="noopener noreferrer"
-                   class="footer-col__link" style="font-family:var(--font-body);font-size:1rem;color:rgba(242,232,217,0.55);transition:color 0.25s;"
+                   class="footer-col__link"
                    onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='rgba(242,232,217,0.55)'">The Jimmy ↗</a>
               </div>
             </div>
@@ -303,7 +310,7 @@
       <div class="footer-inner">
         <div class="footer-brand">
           <div class="footer-logo">
-            <img src="images/logos/logo-full-white.png" alt="Copain Bakery &amp; Provisions" width="160" height="44" loading="lazy" />
+            <img src="images/logos/footer-mark.svg" alt="Copain Bakery &amp; Provisions" width="44" height="44" loading="lazy" />
           </div>
           <p class="footer-brand__tagline">Notre Pain Quotidien</p>
           <p class="footer-brand__body">French-inspired, artisan-made bakery and provisions. Three locations in Charlotte and Winston-Salem, NC.</p>
@@ -343,7 +350,14 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copyright">&copy; 2025 Copain Bakery &amp; Provisions. All rights reserved.</p>
+        <p class="footer-copyright">&copy; 2026 Copain Bakery &amp; Provisions. All rights reserved.</p>
+        <nav class="footer-locations" aria-label="Order location links">
+          <a href="https://order.toasttab.com/online/copain-new-6601-carnegie-blvd" target="_blank" rel="noopener noreferrer" class="footer-location-link">order southpark</a>
+          <span class="footer-location-separator" aria-hidden="true">&bull;</span>
+          <a href="https://order.toasttab.com/online/copain-ballantyne-14020-stream-way-suite-118" target="_blank" rel="noopener noreferrer" class="footer-location-link">order ballantyne</a>
+          <span class="footer-location-separator" aria-hidden="true">&bull;</span>
+          <a href="https://order.toasttab.com/online/copain-winston-380-knollwood" target="_blank" rel="noopener noreferrer" class="footer-location-link">order winston-salem</a>
+        </nav>
       </div>
     </div>
   </footer>

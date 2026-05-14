@@ -6,6 +6,9 @@
   <title>Wholesale — Copain Bakery &amp; Provisions</title>
   <meta name="description" content="Wholesale artisan bread and pastries from Copain Bakery. Partner with us to bring French-inspired, scratch-made baked goods to your restaurant, café, or market." />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="preconnect" href="https://use.typekit.net" />
+  <link rel="preconnect" href="https://p.typekit.net" crossorigin />
+  <link rel="stylesheet" href="https://use.typekit.net/hly1zzp.css" />
   <link rel="stylesheet" href="css/main.css?v=15" />
 </head>
 <body>
@@ -15,54 +18,63 @@
 
   <main>
 
-    <!-- PAGE INTRO -->
-    <div class="page-intro" aria-labelledby="wholesale-heading">
-      <div class="container">
-        <p class="t-eyebrow t-eyebrow--light reveal">For Trade Partners</p>
-        <div class="spacer spacer--sm"></div>
-        <h1 class="t-display t-display--lg reveal reveal--delay-1" id="wholesale-heading" style="color:var(--cream);">
-          Wholesale
-        </h1>
-        <div class="spacer spacer--sm"></div>
-        <p class="page-intro__body t-body t-body--lg reveal reveal--delay-2">
-          Bring Copain's scratch-made breads and pastries to your restaurant, café, hotel, or specialty market.
-        </p>
-      </div>
-    </div>
-
-    <!-- HERO IMAGE -->
-    <div style="overflow:hidden;max-height:60vh;">
+    <section class="wholesale-hero" aria-labelledby="wholesale-heading">
       <img
+        class="wholesale-hero__bg"
         src="images/food/wholesale-boulangerie-mono-gfx-115.jpg"
         alt="Monochrome Boulangerie Copain wholesale image"
+        data-parallax="0.2"
         loading="eager"
-        style="width:100%;height:60vh;object-fit:cover;object-position:center 40%;"
+        fetchpriority="high"
       />
-    </div>
+      <div class="wholesale-hero__overlay"></div>
+      <div class="wholesale-hero__content">
+        <p class="t-eyebrow t-eyebrow--light reveal">Wholesale For Trade Partners</p>
+        <div class="spacer spacer--sm"></div>
+        <h1 class="wholesale-hero__headline t-display t-display--lg reveal reveal--delay-1" id="wholesale-heading">
+          Our Daily Bread,
+        </h1>
+        <div class="spacer spacer--sm"></div>
+        <p class="wholesale-hero__delivered reveal reveal--delay-2" aria-hidden="true">Delivered.</p>
+        <div class="spacer spacer--sm"></div>
+        <p class="wholesale-hero__body t-body t-body--lg reveal reveal--delay-2">
+          Bring Copain's scratch-made breads and pastries to your restaurant, café, hotel, or specialty market.
+        </p>
+        <div class="spacer spacer--sm"></div>
+        <div class="reveal reveal--delay-3">
+          <a href="https://www.boulangeriecopain.com/" target="_blank" rel="noopener noreferrer" class="btn btn--gold btn--lg">Visit Boulangerie Copain</a>
+        </div>
+      </div>
+    </section>
 
     <!-- INTRO COPY -->
-    <section class="section section--cream" aria-labelledby="wholesale-intro-heading">
+    <section class="wholesale-difference section section--cream" aria-labelledby="wholesale-intro-heading">
       <div class="section__inner">
         <div class="container">
-          <div class="grid-split" style="gap:clamp(3rem,6vw,7rem);">
-            <div>
-              <span class="t-eyebrow reveal">Partnership</span>
-              <div class="spacer spacer--sm"></div>
-              <h2 class="t-display t-display--md reveal reveal--delay-1" id="wholesale-intro-heading">
-                The Copain<br />Difference
-              </h2>
+          <div class="wholesale-difference__inner">
+            <div class="wholesale-difference__image reveal reveal--left">
+              <img
+                src="images/interior/wholesale-flour-dust.jpg"
+                alt="Copain baker dusting flour across the bench while making bread"
+                loading="lazy"
+                data-parallax="0.12"
+              />
             </div>
-            <div style="display:flex;flex-direction:column;gap:1.5rem;padding-top:0.5rem;">
-              <p class="t-body reveal reveal--delay-2">
-                Every loaf, baguette, and laminated pastry we produce for wholesale partners is made using the same methods we use for our own cases — long fermentation, stone deck ovens, no shortcuts. Our wholesale program is selective because we want to ensure that quality is consistent at every partner location.
+
+            <div class="wholesale-difference__content">
+              <div class="section-heading-stack">
+                <span class="t-eyebrow reveal">Partnership</span>
+                <h2 class="t-display t-display--md reveal reveal--delay-1" id="wholesale-intro-heading">
+                  The Copain<br />Difference
+                </h2>
+              </div>
+              <p class="wholesale-difference__body t-body reveal reveal--delay-2">
+                Our wholesale program is built on the same craft behind every Copain case: long fermentation, careful lamination, stone-deck baking, and no shortcuts.
               </p>
-              <p class="t-body reveal reveal--delay-3">
-                We work with restaurants, hotels, specialty grocers, and corporate dining programs throughout the Charlotte metro and the Triad. Minimum orders and delivery schedules vary by product and partner.
+              <p class="wholesale-difference__body t-body reveal reveal--delay-3">
+                We partner selectively with restaurants, hotels, specialty markets, and corporate dining teams so the bread arrives with the consistency and care it deserves.
               </p>
-              <p class="t-body reveal reveal--delay-4">
-                For broader boulangerie wholesale offerings and bakery partnership information, you can also visit Boulangerie Copain.
-              </p>
-              <div class="reveal reveal--delay-4" style="display:flex;flex-wrap:wrap;gap:1rem;">
+              <div class="wholesale-difference__actions reveal reveal--delay-4">
                 <a href="https://www.boulangeriecopain.com/contact/" target="_blank" rel="noopener noreferrer" class="btn btn--filled">Inquire About Wholesale</a>
                 <a href="https://www.boulangeriecopain.com/" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Visit Boulangerie Copain</a>
               </div>
@@ -92,36 +104,36 @@
             <div class="reveal" style="background:var(--cream-light);padding:2.5rem 2rem;">
               <span class="t-eyebrow" style="margin-bottom:1rem;display:block;">Breads</span>
               <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;">
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Baguette Tradition</li>
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Country Sourdough</li>
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Miche (Large Round)</li>
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Dark Rye</li>
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Focaccia</li>
-                <li style="padding:0.875rem 0;font-family:var(--font-body);font-size:1rem;">Brioche Loaf</li>
+                <li class="wholesale-product-list__item">Baguette Tradition</li>
+                <li class="wholesale-product-list__item">Country Sourdough</li>
+                <li class="wholesale-product-list__item">Miche (Large Round)</li>
+                <li class="wholesale-product-list__item">Dark Rye</li>
+                <li class="wholesale-product-list__item">Focaccia</li>
+                <li class="wholesale-product-list__item">Brioche Loaf</li>
               </ul>
             </div>
 
             <div class="reveal reveal--delay-1" style="background:var(--cream-light);padding:2.5rem 2rem;">
               <span class="t-eyebrow" style="margin-bottom:1rem;display:block;">Viennoiserie</span>
               <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;">
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Plain Croissant</li>
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Pain au Chocolat</li>
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Almond Croissant</li>
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Kouign-Amann</li>
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Morning Bun</li>
-                <li style="padding:0.875rem 0;font-family:var(--font-body);font-size:1rem;">Danish (seasonal)</li>
+                <li class="wholesale-product-list__item">Plain Croissant</li>
+                <li class="wholesale-product-list__item">Pain au Chocolat</li>
+                <li class="wholesale-product-list__item">Almond Croissant</li>
+                <li class="wholesale-product-list__item">Kouign-Amann</li>
+                <li class="wholesale-product-list__item">Morning Bun</li>
+                <li class="wholesale-product-list__item">Danish (seasonal)</li>
               </ul>
             </div>
 
             <div class="reveal reveal--delay-2" style="background:var(--cream-light);padding:2.5rem 2rem;">
               <span class="t-eyebrow" style="margin-bottom:1rem;display:block;">Pâtisserie</span>
               <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;">
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Canelé (Bordeaux-style)</li>
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Financier</li>
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Madeleines</li>
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Seasonal Tarts</li>
-                <li style="padding:0.875rem 0;border-bottom:var(--border-dark);font-family:var(--font-body);font-size:1rem;">Quiche (whole)</li>
-                <li style="padding:0.875rem 0;font-family:var(--font-body);font-size:1rem;">Custom &amp; Seasonal</li>
+                <li class="wholesale-product-list__item">Canelé (Bordeaux-style)</li>
+                <li class="wholesale-product-list__item">Financier</li>
+                <li class="wholesale-product-list__item">Madeleines</li>
+                <li class="wholesale-product-list__item">Seasonal Tarts</li>
+                <li class="wholesale-product-list__item">Quiche (whole)</li>
+                <li class="wholesale-product-list__item">Custom &amp; Seasonal</li>
               </ul>
             </div>
 
@@ -165,11 +177,11 @@
     </section>
 
     <!-- CTA -->
-    <section class="section section--cream" aria-label="Wholesale inquiry">
+    <section class="wholesale-cta section section--cream" aria-label="Wholesale inquiry">
       <div class="section__inner section__inner--sm">
         <div class="container">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,6vw,7rem);align-items:center;">
-            <div>
+          <div class="wholesale-cta__inner">
+            <div class="wholesale-cta__content">
               <span class="t-eyebrow reveal">Get Started</span>
               <div class="spacer spacer--sm"></div>
               <h2 class="t-display t-display--md reveal reveal--delay-1">Let's Work Together</h2>
@@ -178,7 +190,7 @@
                 We review all wholesale inquiries carefully. Please include your business name, location, volume needs, and the products you're interested in when you reach out. We'll respond within 2–3 business days.
               </p>
               <div class="spacer spacer--md"></div>
-              <div class="reveal reveal--delay-3" style="display:flex;flex-wrap:wrap;gap:1rem;">
+              <div class="wholesale-cta__actions reveal reveal--delay-3">
                 <a href="https://www.boulangeriecopain.com/contact/" target="_blank" rel="noopener noreferrer" class="btn btn--filled btn--lg">
                   Contact Our Wholesale Team
                 </a>
@@ -187,12 +199,12 @@
                 </a>
               </div>
             </div>
-            <div class="reveal reveal--right" style="overflow:hidden;">
+            <div class="wholesale-cta__image reveal reveal--right">
               <img
                 src="images/interior/croissants-wrapped.png"
                 alt="Rows of individually wrapped croissants lined up on a windowsill"
                 loading="lazy"
-                style="width:100%;aspect-ratio:3/2;object-fit:cover;"
+                data-parallax="0.12"
               />
             </div>
           </div>
@@ -273,7 +285,7 @@
       <div class="footer-inner">
         <div class="footer-brand">
           <div class="footer-logo">
-            <img src="images/logos/logo-full-white.png" alt="Copain Bakery &amp; Provisions" width="160" height="44" loading="lazy" />
+            <img src="images/logos/footer-mark.svg" alt="Copain Bakery &amp; Provisions" width="44" height="44" loading="lazy" />
           </div>
           <p class="footer-brand__tagline">Notre Pain Quotidien</p>
           <p class="footer-brand__body">French-inspired, artisan-made bakery and provisions. Three locations in Charlotte and Winston-Salem, NC.</p>
@@ -313,7 +325,14 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copyright">&copy; 2025 Copain Bakery &amp; Provisions. All rights reserved.</p>
+        <p class="footer-copyright">&copy; 2026 Copain Bakery &amp; Provisions. All rights reserved.</p>
+        <nav class="footer-locations" aria-label="Order location links">
+          <a href="https://order.toasttab.com/online/copain-new-6601-carnegie-blvd" target="_blank" rel="noopener noreferrer" class="footer-location-link">order southpark</a>
+          <span class="footer-location-separator" aria-hidden="true">&bull;</span>
+          <a href="https://order.toasttab.com/online/copain-ballantyne-14020-stream-way-suite-118" target="_blank" rel="noopener noreferrer" class="footer-location-link">order ballantyne</a>
+          <span class="footer-location-separator" aria-hidden="true">&bull;</span>
+          <a href="https://order.toasttab.com/online/copain-winston-380-knollwood" target="_blank" rel="noopener noreferrer" class="footer-location-link">order winston-salem</a>
+        </nav>
       </div>
     </div>
   </footer>
