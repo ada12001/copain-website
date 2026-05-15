@@ -1453,6 +1453,18 @@ ul { list-style: none; }
   flex-direction: column;
   gap: 1.35rem;
 }
+.about-feature-image {
+  position: relative;
+  overflow: hidden;
+}
+.about-feature-image::after {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(196, 151, 90, 0.75);
+  pointer-events: none;
+  z-index: 1;
+}
 .gift-card-panel {
   padding: clamp(2.5rem, 4vw, 4rem);
   border: 1px solid rgba(26, 23, 20, 0.08);
