@@ -399,8 +399,11 @@
           From intimate breakfast boards to full-service farm dinners, we bring the Copain table to you. Inquire through our catering partner.
         </p>
         <div class="catering-strip__rule reveal reveal--delay-3" aria-hidden="true"></div>
-        <div class="reveal reveal--delay-4">
-          <a href="catering.html" class="btn btn--gold btn--lg">Inquire About Catering</a>
+        <div class="catering-actions reveal reveal--delay-4">
+          <a href="catering.html" class="btn btn--ghost btn--lg">Learn More</a>
+          <a href="https://noblefoodpursuits.tripleseat.com/party_request/16514"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn--gold btn--lg">Inquire Now</a>
         </div>
       </div>
     </section>
@@ -710,45 +713,51 @@
       <div class="modal__header">
         <p class="t-eyebrow">Reservations &amp; Ordering</p>
         <h2 class="modal__title t-display" id="modal-title">Choose Your Location</h2>
-        <p class="modal__sub">Reserve for Ballantyne, or order online from SouthPark and Winston-Salem.</p>
+        <p class="modal__sub">Order online from any location, or reserve a table for dinner at Ballantyne.</p>
       </div>
       <button class="modal__close" aria-label="Close ordering modal">Close</button>
       <div class="modal__locations">
-        <a href="https://order.toasttab.com/online/copain-new-6601-carnegie-blvd"
-           target="_blank" rel="noopener noreferrer"
-           class="modal__location">
+        <div class="modal__location modal__location--multi">
           <div class="modal__location-info">
             <p class="modal__location-name">SouthPark</p>
             <p class="modal__location-address">6601 Carnegie Blvd · Charlotte, NC 28211</p>
           </div>
-          <span class="modal__location-meta"><span class="modal__location-cta">Order Now</span><span class="modal__location-arrow" aria-hidden="true">→</span></span>
-        </a>
-        <a href="https://www.opentable.com/booking/restref/availability?lang=en-US&restRef=1478335&otSource=Restaurant%20website"
-           target="_blank" rel="noopener noreferrer"
-           class="modal__location">
+          <div class="modal__location-actions" aria-label="SouthPark actions">
+            <a href="https://order.toasttab.com/online/copain-new-6601-carnegie-blvd"
+               target="_blank" rel="noopener noreferrer"
+               class="modal__location-action">Order Now</a>
+          </div>
+        </div>
+        <div class="modal__location modal__location--multi">
           <div class="modal__location-info">
             <p class="modal__location-name">Ballantyne</p>
             <p class="modal__location-address">14020 Stream Way, Suite 118 · Charlotte, NC 28277</p>
           </div>
-          <span class="modal__location-meta"><span class="modal__location-cta">Reservations</span><span class="modal__location-arrow" aria-hidden="true">→</span></span>
-        </a>
-        <a href="https://order.toasttab.com/online/copain-winston-380-knollwood"
-           target="_blank" rel="noopener noreferrer"
-           class="modal__location">
+          <div class="modal__location-actions" aria-label="Ballantyne actions">
+            <a href="https://order.toasttab.com/online/copain-ballantyne-14020-stream-way-suite-118"
+               target="_blank" rel="noopener noreferrer"
+               class="modal__location-action">Order Now</a>
+            <a href="https://www.opentable.com/booking/restref/availability?lang=en-US&amp;restRef=1478335&amp;otSource=Restaurant%20website"
+               target="_blank" rel="noopener noreferrer"
+               class="modal__location-action">Reserve a Table</a>
+          </div>
+        </div>
+        <div class="modal__location modal__location--multi">
           <div class="modal__location-info">
             <p class="modal__location-name">Winston-Salem</p>
             <p class="modal__location-address">380 Knollwood St · Winston-Salem, NC 27103</p>
           </div>
-          <span class="modal__location-meta"><span class="modal__location-cta">Order Now</span><span class="modal__location-arrow" aria-hidden="true">→</span></span>
-        </a>
+          <div class="modal__location-actions" aria-label="Winston-Salem actions">
+            <a href="https://order.toasttab.com/online/copain-winston-380-knollwood"
+               target="_blank" rel="noopener noreferrer"
+               class="modal__location-action">Order Now</a>
+          </div>
+        </div>
       </div>
       <div class="modal__footer">
         <a href="https://www.toasttab.com/copain-new-6601-carnegie-blvd/giftcards"
            target="_blank" rel="noopener noreferrer"
            class="btn btn--outline btn--sm">Gift Cards</a>
-        <a href="https://www.opentable.com/booking/restref/availability?lang=en-US&restRef=1478335&otSource=Restaurant%20website"
-           target="_blank" rel="noopener noreferrer"
-           class="btn btn--outline btn--sm">Reserve a Table</a>
       </div>
     </div>
   </div>
@@ -756,16 +765,18 @@
   <div class="announcement-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="announcement-modal-title" hidden>
     <div class="announcement-modal-overlay__backdrop" aria-hidden="true"></div>
     <div class="announcement-modal">
-      <button class="announcement-modal__close" type="button" aria-label="Close new location announcement">Close</button>
+      <button class="announcement-modal__close" type="button" aria-label="Close dinner reservation announcement">Close</button>
       <div class="announcement-modal__content">
-        <p class="t-eyebrow">Opening Soon</p>
-        <h2 class="announcement-modal__title t-display" id="announcement-modal-title">A New Copain Boulangerie Is on the Way.</h2>
+        <p class="t-eyebrow">Dinner at Ballantyne</p>
+        <h2 class="announcement-modal__title t-display" id="announcement-modal-title">Reserve Your Table at Copain Brasserie.</h2>
         <p class="announcement-modal__body">
-          We&apos;re preparing our next bakery location now. Check back soon for opening details, first look updates, and what&apos;s coming out of the ovens first.
+          Join us at The Bowl at Ballantyne for French brasserie classics, wine, and an evening built for lingering.
         </p>
         <div class="announcement-modal__actions">
-          <a href="locations.html" class="btn btn--gold btn--sm" data-announcement-dismiss>Explore Our Locations</a>
-          <button class="btn btn--outline btn--sm" type="button" data-announcement-dismiss>Maybe Later</button>
+          <a href="https://www.opentable.com/booking/restref/availability?lang=en-US&amp;restRef=1478335&amp;otSource=Restaurant%20website"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn--gold btn--sm" data-announcement-dismiss>Book Dinner</a>
+          <a href="locations.html#ballantyne" class="btn btn--outline btn--sm" data-announcement-dismiss>View Ballantyne</a>
         </div>
       </div>
     </div>
