@@ -12,7 +12,7 @@
       '</div>' +
       '<div class="nav__logo">' +
         '<a href="index.html" aria-label="Copain Bakery \u2014 Home">' +
-          '<img src="images/logos/logo-full-black.png" alt="Copain Bakery &amp; Provisions" id="nav-logo" width="200" height="55" />' +
+          '<img src="images/logos/copain-main-white.svg" alt="Copain Bakery &amp; Provisions" id="nav-logo" width="186" height="40" />' +
         '</a>' +
       '</div>' +
       '<div class="nav__right">' +

@@ -6,6 +6,26 @@
 (function () {
   'use strict';
 
+  function revealFontSensitiveContent() {
+    document.documentElement.classList.remove('fonts-loading');
+    document.documentElement.classList.add('fonts-ready');
+  }
+
+  if (document.documentElement.classList.contains('fonts-loading') && document.fonts) {
+    const fontReadyTimeout = window.setTimeout(revealFontSensitiveContent, 1400);
+
+    Promise.allSettled([
+      document.fonts.load('400 1em Windsor'),
+      document.fonts.load('700 1em Dallas'),
+      document.fonts.load('400 1em altesse-std-64pt')
+    ]).then(() => {
+      window.clearTimeout(fontReadyTimeout);
+      revealFontSensitiveContent();
+    });
+  } else {
+    revealFontSensitiveContent();
+  }
+
   const LOCATION_STORAGE_KEY = 'copainSelectedLocation';
   const LOCATION_LABELS = {
     all: 'All Locations',

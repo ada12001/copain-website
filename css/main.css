@@ -306,10 +306,10 @@ ul { list-style: none; }
   box-shadow: 0 1px 0 var(--border-dark);
 }
 .site-header.is-dark:not(.is-scrolled) { --nav-color: var(--cream); }
-.site-header.is-dark:not(.is-scrolled) .nav__logo img { filter: brightness(0) invert(1); }
+.site-header.is-dark:not(.is-scrolled) .nav__logo img { filter: none; }
 .site-header.is-dark:not(.is-scrolled) .nav__mobile-toggle span { background: var(--cream); }
 .body--light-header .site-header.is-dark:not(.is-scrolled) { --nav-color: var(--dark); }
-.body--light-header .site-header.is-dark:not(.is-scrolled) .nav__logo a::after { color: var(--dark); }
+.body--light-header .site-header.is-dark:not(.is-scrolled) .nav__logo img { filter: brightness(0) saturate(100%); }
 .body--light-header .site-header.is-dark:not(.is-scrolled) .nav__mobile-toggle span { background: var(--dark); }
 
 .nav {
@@ -332,30 +332,18 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  min-width: clamp(9rem, 12vw, 11rem);
-  min-height: 2rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
 }
 .nav__logo img {
   height: 42px;
   width: auto;
-  opacity: 0;
-  transition: opacity var(--dur-fast);
+  display: block;
+  filter: brightness(0) saturate(100%);
+  opacity: 1;
+  transition: filter var(--dur-fast), opacity var(--dur-fast);
 }
 .nav__logo img:hover { opacity: 0.75; }
-.nav__logo a::after {
-  content: 'Copain';
-  position: absolute;
-  inset: 50% auto auto 50%;
-  transform: translate(-50%, -54%);
-  font-family: var(--font-display);
-  font-size: var(--type-display-xs);
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--nav-color, var(--dark));
-  white-space: nowrap;
-  transition: color var(--dur-fast), opacity var(--dur-fast);
-}
 
 .nav__link {
   font-family: var(--font-util);
@@ -478,6 +466,13 @@ ul { list-style: none; }
 .hero__left {
   justify-self: center;
   text-align: center;
+}
+.fonts-loading .hero__left {
+  opacity: 0;
+}
+.fonts-ready .hero__left {
+  opacity: 1;
+  transition: opacity 0.2s var(--ease-out);
 }
 .hero__eyebrow {
   display: flex;
