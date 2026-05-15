@@ -472,7 +472,69 @@ ul { list-style: none; }
 }
 .fonts-ready .hero__left {
   opacity: 1;
-  transition: opacity 0.2s var(--ease-out);
+}
+.fonts-loading .hero__eyebrow,
+.fonts-loading .hero__sub,
+.fonts-loading .hero__actions {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.fonts-ready .hero__eyebrow,
+.fonts-ready .hero__sub,
+.fonts-ready .hero__actions {
+  animation: heroTextIn 0.85s var(--ease-out) both;
+}
+.fonts-loading .hero__headline-line {
+  opacity: 0;
+  transform: translateY(22px);
+}
+.fonts-ready .hero__headline-line {
+  animation: heroTextIn 0.85s var(--ease-out) both;
+}
+.fonts-ready .hero__headline-line:nth-child(1) { animation-delay: 0.12s; }
+.fonts-ready .hero__headline-line:nth-child(2) { animation-delay: 0.24s; }
+.fonts-ready .hero__headline-line:nth-child(3) { animation-delay: 0.36s; }
+.fonts-ready .hero__headline-line:nth-child(4) { animation-delay: 0.48s; }
+.fonts-ready .hero__sub { animation-delay: 0.74s; }
+.fonts-ready .hero__actions { animation-delay: 0.88s; }
+.fonts-loading .hero__headline-script {
+  clip-path: inset(-0.25em calc(100% + 0.35em) -0.25em -0.35em);
+}
+.fonts-ready .hero__headline-script {
+  animation: heroScriptWriteOn 1.75s cubic-bezier(0.65, 0, 0.2, 1) 0.68s both;
+}
+@keyframes heroTextIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes heroScriptWriteOn {
+  from {
+    clip-path: inset(-0.25em calc(100% + 0.35em) -0.25em -0.35em);
+    opacity: 0.9;
+  }
+  to {
+    clip-path: inset(-0.25em -0.35em -0.25em -0.35em);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fonts-ready .hero__eyebrow,
+  .fonts-ready .hero__headline-line,
+  .fonts-ready .hero__sub,
+  .fonts-ready .hero__actions {
+    animation: none;
+  }
+  .fonts-loading .hero__headline-script,
+  .fonts-ready .hero__headline-script {
+    clip-path: none;
+    animation: none;
+  }
 }
 .hero__eyebrow {
   display: flex;
@@ -486,12 +548,17 @@ ul { list-style: none; }
   font-size: calc(var(--type-display-home) * 0.75);
   margin-bottom: 1.25rem;
 }
+.hero__headline-line {
+  display: block;
+}
 .hero__headline-script {
+  display: inline-block;
   font-family: var(--font-altesse);
   font-size: calc(var(--type-inline-script-scale) * 1.54);
   font-weight: 100;
   font-style: normal;
-  margin-left: -0.15em;
+  margin-left: -0.5em;
+  padding-inline: 0.35em;
 }
 .hero__sub {
   font-family: var(--font-util);
