@@ -281,72 +281,128 @@
     });
   });
 
-  /* ── Catering / menu page: pill filter ──────────────────── */
+  /* ── Menu page filters ──────────────────────────────────── */
   const pills = document.querySelectorAll('.pill[data-filter]');
-  if (pills.length) {
-    pills.forEach((pill) => {
-      pill.addEventListener('click', () => {
-        pills.forEach((p) => p.classList.remove('is-active'));
-        pill.classList.add('is-active');
-
-        const filter = pill.dataset.filter;
-        document.querySelectorAll('[data-category]').forEach((cat) => {
-          if (filter === 'all' || cat.dataset.category === filter) {
-            cat.style.display = '';
-          } else {
-            cat.style.display = 'none';
-          }
-        });
-      });
-    });
-  }
-
-  /* ── Menu page location pills ───────────────────────────── */
   const locationPills = document.querySelectorAll('.menu-hero__location-pill[data-location]');
-  if (locationPills.length) {
+  if (pills.length || locationPills.length) {
+    let activeCategory = 'all';
+    let activeLocation = locationPills.length ? getStoredLocationPreference() : 'all';
+
+    function updateCategoryPills(activeFilter) {
+      pills.forEach((pill) => {
+        pill.classList.toggle('is-active', pill.dataset.filter === activeFilter);
+      });
+    }
+
     function updateLocationPills(activeLocation) {
       locationPills.forEach((pill) => {
         pill.classList.toggle('is-active', pill.dataset.location === activeLocation);
       });
     }
 
-    function applyLocationFilter(loc) {
-      // Filter menu categories
-      document.querySelectorAll('.menu-category[data-locations]').forEach((cat) => {
-        const locs = cat.dataset.locations.split(' ');
-        cat.style.display = locs.includes(loc) ? '' : 'none';
+    function categoryIsAvailable(filter) {
+      if (filter === 'all') return true;
+      return Array.from(document.querySelectorAll(`.menu-category[data-category="${filter}"][data-locations]`))
+        .some((cat) => cat.dataset.locations.split(' ').includes(activeLocation));
+    }
+
+    function updateAvailableCategoryPills() {
+      pills.forEach((pill) => {
+        const available = categoryIsAvailable(pill.dataset.filter);
+        pill.hidden = !available;
       });
 
-      // Filter PDF cards
+      if (!categoryIsAvailable(activeCategory)) {
+        activeCategory = 'all';
+        updateCategoryPills(activeCategory);
+      }
+    }
+
+    function updateLocationPrices() {
+      const locationKey = activeLocation.charAt(0).toUpperCase() + activeLocation.slice(1);
+
+      document.querySelectorAll('[data-name-default]').forEach((name) => {
+        const locationName = name.dataset[`name${locationKey}`];
+        name.textContent = activeLocation === 'all' || !locationName
+          ? name.dataset.nameDefault
+          : locationName;
+      });
+
+      document.querySelectorAll('[data-desc-default]').forEach((desc) => {
+        const locationDesc = desc.dataset[`desc${locationKey}`];
+        desc.textContent = activeLocation === 'all' || !locationDesc
+          ? desc.dataset.descDefault
+          : locationDesc;
+      });
+
+      document.querySelectorAll('[data-price-default]').forEach((price) => {
+        const locationPrice = price.dataset[`price${locationKey}`];
+        price.textContent = activeLocation === 'all' || !locationPrice
+          ? price.dataset.priceDefault
+          : locationPrice;
+      });
+    }
+
+    function applyMenuFilters() {
+      updateAvailableCategoryPills();
+      updateLocationPrices();
+
+      document.querySelectorAll('[data-item-locations]').forEach((item) => {
+        const locs = item.dataset.itemLocations.split(' ');
+        item.hidden = activeLocation !== 'all' && !locs.includes(activeLocation);
+      });
+
+      document.querySelectorAll('.menu-item-group').forEach((group) => {
+        const groupLocs = group.dataset.itemLocations;
+        const matchesGroupLocation = !groupLocs
+          || activeLocation === 'all'
+          || groupLocs.split(' ').includes(activeLocation);
+        const visibleItems = Array.from(group.querySelectorAll('.menu-item'))
+          .some((item) => !item.hidden);
+        group.hidden = !matchesGroupLocation || !visibleItems;
+      });
+
+      document.querySelectorAll('.menu-category[data-locations]').forEach((cat) => {
+        const locs = cat.dataset.locations.split(' ');
+        const matchesLocation = locs.includes(activeLocation);
+        const matchesCategory = activeCategory === 'all' || cat.dataset.category === activeCategory;
+        cat.style.display = matchesLocation && matchesCategory ? '' : 'none';
+      });
+
       document.querySelectorAll('[data-pdf-location]').forEach((card) => {
-        const show = loc === 'all' || card.dataset.pdfLocation === loc;
+        const show = activeLocation === 'all'
+          || card.dataset.pdfLocation === activeLocation
+          || card.dataset.pdfLocation === 'all';
         card.style.display = show ? '' : 'none';
       });
 
-      // Clear any inline gridTemplateColumns so CSS auto-fit takes over
       const pdfGrid = document.getElementById('pdf-grid');
       if (pdfGrid) {
         pdfGrid.style.gridTemplateColumns = '';
       }
-
-      // Also sync the category-filter pills to "All" when location changes
-      document.querySelectorAll('.pill[data-filter]').forEach((p) => p.classList.remove('is-active'));
-      const allPill = document.querySelector('.pill[data-filter="all"]');
-      if (allPill) allPill.classList.add('is-active');
     }
 
-    locationPills.forEach((pill) => {
+    pills.forEach((pill) => {
       pill.addEventListener('click', () => {
-        const location = setStoredLocationPreference(pill.dataset.location);
-        updateLocationPills(location);
-        applyLocationFilter(location);
+        activeCategory = pill.dataset.filter;
+        updateCategoryPills(activeCategory);
+        applyMenuFilters();
       });
     });
 
-    // Initialize
-    const initialLocation = getStoredLocationPreference();
-    updateLocationPills(initialLocation);
-    applyLocationFilter(initialLocation);
+    locationPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        activeLocation = setStoredLocationPreference(pill.dataset.location);
+        activeCategory = 'all';
+        updateLocationPills(activeLocation);
+        updateCategoryPills(activeCategory);
+        applyMenuFilters();
+      });
+    });
+
+    updateLocationPills(activeLocation);
+    updateCategoryPills(activeCategory);
+    applyMenuFilters();
   }
 
 
