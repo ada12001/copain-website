@@ -561,7 +561,7 @@ ul { list-style: none; }
 }
 .hero__headline {
   color: var(--cream);
-  font-size: calc(var(--type-display-home) * 0.75);
+  font-size: calc(var(--type-display-home) * 0.68);
   margin-bottom: 1.25rem;
 }
 .hero__headline-line {
