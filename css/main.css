@@ -1901,16 +1901,25 @@ ul { list-style: none; }
   gap: clamp(1.75rem, 4vw, 2.75rem);
 }
 .partners-strip__quote {
-  max-width: 48rem;
+  max-width: 62rem;
   margin: clamp(2.75rem, 5vw, 4rem) auto 0;
-  padding-left: 1.5rem;
-  border-left: 2px solid var(--gold);
   font-family: var(--font-body);
   font-size: var(--type-body-callout);
   font-style: italic;
   line-height: var(--line-body);
   color: var(--text);
-  text-align: left;
+  text-align: center;
+}
+.partners-strip__quote cite {
+  display: block;
+  margin-top: 1.15rem;
+  font-family: var(--font-util);
+  font-size: var(--type-label-sm);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: var(--track-label-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 .partners-strip__row {
   display: grid;
