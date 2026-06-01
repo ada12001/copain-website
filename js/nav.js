@@ -18,6 +18,7 @@
       '<div class="nav__right">' +
         '<a href="locations.html" class="nav__link" data-nav="locations.html">Locations</a>' +
         '<a href="about.html" class="nav__link" data-nav="about.html">About Us</a>' +
+        '<a href="careers.html" class="nav__link" data-nav="careers.html">Careers</a>' +
         '<div class="nav__actions">' +
           '<a href="#order" class="btn btn--filled btn--sm" data-order-modal aria-haspopup="dialog">Reservations</a>' +
         '</div>' +
@@ -35,6 +36,7 @@
     '<a href="catering.html" class="mobile-nav__link" data-nav="catering.html">Catering</a>' +
     '<a href="wholesale.html" class="mobile-nav__link" data-nav="wholesale.html">Wholesale</a>' +
     '<a href="about.html" class="mobile-nav__link" data-nav="about.html">About Us</a>' +
+    '<a href="careers.html" class="mobile-nav__link" data-nav="careers.html">Careers</a>' +
     '<div class="mobile-nav__actions">' +
       '<a href="#order" class="btn btn--ghost" data-order-modal>Reservations</a>' +
       '<a href="locations.html" class="btn btn--ghost">Visit Us</a>' +
