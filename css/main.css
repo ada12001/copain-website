@@ -2443,6 +2443,19 @@ ul { list-style: none; }
   overflow: hidden;
   border-radius: 2px;
 }
+.image-trio__item {
+  overflow: hidden;
+  height: clamp(18rem, 32vw, 32rem);
+}
+.image-trio__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.image-trio__img--champagne {
+  object-position: 34% center;
+}
 
 /* === CONTACT PAGE === */
 .contact-section {
