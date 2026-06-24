@@ -2,8 +2,15 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": null,
-  "buildCommand": "mkdir -p dist && cp -R *.html css docs fonts images js pdfs favicon.ico dist/",
+  "buildCommand": "mkdir -p dist && cp -R *.html sitemap.xml robots.txt css docs fonts images js pdfs favicon.ico dist/",
   "outputDirectory": "dist",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/hiring", "destination": "/careers", "permanent": true },
+    { "source": "/about-1", "destination": "/about", "permanent": true },
+    { "source": "/copy-of-about", "destination": "/locations", "permanent": true },
+    { "source": "/copy-of-wholesale", "destination": "/catering", "permanent": true },
+    { "source": "/rsvp", "destination": "https://www.opentable.com/booking/restref/availability?utm_source=product&rid=1478335&restref=1478335&utm_campaign=reservations_page&lang=en-us&utm_medium=QR_code", "permanent": false }
+  ]
 }

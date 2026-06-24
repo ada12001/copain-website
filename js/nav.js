@@ -1,24 +1,27 @@
 (function () {
   'use strict';
 
-  var page = window.location.pathname.split('/').pop() || 'index.html';
+  // Normalize the current path to a clean slug so active-state works whether
+  // the URL is extensionless (Vercel cleanUrls: /menu) or legacy (/menu.html).
+  var page = (window.location.pathname.replace(/\/+$/, '').split('/').pop() || 'index')
+    .replace(/\.html$/, '');
 
   var header = '<header class="site-header is-dark" id="site-header">' +
     '<nav class="nav" aria-label="Main navigation">' +
       '<div class="nav__left">' +
-        '<a href="menu.html" class="nav__link" data-nav="menu.html">Menu</a>' +
-        '<a href="catering.html" class="nav__link" data-nav="catering.html">Catering</a>' +
-        '<a href="wholesale.html" class="nav__link" data-nav="wholesale.html">Wholesale</a>' +
+        '<a href="/menu" class="nav__link" data-nav="menu">Menu</a>' +
+        '<a href="/catering" class="nav__link" data-nav="catering">Catering</a>' +
+        '<a href="/wholesale" class="nav__link" data-nav="wholesale">Wholesale</a>' +
       '</div>' +
       '<div class="nav__logo">' +
-        '<a href="index.html" aria-label="Copain Bakery \u2014 Home">' +
+        '<a href="/" aria-label="Copain Bakery \u2014 Home">' +
           '<img src="images/logos/copain-main-white.svg" alt="Copain Bakery &amp; Provisions" id="nav-logo" width="186" height="40" />' +
         '</a>' +
       '</div>' +
       '<div class="nav__right">' +
-        '<a href="locations.html" class="nav__link" data-nav="locations.html">Locations</a>' +
-        '<a href="about.html" class="nav__link" data-nav="about.html">About Us</a>' +
-        '<a href="careers.html" class="nav__link" data-nav="careers.html">Careers</a>' +
+        '<a href="/locations" class="nav__link" data-nav="locations">Locations</a>' +
+        '<a href="/about" class="nav__link" data-nav="about">About Us</a>' +
+        '<a href="/careers" class="nav__link" data-nav="careers">Careers</a>' +
         '<div class="nav__actions">' +
           '<a href="#order" class="btn btn--filled btn--sm" data-order-modal aria-haspopup="dialog">Reservations</a>' +
         '</div>' +
@@ -31,15 +34,15 @@
 
   var mobileNav = '<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">' +
     '<button class="mobile-nav__close" aria-label="Close menu">Close</button>' +
-    '<a href="menu.html" class="mobile-nav__link" data-nav="menu.html">Menu</a>' +
-    '<a href="locations.html" class="mobile-nav__link" data-nav="locations.html">Locations</a>' +
-    '<a href="catering.html" class="mobile-nav__link" data-nav="catering.html">Catering</a>' +
-    '<a href="wholesale.html" class="mobile-nav__link" data-nav="wholesale.html">Wholesale</a>' +
-    '<a href="about.html" class="mobile-nav__link" data-nav="about.html">About Us</a>' +
-    '<a href="careers.html" class="mobile-nav__link" data-nav="careers.html">Careers</a>' +
+    '<a href="/menu" class="mobile-nav__link" data-nav="menu">Menu</a>' +
+    '<a href="/locations" class="mobile-nav__link" data-nav="locations">Locations</a>' +
+    '<a href="/catering" class="mobile-nav__link" data-nav="catering">Catering</a>' +
+    '<a href="/wholesale" class="mobile-nav__link" data-nav="wholesale">Wholesale</a>' +
+    '<a href="/about" class="mobile-nav__link" data-nav="about">About Us</a>' +
+    '<a href="/careers" class="mobile-nav__link" data-nav="careers">Careers</a>' +
     '<div class="mobile-nav__actions">' +
       '<a href="#order" class="btn btn--ghost" data-order-modal>Reservations</a>' +
-      '<a href="locations.html" class="btn btn--ghost">Visit Us</a>' +
+      '<a href="/locations" class="btn btn--ghost">Visit Us</a>' +
     '</div>' +
   '</nav>';
 

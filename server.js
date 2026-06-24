@@ -18,6 +18,8 @@ const MIME_TYPES = {
   '.pdf': 'application/pdf',
   '.png': 'image/png',
   '.svg': 'image/svg+xml',
+  '.txt': 'text/plain; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8',
   '.ttf': 'font/ttf',
   '.webp': 'image/webp',
   '.woff2': 'font/woff2'
@@ -45,6 +47,26 @@ function sanitizePath(pathname) {
   return normalized;
 }
 
+async function resolveTarget(filePath) {
+  try {
+    const stat = await fs.stat(filePath);
+    return { stat, target: filePath };
+  } catch (error) {
+    // Mirror Vercel `cleanUrls`: an extensionless request (/menu) resolves to /menu.html
+    // so local dev navigation matches production.
+    if (!path.extname(filePath)) {
+      try {
+        const htmlPath = `${filePath}.html`;
+        const htmlStat = await fs.stat(htmlPath);
+        if (htmlStat.isFile()) return { stat: htmlStat, target: htmlPath };
+      } catch (htmlError) {
+        return null;
+      }
+    }
+    return null;
+  }
+}
+
 async function handleStatic(res, pathname) {
   const filePath = sanitizePath(pathname);
   if (!filePath) {
@@ -52,15 +74,14 @@ async function handleStatic(res, pathname) {
     return;
   }
 
-  let stat;
-  try {
-    stat = await fs.stat(filePath);
-  } catch (error) {
+  const resolved = await resolveTarget(filePath);
+  if (!resolved) {
     sendText(res, 404, 'Not found');
     return;
   }
 
-  const resolvedPath = stat.isDirectory() ? path.join(filePath, 'index.html') : filePath;
+  const { stat, target } = resolved;
+  const resolvedPath = stat.isDirectory() ? path.join(target, 'index.html') : target;
 
   try {
     const file = await fs.readFile(resolvedPath);
